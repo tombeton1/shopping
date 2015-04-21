@@ -1,0 +1,5 @@
+{
+    "require": {
+        "paulyg/autoloader": "~1.0"
+    }
+}

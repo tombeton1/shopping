@@ -7,7 +7,7 @@
  */
 namespace CandleLight\ShoppingApp\Dal;
  class DataSource{
-    public  function getConnection() {
+    public static function getConnection() {
 
         $conn = NULL;
         try {

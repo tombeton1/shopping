@@ -1,0 +1,58 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "ce066c3b5d7c95331dc583a3386afd5c",
+    "packages": [
+        {
+            "name": "paulyg/autoloader",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paulyg/autoloader.git",
+                "reference": "ab67d543e2782e2e11d1f7e74d3fb33097e75463"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paulyg/autoloader/zipball/ab67d543e2782e2e11d1f7e74d3fb33097e75463",
+                "reference": "ab67d543e2782e2e11d1f7e74d3fb33097e75463",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paul Garvin"
+                }
+            ],
+            "description": "A simple and lightweight PSR-0 and PSR-4 class autoloader",
+            "homepage": "https://github.com/paulyg/autoloader",
+            "keywords": [
+                "PSR-4",
+                "autoloading",
+                "closure",
+                "package",
+                "psr-0",
+                "psr0",
+                "psr4"
+            ],
+            "time": "2014-01-01 21:35:14"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
