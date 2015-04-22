@@ -5,7 +5,7 @@
  * Date: 21/04/2015
  * Time: 23:12
  */
-namespace CandleLight\ShoppingApp\Bo;
+namespace ShoppingApp\Bo;
 class Member{
 
     private $memberId;

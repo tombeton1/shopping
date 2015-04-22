@@ -6,7 +6,7 @@
  * Time: 23:22
  */
 
-namespace CandleLight\ShoppingApp\Bo;
+namespace ShoppingApp\Bo;
 
 
 class Group {

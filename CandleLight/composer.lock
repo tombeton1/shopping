@@ -4,8 +4,43 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ce066c3b5d7c95331dc583a3386afd5c",
+    "hash": "b7167c0a29791605c8d0ff29159206be",
     "packages": [
+        {
+            "name": "corpus/autoloader",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CorpusPHP/Autoloader.git",
+                "reference": "74d9c2d64a739e441efac8d3d76819d5c0d477dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CorpusPHP/Autoloader/zipball/74d9c2d64a739e441efac8d3d76819d5c0d477dc",
+                "reference": "74d9c2d64a739e441efac8d3d76819d5c0d477dc",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Corpus\\Autoloader\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jesse Donat",
+                    "email": "donatj@gmail.com",
+                    "homepage": "http://donatstudios.com",
+                    "role": "Lead"
+                }
+            ],
+            "description": "PSR-0 and PSR-4 Style Autoloaders",
+            "time": "2014-04-14 18:30:14"
+        },
         {
             "name": "paulyg/autoloader",
             "version": "v1.0.0",
