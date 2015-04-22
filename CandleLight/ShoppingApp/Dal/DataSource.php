@@ -11,7 +11,7 @@ namespace ShoppingApp\Dal;
 
 class DataSource {
 
-    public static function getConnection() {
+     public static function getConnection() {
 
         $conn = NULL;
         try {
@@ -20,7 +20,9 @@ class DataSource {
         } catch (\PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }
-        echo 'gelukt';
+         if($conn != 0) {
+             echo 'gelukt';
+         }
         return $conn;
 
     }
