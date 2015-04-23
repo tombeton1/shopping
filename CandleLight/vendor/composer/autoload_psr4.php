@@ -6,6 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'ShoppingApp\\' => array($baseDir . '/CandleLight/ShoppingApp'),
-    'Corpus\\Autoloader\\' => array($vendorDir . '/corpus/autoloader/src'),
+    'ShoppingApp\\' => array($baseDir . '/ShoppingApp'),
 );

@@ -5,9 +5,14 @@
  * Date: 22/04/15
  * Time: 19:16
  */
-require_once ('Datasource.php');
+include_once '../../vendor/autoload.php';
 
 echo \ShoppingApp\Dal\DataSource::getConnection();
+
+
+
+
+
 
 
 

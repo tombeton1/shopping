@@ -7,23 +7,31 @@
  */
 
 namespace ShoppingApp\Dal;
+include_once '../../vendor/autoload.php';
 
 class DaMember
 {
 
-    public function insertMember($member)
+
+    /**
+     * @param $member
+     */
+    public static function insertMember($member)
     {
+
         try {
-
-            $conn = DataSource::getConnection();
-            $stmt = $conn->prepare('INSERT into members(first_name,email,telephone)VALUES (:first_name,:email,:telephone)');
-            $stmt->bindValue(':first_name', $member->firstName);
-            $stmt->bindValue(':email', $member->email);
-            $stmt->bindValue(':telephone', $member->telephone);
-            $stmt->execute();
-
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn->prepare('INSERT into member(first_name, email)VALUES (:first_name,:email)');
+            $stmt->bindValue(':first_name', $member->getFirstName());
+            $stmt->bindValue(':email', $member->getEmail());
+            $result = $stmt->execute();
+            if ($result) {
+                echo 'succes';
+            } else {
+                echo 'Query/Stored Procedure syntax error';
+            }
         } catch (\PDOException $e) {
-
+            echo $e->getMessage();
         }
     }
 
