@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 24 apr 2015 om 14:02
+-- Genereertijd: 24 apr 2015 om 15:38
 -- Serverversie: 5.6.13
 -- PHP-versie: 5.4.17
 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `friends_invites` (
 
 CREATE TABLE IF NOT EXISTS `product` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_category_id` int(11) NOT NULL,
+  `product_category_id` int(11) DEFAULT NULL,
   `product_name` varchar(100) NOT NULL,
   `product_price` decimal(10,0) DEFAULT NULL,
   `product_desciption` varchar(200) DEFAULT NULL,
@@ -182,10 +182,10 @@ CREATE TABLE IF NOT EXISTS `shopping_list` (
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(50) NOT NULL,
-  `country` varchar(50) NOT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `country` varchar(50) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(150) NOT NULL,
+  `password` char(60) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -218,8 +218,8 @@ ALTER TABLE `product_recipe`
 -- Beperkingen voor tabel `product_shopping_list`
 --
 ALTER TABLE `product_shopping_list`
-  ADD CONSTRAINT `product_shopping_list_shopping_list_id_fkey` FOREIGN KEY (`shopping_list_id`) REFERENCES `shopping_list` (`shopping_list_id`),
-  ADD CONSTRAINT `product_shopping_list_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
+  ADD CONSTRAINT `product_shopping_list_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`),
+  ADD CONSTRAINT `product_shopping_list_shopping_list_id_fkey` FOREIGN KEY (`shopping_list_id`) REFERENCES `shopping_list` (`shopping_list_id`);
 
 --
 -- Beperkingen voor tabel `recipe`
@@ -231,8 +231,8 @@ ALTER TABLE `recipe`
 -- Beperkingen voor tabel `shopping_list`
 --
 ALTER TABLE `shopping_list`
-  ADD CONSTRAINT `shopping_list_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-  ADD CONSTRAINT `shopping_list_friend_fkey` FOREIGN KEY (`friends_id`) REFERENCES `friends` (`friends_id`);
+  ADD CONSTRAINT `shopping_list_friend_fkey` FOREIGN KEY (`friends_id`) REFERENCES `friends` (`friends_id`),
+  ADD CONSTRAINT `shopping_list_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
