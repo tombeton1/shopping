@@ -13,7 +13,6 @@ class DaUser {
 
     public static function insert($User)
     {
-
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL user_insert(:pfirst_name, :plast_name, :pcountry, :pemail, :ppassword)');
@@ -21,7 +20,7 @@ class DaUser {
             $stmt->bindValue(':plast_name', $User->getLastName(), \PDO::PARAM_STR);
             $stmt->bindValue(':pemail', $User->getEmail(), \PDO::PARAM_STR);
             $stmt->bindValue(':pcountry', $User->getCountry(), \PDO::PARAM_STR);
-            $stmt->bindValue(':ppassword', $User->getPassword(), \PDO::PARAM_STR);
+            $stmt->bindValue(':ppassword', password_hash($User->getPassword(), PASSWORD_DEFAULT), \PDO::PARAM_STR);
             $result = $stmt->execute();
             if ($result) {
                 echo 'succes';
