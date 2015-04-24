@@ -6,8 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'ShoppingApp\\Bo\\Group' => $baseDir . '/ShoppingApp/Bo/Group.php',
-    'ShoppingApp\\Bo\\Member' => $baseDir . '/ShoppingApp/Bo/Member.php',
-    'ShoppingApp\\Dal\\DaMember' => $baseDir . '/ShoppingApp/Dal/DaMember.php',
-    'ShoppingApp\\Dal\\DataSource' => $baseDir . '/ShoppingApp/Dal/DataSource.php',
 );
