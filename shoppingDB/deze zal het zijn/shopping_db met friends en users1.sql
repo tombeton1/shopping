@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 24 apr 2015 om 15:38
+-- Genereertijd: 24 apr 2015 om 20:48
 -- Serverversie: 5.6.13
 -- PHP-versie: 5.4.17
 
@@ -22,6 +22,28 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `shopping_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `shopping_db`;
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_delete`(
+	 pId INT 
+)
+BEGIN
+DELETE FROM `users`
+	WHERE `users`.`user_id` = pId;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_select_one`(
+	 pId INT 
+)
+BEGIN
+SELECT * FROM `users`
+	WHERE `user`.`user_id` = pId;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -32,22 +54,11 @@ CREATE TABLE IF NOT EXISTS `friends` (
   `friends_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id_inviter` int(11) NOT NULL,
   `user_id_invitee` int(11) NOT NULL,
-  PRIMARY KEY (`friends_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `friends_invites`
---
-
-CREATE TABLE IF NOT EXISTS `friends_invites` (
-  `user_id` int(11) NOT NULL,
-  `friends_id` int(11) NOT NULL,
   `relation_accepted` tinyint(1) NOT NULL,
-  KEY `member_id` (`user_id`),
-  KEY `friends_id` (`friends_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`friends_id`),
+  KEY `user_id_inviter` (`user_id_inviter`),
+  KEY `user_id_invitee` (`user_id_invitee`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -59,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_category_id` int(11) DEFAULT NULL,
   `product_name` varchar(100) NOT NULL,
-  `product_price` decimal(10,0) DEFAULT NULL,
+  `product_price` varchar(100) DEFAULT NULL,
   `product_desciption` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   KEY `category_id` (`product_category_id`),
@@ -168,6 +179,7 @@ CREATE TABLE IF NOT EXISTS `shopping_list` (
   `shopping_list_created` varchar(50) NOT NULL,
   `shopping_list_due_date` date DEFAULT NULL,
   `shopping_list_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `access` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`shopping_list_id`),
   KEY `family_id` (`friends_id`),
   KEY `user_id` (`user_id`)
@@ -188,18 +200,26 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` char(60) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Gegevens worden uitgevoerd voor tabel `users`
+--
+
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `country`, `email`, `password`) VALUES
+(2, 'tom', 'adriaens', 'bla', 'mljksqfdq', 'mlqsdkqlm'),
+(3, 'adrie', 'mlkqsd', 'qsddqsq', 'sqddsqdsq', 'qsddsqqsd');
 
 --
 -- Beperkingen voor gedumpte tabellen
 --
 
 --
--- Beperkingen voor tabel `friends_invites`
+-- Beperkingen voor tabel `friends`
 --
-ALTER TABLE `friends_invites`
-  ADD CONSTRAINT `friends_invites_friends_id_fkey` FOREIGN KEY (`friends_id`) REFERENCES `friends` (`friends_id`),
-  ADD CONSTRAINT `friends_invites_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+ALTER TABLE `friends`
+  ADD CONSTRAINT `friends_user_id_fkey1` FOREIGN KEY (`user_id_invitee`) REFERENCES `users` (`user_id`),
+  ADD CONSTRAINT `friends_user_id_fkey` FOREIGN KEY (`user_id_inviter`) REFERENCES `users` (`user_id`);
 
 --
 -- Beperkingen voor tabel `product`
@@ -231,7 +251,6 @@ ALTER TABLE `recipe`
 -- Beperkingen voor tabel `shopping_list`
 --
 ALTER TABLE `shopping_list`
-  ADD CONSTRAINT `shopping_list_friend_fkey` FOREIGN KEY (`friends_id`) REFERENCES `friends` (`friends_id`),
   ADD CONSTRAINT `shopping_list_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
