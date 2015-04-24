@@ -13,11 +13,11 @@ class Friends {
     private $friendsId;
     private $userInviter;
     private $userInvitee;
+    private $relationAccepted;
 
     function __construct()
     {
     }
-
 
     /**
      * @return mixed
@@ -66,6 +66,23 @@ class Friends {
     {
         $this->userInvitee = $userInvitee;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRelationAccepted()
+    {
+        return $this->relationAccepted;
+    }
+
+    /**
+     * @param mixed $relationAccepted
+     */
+    public function setRelationAccepted($relationAccepted)
+    {
+        $this->relationAccepted = $relationAccepted;
+    }
+
 
 
 

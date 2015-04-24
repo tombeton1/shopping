@@ -9,10 +9,10 @@
 namespace ShoppingApp\Bo;
 
 
-class ShoppingList {
+class ShoppingList
+{
     private $shoppingListName;
     private $shoppingListId;
-    private $listFriends;
     private $userId;
     private $listProducts;
     private $amount;
@@ -20,11 +20,11 @@ class ShoppingList {
     private $shoppingListCreated;
     private $shoppingListDueDate;
     private $shoppingListUpdated;
+    private $access;
 
     function __construct()
     {
     }
-
 
     /**
      * @return mixed
@@ -56,22 +56,6 @@ class ShoppingList {
     public function setShoppingListId($shoppingListId)
     {
         $this->shoppingListId = $shoppingListId;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getListFriends()
-    {
-        return $this->listFriends;
-    }
-
-    /**
-     * @param mixed $listFriends
-     */
-    public function setListFriends($listFriends)
-    {
-        $this->listFriends = $listFriends;
     }
 
     /**
@@ -184,6 +168,22 @@ class ShoppingList {
     public function setShoppingListUpdated($shoppingListUpdated)
     {
         $this->shoppingListUpdated = $shoppingListUpdated;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccess()
+    {
+        return $this->access;
+    }
+
+    /**
+     * @param mixed $access
+     */
+    public function setAccess($access)
+    {
+        $this->access = $access;
     }
 
 
