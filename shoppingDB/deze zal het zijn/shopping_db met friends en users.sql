@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 24 apr 2015 om 20:48
+-- Genereertijd: 24 apr 2015 om 21:15
 -- Serverversie: 5.6.13
 -- PHP-versie: 5.4.17
 
@@ -172,7 +172,6 @@ INSERT INTO `recipe_category` (`recipe_category_id`, `recipe_category_name`, `re
 CREATE TABLE IF NOT EXISTS `shopping_list` (
   `shopping_list_name` varchar(50) NOT NULL,
   `shopping_list_id` int(11) NOT NULL AUTO_INCREMENT,
-  `friends_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `amount` double NOT NULL,
   `amount_unit` varchar(100) NOT NULL,
@@ -181,7 +180,6 @@ CREATE TABLE IF NOT EXISTS `shopping_list` (
   `shopping_list_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `access` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`shopping_list_id`),
-  KEY `family_id` (`friends_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
