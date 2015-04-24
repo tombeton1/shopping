@@ -8,8 +8,10 @@
 namespace ShoppingApp\Dal;
 include_once '../../vendor/autoload.php';
 
-$user = new \ShoppingApp\Bo\Users();
-$user->setFirstName('test');
-$user->setC
-
-echo \ShoppingApp\Dal\DaMember::insertMember($member);
+$User = new \ShoppingApp\Bo\User();
+$User->setFirstName('testerino');
+$User->setLastName('testerina');
+$User->setEmail('dsdfds@sfd');
+$User->setCountry('belgica');
+$User->setPassword('test');
+\ShoppingApp\Dal\DaUser::insert($User);
