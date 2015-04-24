@@ -23,14 +23,16 @@ class DataSource
 
     public static function getConnection()
     {
+        $conn = NULL;
         try {
             $conn = new \PDO("mysql:host=localhost;port=3306;dbname=test", "root", "root", array(\PDO::ATTR_PERSISTENT => true));
             $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
         } catch (\PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }
-        if ($conn != 0) {
-            echo'gelukt';
+        if($conn != NULL) {
+            echo 'gelukt';
         }
         return $conn;
     }
