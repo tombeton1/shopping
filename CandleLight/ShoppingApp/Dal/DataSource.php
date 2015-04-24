@@ -27,7 +27,6 @@ class DataSource
         try {
             $conn = new \PDO("mysql:host=localhost;port=3306;dbname=shopping_db", "root", "root", array(\PDO::ATTR_PERSISTENT => true));
             $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
         } catch (\PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }
