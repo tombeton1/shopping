@@ -10,27 +10,12 @@
     <orderEntry type="module-library">
       <library name="PHP">
         <CLASSES>
-          <root url="file:///Applications/MAMP/bin/php/php5.6.2/lib/php" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
         </CLASSES>
         <SOURCES>
-          <root url="file:///Applications/MAMP/bin/php/php5.6.2/lib/php" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="PHARS">
-        <CLASSES>
-          <root url="phar:///Applications/MAMP/bin/php/php5.6.2/lib/php/PEAR/phpunit.phar" />
-          <root url="phar:///Applications/MAMP/bin/php/php5.6.2/lib/php/phpunit.phar" />
-        </CLASSES>
-        <SOURCES>
-          <root url="phar:///Applications/MAMP/bin/php/php5.6.2/lib/php/PEAR/phpunit.phar" />
-          <root url="phar:///Applications/MAMP/bin/php/php5.6.2/lib/php/phpunit.phar" />
         </SOURCES>
       </library>
     </orderEntry>
   </component>
 </module>
-

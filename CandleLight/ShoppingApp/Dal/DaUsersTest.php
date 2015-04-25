@@ -6,6 +6,8 @@
  * Time: 21:44
  */
 namespace ShoppingApp\Dal;
+use ShoppingApp\Dal\DaUser;
+
 include_once '../../vendor/autoload.php';
 
 $User = new \ShoppingApp\Bo\User();
@@ -14,4 +16,4 @@ $User->setLastName('test');
 $User->setEmail('test@test');
 $User->setCountry('belgie');
 $User->setPassword('testz');
-\ShoppingApp\Dal\DaUser::insert($User);
+DaUser::insert($User);
