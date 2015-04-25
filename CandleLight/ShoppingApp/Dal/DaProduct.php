@@ -7,21 +7,20 @@
  */
 
 namespace ShoppingApp\Dal;
-use ShoppingApp\Bo\Product as Product;
 
 class DaProduct
 {
 
-    public static function insert($productIn)
+    public static function insert($product)
     {
 
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL product_insert(:pProductCategory, :pProductName, :pProductPrice, :pProductDescription)');
-            $stmt->bindValue(':pProductCategory', $productIn->getProductCategory(), \PDO::PARAM_INT);
-            $stmt->bindValue(':pProductName', $productIn->getProductName(), \PDO::PARAM_STR);
-            $stmt->bindValue(':pProductPrice', $productIn->getProductPrice(), \PDO::PARAM_STR);
-            $stmt->bindValue(':pProductDescription', $productIn->getProductDescription(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pProductCategory', $product->getProductCategory(), \PDO::PARAM_INT);
+            $stmt->bindValue(':pProductName', $product->getProductName(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pProductPrice', $product->getProductPrice(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pProductDescription', $product->getProductDescription(), \PDO::PARAM_STR);
             $result = $stmt->execute();
             if ($result) {
                 echo 'succes';
@@ -33,14 +32,33 @@ class DaProduct
         }
     }
 
-    public static function delete($productOut){
+    public static function delete($product)
+    {
 
-        try{
+        try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL product_delete(pId)');
-            $stmt->bindValue('pId', $productOut->getProductId());
-        }catch (\PDOException $e) {
+            $stmt->bindValue('pId', $product->getProductId());
+        } catch (\PDOException $e) {
             echo $e->getMessage();
         }
+    }
+
+    public static function update($product)
+    {
+        try {
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn->prepare('CALL product_insert(:pId:pProductCategory, :pProductName, :pProductPrice, :pProductDescription)');
+            $stmt->bindValue('pId', $product->getProductId(), \PDO::PARAM_INT);
+            $stmt->bindValue(':pProductCategory', $product->getProductCategory(), \PDO::PARAM_INT);
+            $stmt->bindValue(':pProductName', $product->getProductName(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pProductPrice', $product->getProductPrice(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pProductDescription', $product->getProductDescription(), \PDO::PARAM_STR);
+            $result = $stmt->execute();
+
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+
     }
 }

@@ -13,16 +13,20 @@ use ShoppingApp\Bo\Product as Product;
 include_once '../../vendor/autoload.php';
 
 $product = new Product();
-//$product->setProductCategory('1');
-//$product->setProductName('product1');
-//$product->setProductPrice('Aldi, 10');
+//$product->setProductCategory('2');
+//$product->setProductName('product2');
+//$product->setProductPrice('Super, 60');
 //$product->setProductDescription('blal lalal  alla llallalal');
 //DaProduct::insert($product);
 
 
-$product->setProductId(1);
-DaProduct::delete($product);
+//$product->setProductId(1);
+//DaProduct::delete($product);
 
-
-
+$product->setProductId('3');
+$product->setProductCategory('2');
+$product->setProductName('product Updated');
+$product->setProductPrice('Super, 60');
+$product->setProductDescription('blal lalal  alla llallalal');
+DaProduct::update($product);
 
