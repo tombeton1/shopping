@@ -48,8 +48,8 @@ class DaProduct
     {
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn->prepare('CALL product_update(:pId, :pProductCategory, :pProductName, :pProductPrice, :pProductDescription)');
-            $stmt->bindValue(':pId', $product->getProductId(), \PDO::PARAM_INT);
+            $stmt = $conn->prepare('CALL product_insert(:pId:pProductCategory, :pProductName, :pProductPrice, :pProductDescription)');
+            $stmt->bindValue('pId', $product->getProductId(), \PDO::PARAM_INT);
             $stmt->bindValue(':pProductCategory', $product->getProductCategory(), \PDO::PARAM_INT);
             $stmt->bindValue(':pProductName', $product->getProductName(), \PDO::PARAM_STR);
             $stmt->bindValue(':pProductPrice', $product->getProductPrice(), \PDO::PARAM_STR);
