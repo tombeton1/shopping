@@ -37,8 +37,8 @@ class DaProduct
 
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn->prepare('CALL product_delete(pId)');
-            $stmt->bindValue('pId', $product->getProductId());
+            $stmt = $conn->prepare('CALL product_delete(:pId)');
+            $stmt->bindValue(':pId', $product->getProductId());
         } catch (\PDOException $e) {
             echo $e->getMessage();
         }
@@ -61,4 +61,16 @@ class DaProduct
         }
 
     }
+
+    public static function selectOne($product){
+
+        try {
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn->prepare('CALL product_select_one(:pId)');
+            $stmt->bindValue(':pId', $product->getProductId());
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
 }
