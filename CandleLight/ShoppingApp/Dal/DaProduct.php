@@ -8,6 +8,8 @@
 
 namespace ShoppingApp\Dal;
 
+use ShoppingApp\Bo\Product;
+
 class DaProduct
 {
 
@@ -70,7 +72,13 @@ class DaProduct
             $stmt = $conn->prepare('CALL product_select_one(:pId)');
             $stmt->bindValue(':pId', $product->getProductId());
             $stmt->execute();
-            $array = $stmt->fetch();
+            $array = $stmt->fetch(\PDO::FETCH_ASSOC);
+            $product->setProductId($array['product_id']);
+            $product->setProductCategory($array['product_category_id']);
+            $product->setProductName($array['product_name']);
+            $product->setProductPrice($array['product_price']);
+            $product->setProductDescription($array['product_desciption']);
+
         } catch (\PDOException $e) {
             echo $e->getMessage();
         }

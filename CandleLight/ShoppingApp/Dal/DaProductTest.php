@@ -32,4 +32,4 @@ $product = new Product();
 
 $product->setProductId('2');
 DaProduct::selectOne($product);
-echo 'dit is the ' . $product->getProductName();
+echo 'dit is the ' . $product->getProductDescription();
