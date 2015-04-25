@@ -14,15 +14,14 @@ class DaProduct
 
     public static function insert($productIn)
     {
-        $product = new Product();
 
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL product_insert(:pProductCategory, :pProductName, :pProductPrice, :pProductDescription)');
-            $stmt->bindValue(':pProductCategory', $product->getProductCategory($productIn), \PDO::PARAM_INT);
-            $stmt->bindValue(':pProductName', $product->getProductName($productIn), \PDO::PARAM_STR);
-            $stmt->bindValue(':pProductPrice', $product->getProductPrice($productIn), \PDO::PARAM_STR);
-            $stmt->bindValue(':pProductDescription', $product->getProductDescription($productIn), \PDO::PARAM_STR);
+            $stmt->bindValue(':pProductCategory', $productIn->getProductCategory(), \PDO::PARAM_INT);
+            $stmt->bindValue(':pProductName', $productIn->getProductName(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pProductPrice', $productIn->getProductPrice(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pProductDescription', $productIn->getProductDescription(), \PDO::PARAM_STR);
             $result = $stmt->execute();
             if ($result) {
                 echo 'succes';
@@ -30,6 +29,17 @@ class DaProduct
                 echo 'Query/Stored Procedure syntax error';
             }
         } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public static function delete($productOut){
+
+        try{
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn->prepare('CALL product_delete(pId)');
+            $stmt->bindValue('pId', $productOut->getProductId());
+        }catch (\PDOException $e) {
             echo $e->getMessage();
         }
     }
