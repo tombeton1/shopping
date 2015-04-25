@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 25 apr 2015 om 14:53
+-- Genereertijd: 24 apr 2015 om 21:15
 -- Serverversie: 5.6.13
 -- PHP-versie: 5.4.17
 
@@ -26,26 +26,6 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `product_insert`(IN `pProductCategory` INT, IN `pProductName` VARCHAR(100), IN `pProductPrice` VARCHAR(100), IN `pProductDescription` VARCHAR(200))
-BEGIN
-INSERT INTO `product`
-	(
-		`product`.`product_category_id`,
-		`product`.`product_name`,
-		`product`.`product_price`,
-		`product`.`product_desciption`
-
-	)
-	VALUES
-	(
-		pProductCategory,
-		pProductName,
-		pProductPrice,
-		pProductDescription
-	);
-	
-END$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `user_delete`(
 	 pId INT 
 )
@@ -236,8 +216,8 @@ INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `country`, `email`, `
 -- Beperkingen voor tabel `friends`
 --
 ALTER TABLE `friends`
-  ADD CONSTRAINT `friends_user_id_fkey` FOREIGN KEY (`user_id_inviter`) REFERENCES `users` (`user_id`),
-  ADD CONSTRAINT `friends_user_id_fkey1` FOREIGN KEY (`user_id_invitee`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `friends_user_id_fkey1` FOREIGN KEY (`user_id_invitee`) REFERENCES `users` (`user_id`),
+  ADD CONSTRAINT `friends_user_id_fkey` FOREIGN KEY (`user_id_inviter`) REFERENCES `users` (`user_id`);
 
 --
 -- Beperkingen voor tabel `product`
