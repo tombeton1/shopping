@@ -23,13 +23,10 @@ $product = new Product();
 //$product->setProductId(1);
 //DaProduct::delete($product);
 
-//$product->setProductId('3');
-//$product->setProductCategory('2');
-//$product->setProductName('product Updated');
-//$product->setProductPrice('Super, 60');
-//$product->setProductDescription('blal lalal  alla llallalal');
-//DaProduct::update($product);
+$product->setProductId('3');
+$product->setProductCategory('2');
+$product->setProductName('product Updated');
+$product->setProductPrice('Super, 60');
+$product->setProductDescription('blal lalal  alla llallalal');
+DaProduct::update($product);
 
-$product->setProductId(1);
-DaProduct::selectOne($product);
-echo 'dit is the '.$product->getProductName();
