@@ -13,6 +13,8 @@ use ShoppingApp\Bo\Product as Product;
 include_once '../../vendor/autoload.php';
 
 $product = new Product();
+
+
 //$product->setProductCategory('2');
 //$product->setProductName('product2');
 //$product->setProductPrice('Super, 60');
@@ -30,6 +32,8 @@ $product = new Product();
 //$product->setProductDescription('blal lalal  alla llallalal');
 //DaProduct::update($product);
 
-$product->setProductId('2');
+$product->setProductId('7');
 DaProduct::selectOne($product);
-echo 'dit is the ' . $product->getProductDescription();
+echo 'dit is the ' . $product->getProductCategory();
+
+DaProduct::selectAll();

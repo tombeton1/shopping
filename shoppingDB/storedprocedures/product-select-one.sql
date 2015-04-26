@@ -6,6 +6,6 @@ CREATE PROCEDURE `product_select_one`
 )
 BEGIN
 SELECT * FROM `product`
-	WHERE `product`.`product_id` = pId;
+		WHERE `product`.`product_id` = pId;
 END //
 DELIMITER ;

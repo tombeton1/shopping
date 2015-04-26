@@ -84,4 +84,14 @@ class DaProduct
         }
     }
 
+    public static function selectAll(){
+        $result = false;
+        $conn = \ShoppingApp\Dal\DataSource::getConnection();
+        $stmt = $conn->prepare('CALL product_select_all()');
+        $stmt->execute();
+        $row =$stmt->rowCount();
+       print_r($row) ;
+
+    }
+
 }
