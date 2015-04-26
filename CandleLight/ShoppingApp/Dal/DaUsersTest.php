@@ -9,11 +9,11 @@ namespace ShoppingApp\Dal;
 include_once '../../vendor/autoload.php';
 
 //$User = new \ShoppingApp\Bo\User();
-//$User->setFirstName('testdd');
-//$User->setLastName('tesddt');
-//$User->setEmail('test@testzz');
+//$User->setFirstName('testa');
+//$User->setLastName('testa');
+//$User->setEmail('test@test.com');
 //$User->setCountry('belgie');
-//$User->setPassword('testzdd');
+//$User->setPassword('test');
 //echo \ShoppingApp\Dal\DaUser::insert($User);
 
 //$User = new \ShoppingApp\Bo\User();
@@ -41,5 +41,19 @@ include_once '../../vendor/autoload.php';
 //     echo $User->getCountry();
 //}
 
+//$email = 'test@test.com';
+//$password = 'test';
+//if (\ShoppingApp\Dal\DaUser::login($email, $password)){
+//    echo'correct';
+//} else {
+//    echo'bad password';
+//};
+
+//$id = 1;
+//\ShoppingApp\Dal\DaUser::delete($id);
+
+//$UserId = 2;
+//$FriendId = 3;
+//echo \ShoppingApp\Dal\DaUser::addFriend($UserId, $FriendId);
 
 

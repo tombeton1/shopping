@@ -18,11 +18,11 @@ class DaUser {
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL user_insert(:pfirst_name, :plast_name, :pcountry, :pemail, :ppassword)');
-            $stmt->bindValue(':pfirst_name', $User->getFirstName(), \PDO::PARAM_STR);
-            $stmt->bindValue(':plast_name', $User->getLastName(), \PDO::PARAM_STR);
-            $stmt->bindValue(':pemail', $User->getEmail(), \PDO::PARAM_STR);
-            $stmt->bindValue(':pcountry', $User->getCountry(), \PDO::PARAM_STR);
-            $stmt->bindValue(':ppassword', password_hash($User->getPassword(), PASSWORD_DEFAULT), \PDO::PARAM_STR);
+            $stmt->bindValue(':pfirst_name', $User->getFirstName());
+            $stmt->bindValue(':plast_name', $User->getLastName());
+            $stmt->bindValue(':pemail', $User->getEmail());
+            $stmt->bindValue(':pcountry', $User->getCountry());
+            $stmt->bindValue(':ppassword', password_hash($User->getPassword(), PASSWORD_DEFAULT));
             $result = $stmt->execute();
             if($result){
                 $message = 'User created succesfully';
@@ -98,8 +98,74 @@ class DaUser {
                 $result[] = $User;
             }
         } catch(\PDOExcepton $e){
-
+            echo $e->getMessage();
         }
         return $result;
+    }
+
+    public static function checkPassword($email, $password){
+
+        $result = NULL;
+        try {
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn->prepare('CALL user_check_password(:pEmail)');
+            $stmt->bindValue(':pEmail', $email);
+            $stmt->execute();
+            $result = $stmt->fetch();
+            $result =  password_verify($password, $result['password']);
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+        return $result;
+    }
+
+    public static function delete($id){
+
+        try {
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn->prepare('CALL user_delete(:pId)');
+            $stmt->bindValue(':pId', $id);
+            $stmt->execute();
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public static function addFriend($UserId, $FriendId){
+
+        $message = NULL;
+        try {
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            // checked of de user al bestaat de stored procedure telt de hoevelheid rijen er overeen komen.
+            $stmtCheck = $conn->prepare('CALL user_friend_check(:pUserId, :pFriendId)');
+            $stmtCheck->bindValue(':pUserId', $UserId);
+            $stmtCheck->bindValue(':pFriendId', $FriendId);
+            $stmtCheck->execute();
+            $check = $stmtCheck->fetch(); // telt het aantal rijen
+            if($check[0] == 1){
+                $message = 'You are already friends';
+            } else {
+                // insert de 2 id's in de tussentabel
+                $stmt = $conn->prepare('CALL user_add_friend(:pUserId, :pFriendId)');
+                $stmt->bindValue(':pUserId', $UserId);
+                $stmt->bindValue(':pFriendId', $FriendId);
+                $result = $stmt->execute();
+                if($result){
+                    // insert bidirectioneel. zodat de invitee ook bevriend is met de inviter
+                    $stmt = $conn->prepare('CALL user_add_friend(:pUserId, :pFriendId)');
+                    $stmt->bindValue(':pUserId', $FriendId);
+                    $stmt->bindValue(':pFriendId', $UserId);
+                    $result = $stmt->execute();
+                    if($result){
+                        echo'succesfully added as friend';
+                    }
+                }
+            }
+        } catch (\PDOException $e) {
+            if($e->getCode() == 23000) {
+                $message = 'E-mail adress already in use';
+            }
+        }
+        return $message;
     }
 } 
