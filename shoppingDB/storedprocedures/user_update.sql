@@ -3,21 +3,19 @@ DROP PROCEDURE IF EXISTS user_update;
 DELIMITER //
 CREATE PROCEDURE `user_update`
 (
-	puser_id INT ,
-	pfirst_name NVARCHAR (50) ,
-	plast_name NVARCHAR (50),
-    pcountry NVARCHAR (50),
-	pemail NVARCHAR(100) ,
-	ppassword CHAR (60) , 
+	pId INT(11) ,
+	pFirstName NVARCHAR (50) ,
+	pLastName NVARCHAR (50),
+    pCountry NVARCHAR (50),
+	pEmail NVARCHAR(100) 
 )
 BEGIN
-UPDATE `Entrant`
+UPDATE `users`
 	SET
-		`UserName` = pUserName,
-		`Email` = pEmail,
-		`Session01` = pSession01,
-		`UpdatedBy` = pUpdatedBy,
-		`UpdatedOn` = NOW()
-	WHERE `Entrant`.`Id` = pId;
+		`first_name` = pFirstName,
+		`last_name` = pLastName,
+		`country` = pCountry,
+		`email` = pEmail
+	WHERE `users`.`user_id` = pId;
 END //
 DELIMITER ;
