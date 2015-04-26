@@ -33,7 +33,6 @@ class DaRecipe {
 
     public static function delete($recipe)
     {
-        $recipe = new Recipe();
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL recipe_delete(:pId)');
@@ -65,7 +64,7 @@ class DaRecipe {
     }
 
     public static function selectOne($recipe){
-        $recipe = new Recipe();
+
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL recipe_select_one(:pId)');
