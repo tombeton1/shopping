@@ -14,6 +14,7 @@ class DaUser {
 
     public static function insert($User)
     {
+        $message = NULL;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL user_insert(:pfirst_name, :plast_name, :pcountry, :pemail, :ppassword)');
@@ -23,18 +24,20 @@ class DaUser {
             $stmt->bindValue(':pcountry', $User->getCountry(), \PDO::PARAM_STR);
             $stmt->bindValue(':ppassword', password_hash($User->getPassword(), PASSWORD_DEFAULT), \PDO::PARAM_STR);
             $result = $stmt->execute();
-            if ($result) {
-                echo 'succes';
-            } else {
-                echo 'Query/Stored Procedure syntax error';
+            if($result){
+                $message = 'User created succesfully';
             }
         } catch (\PDOException $e) {
-            echo $e->getMessage();
+            if($e->getCode() == 23000) {
+                $message = 'E-mail adress already in use';
+            }
         }
+        return $message;
     }
 
     public static function update($User)
     {
+        $message = NULL;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL user_update(:pId, :pFirstName, :pLastName, :pCountry, :pEmail)');
@@ -43,13 +46,20 @@ class DaUser {
             $stmt->bindValue(':pLastName', $User->getLastName(), \PDO::PARAM_STR);
             $stmt->bindValue(':pCountry', $User->getCountry(), \PDO::PARAM_STR);
             $stmt->bindValue(':pEmail', $User->getEmail(), \PDO::PARAM_STR);
-            $stmt->execute();
+            $result = $stmt->execute();
+            if($result){
+                $message = 'Userinfo succesfully updated';
+            }
         } catch (\PDOException $e) {
-            echo $e->getMessage();
+            if($e->getCode() == 23000) {
+                $message = 'E-mail adress already in use';
+            }
         }
+        return $message;
     }
 
     public static function selectOne($id){
+
         $result = NULL;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();

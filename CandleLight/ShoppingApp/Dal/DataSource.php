@@ -31,7 +31,7 @@ class DataSource
             echo 'ERROR: ' . $e->getMessage();
         }
         if($conn != NULL) {
-            echo 'gelukt';
+            echo 'Connection succeeded ';
         }
         return $conn;
     }
