@@ -31,5 +31,33 @@
          } catch (\PDOException $e){
              echo $e->getMessage();
          }  
+     }
+     
+     public static function delete($shoppinglist)
+     {
+         try{
+             $conn = \ShoppingApp\Dal\DataSource::getConnection();
+             $stmt = $conn->prepare('CALL shopping_list_delete(:pId)');
+             $stmt->bindValue(':pId', $shoppinglist->getShoppingListId());
+             $stmt->execute();
+         } catch (\PDOException $e){
+             echo $e->getMessage();
+         }
      }  
+
+     public static function update($shoppinglist)
+     {
+         try{
+             $conn = \ShoppingApp\Dal\DataSource::getConnection();
+             $stmt = $conn->prepare('CALL shopping_list_update(:pId, :pName, :pUserId, :pDueDate, :pAccess)');
+             $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
+             $stmt->bindValue(':pName', $shoppinglist->getShoppingListName(), \PDO::PARAM_STR);
+             $stmt->bindValue(':pUserId', $shoppinglist->getUserId(), \PDO::PARAM_INT);
+             $stmt->bindValue(':pDueDate', $shoppinglist->getShoppingListDueDate(), \PDO::PARAM_INT);
+             $stmt->bindValue(':pAccess', $shoppinglist->getAccess(), \PDO::PARAM_INT);
+             $stmt->execute();
+         } catch (\PDOException $e){
+             echo $e->getMessage();
+         }
+     }
  }
