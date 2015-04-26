@@ -9,7 +9,7 @@
 namespace ShoppingApp\Bo;
 
 
-class ProductCategory {
+class ProductCategory implements \JsonSerializable {
     private $productCategoryId;
     private $productCategoryName;
     private $productCategoryDescription;
@@ -65,6 +65,13 @@ class ProductCategory {
     public function setProductCategoryDescription($productCategoryDescription)
     {
         $this->productCategoryDescription = $productCategoryDescription;
+    }
+
+    public function JsonSerialize()
+    {
+        $vars = get_object_vars($this);
+
+        return $vars;
     }
 
 }

@@ -9,7 +9,7 @@
 namespace ShoppingApp\Bo;
 
 
-class ShoppingList
+class ShoppingList implements \JsonSerializable
 {
     private $shoppingListName;
     private $shoppingListId;
@@ -184,6 +184,13 @@ class ShoppingList
     public function setAccess($access)
     {
         $this->access = $access;
+    }
+
+    public function JsonSerialize()
+    {
+        $vars = get_object_vars($this);
+
+        return $vars;
     }
 
 

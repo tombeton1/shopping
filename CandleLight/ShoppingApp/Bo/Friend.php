@@ -9,7 +9,7 @@
 namespace ShoppingApp\Bo;
 
 
-class Friends {
+class Friends implements \JsonSerializable {
     private $friendsId;
     private $userInviter;
     private $userInvitee;
@@ -83,6 +83,12 @@ class Friends {
         $this->relationAccepted = $relationAccepted;
     }
 
+    public function JsonSerialize()
+    {
+        $vars = get_object_vars($this);
+
+        return $vars;
+    }
 
 
 

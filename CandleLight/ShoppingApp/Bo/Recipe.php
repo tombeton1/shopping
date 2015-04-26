@@ -9,7 +9,7 @@
 namespace ShoppingApp\Bo;
 
 
-class Recipe {
+class Recipe implements \JsonSerializable {
     private $recipeId;
     private $recipeCategory;
     private $recipeName;
@@ -133,6 +133,13 @@ class Recipe {
     public function setListProducts($listProducts)
     {
         $this->listProducts = $listProducts;
+    }
+
+    public function JsonSerialize()
+    {
+        $vars = get_object_vars($this);
+
+        return $vars;
     }
 
 }

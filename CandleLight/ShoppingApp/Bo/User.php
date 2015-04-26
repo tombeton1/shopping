@@ -9,7 +9,7 @@
 namespace ShoppingApp\Bo;
 
 
-class User {
+class User implements \JsonSerializable {
     private $userId;
     private $firstName;
     private $lastName;
@@ -151,5 +151,10 @@ class User {
         $this->relationAccepted = $relationAccepted;
     }
 
+    public function JsonSerialize()
+    {
+        $vars = get_object_vars($this);
 
+        return $vars;
+    }
 }

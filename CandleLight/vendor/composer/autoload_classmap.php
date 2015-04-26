@@ -7,11 +7,19 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'ShoppingApp\\Bo\\Friends' => $baseDir . '/ShoppingApp/Bo/Friend.php',
-    'ShoppingApp\\Bo\\Member' => $baseDir . '/ShoppingApp/Bo/Member.php',
     'ShoppingApp\\Bo\\Product' => $baseDir . '/ShoppingApp/Bo/Product.php',
+    'ShoppingApp\\Bo\\ProductCategory' => $baseDir . '/ShoppingApp/Bo/ProductCategory.php',
+    'ShoppingApp\\Bo\\Recipe' => $baseDir . '/ShoppingApp/Bo/Recipe.php',
+    'ShoppingApp\\Bo\\RecipeCategory' => $baseDir . '/ShoppingApp/Bo/RecipeCategory.php',
     'ShoppingApp\\Bo\\ShoppingList' => $baseDir . '/ShoppingApp/Bo/ShoppingList.php',
     'ShoppingApp\\Bo\\User' => $baseDir . '/ShoppingApp/Bo/User.php',
-    'ShoppingApp\\Dal\\DaMember' => $baseDir . '/ShoppingApp/Dal/DaMember.php',
-    'ShoppingApp\\Dal\\DaUsers' => $baseDir . '/ShoppingApp/Dal/DaUser.php',
+    'ShoppingApp\\Dal\\DaProduct' => $baseDir . '/ShoppingApp/Dal/DaProduct.php',
+    'ShoppingApp\\Dal\\DaProductCategory' => $baseDir . '/ShoppingApp/Dal/DaProductCategory.php',
+    'ShoppingApp\\Dal\\DaRecipe' => $baseDir . '/ShoppingApp/Dal/DaRecipe.php',
+    'ShoppingApp\\Dal\\DaRecipeCategory' => $baseDir . '/ShoppingApp/Dal/DaRecipeCategory.php',
+    'ShoppingApp\\Dal\\DaShoppingList' => $baseDir . '/ShoppingApp/Dal/DaShoppingList.php',
+    'ShoppingApp\\Dal\\DaUser' => $baseDir . '/ShoppingApp/Dal/DaUser.php',
     'ShoppingApp\\Dal\\DataSource' => $baseDir . '/ShoppingApp/Dal/DataSource.php',
+    'ShoppingApp\\Dal\\Json' => $baseDir . '/ShoppingApp/Dal/Json.php',
+    'ShoppingApp\\Dal\\JsonObject' => $baseDir . '/ShoppingApp/Dal/JsonObject.php',
 );
