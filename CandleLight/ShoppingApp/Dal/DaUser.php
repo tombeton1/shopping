@@ -7,6 +7,7 @@
  */
 
 namespace ShoppingApp\Dal;
+include_once '../../vendor/autoload.php';
 
 
 class DaUser {
@@ -46,6 +47,49 @@ class DaUser {
         } catch (\PDOException $e) {
             echo $e->getMessage();
         }
+    }
 
+    public static function selectOne($id){
+        $result = NULL;
+        try {
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn->prepare('CALL user_select_one(:pId)');
+            $stmt->bindValue(':pId', $id);
+            $stmt->execute();
+            $result = $stmt->fetch();
+            $User = new \ShoppingApp\Bo\User();
+            $User->setUserId($result['user_id']);
+            $User->setFirstName($result['first_name']);
+            $User->setLastName($result['last_name']);
+            $User->setEmail($result['email']);
+            $User->setCountry($result['country']);
+            $result = $User;
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+        return $result;
+    }
+
+    public static function selectAll(){
+
+        $result = array();
+        try {
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn = $conn->prepare('CALL user_select_all()');
+            $stmt->execute();
+            $array = $stmt->fetchAll();
+            foreach($array as $row) {
+                $User = new \ShoppingApp\Bo\User();
+                $User->setUserId($row['user_id']);
+                $User->setFirstName($row['first_name']);
+                $User->setLastName($row['last_name']);
+                $User->setEmail($row['email']);
+                $User->setCountry($row['country']);
+                $result[] = $User;
+            }
+        } catch(\PDOExcepton $e){
+
+        }
+        return $result;
     }
 } 
