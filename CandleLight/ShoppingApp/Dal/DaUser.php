@@ -31,4 +31,21 @@ class DaUser {
             echo $e->getMessage();
         }
     }
+
+    public static function update($User)
+    {
+        try {
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn->prepare('CALL user_update(:pId, :pFirstName, :pLastName, :pCountry, :pEmail)');
+            $stmt->bindValue(':pId', $User->getUserId(), \PDO::PARAM_INT);
+            $stmt->bindValue(':pFirstName', $User->getFirstName(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pLastName', $User->getLastName(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pCountry', $User->getCountry(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pEmail', $User->getEmail(), \PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+
+    }
 } 
