@@ -6,8 +6,9 @@ CREATE PROCEDURE `recipe_update`
 		pRecipeCategory int,
         pRecipeName varchar(50),
         pRecipeAmount double,
-        pRecipeAmountUnit varchar(50) ,
-        pRecipeText varchar (5000)
+        pRecipeAmountUnit varchar(50),
+        pRecipeText varchar(5000)
+)
         
 BEGIN
 UPDATE `recipe`
