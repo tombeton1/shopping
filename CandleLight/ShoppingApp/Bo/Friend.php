@@ -10,29 +10,13 @@ namespace ShoppingApp\Bo;
 
 
 class Friends implements \JsonSerializable {
-    private $friendsId;
+
     private $userInviter;
     private $userInvitee;
     private $relationAccepted;
 
     function __construct()
     {
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFriendsId()
-    {
-        return $this->friendsId;
-    }
-
-    /**
-     * @param mixed $friendsId
-     */
-    public function setFriendsId($friendsId)
-    {
-        $this->friendsId = $friendsId;
     }
 
     /**

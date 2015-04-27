@@ -15,8 +15,6 @@ class ShoppingList implements \JsonSerializable
     private $shoppingListId;
     private $userId;
     private $listProducts;
-    private $amount;
-    private $amountUnit;
     private $shoppingListCreated;
     private $shoppingListDueDate;
     private $shoppingListUpdated;
@@ -88,38 +86,6 @@ class ShoppingList implements \JsonSerializable
     public function setListProducts($listProducts)
     {
         $this->listProducts = $listProducts;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAmount()
-    {
-        return $this->amount;
-    }
-
-    /**
-     * @param mixed $amount
-     */
-    public function setAmount($amount)
-    {
-        $this->amount = $amount;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAmountUnit()
-    {
-        return $this->amountUnit;
-    }
-
-    /**
-     * @param mixed $amountUnit
-     */
-    public function setAmountUnit($amountUnit)
-    {
-        $this->amountUnit = $amountUnit;
     }
 
     /**
