@@ -10,7 +10,8 @@ namespace ShoppingApp\Dal;
 include_once '../../vendor/autoload.php';
 
 
-class DaUser {
+class DaUser
+{
 
     public static function insert($User)
     {
@@ -24,11 +25,11 @@ class DaUser {
             $stmt->bindValue(':pcountry', $User->getCountry());
             $stmt->bindValue(':ppassword', password_hash($User->getPassword(), PASSWORD_DEFAULT));
             $result = $stmt->execute();
-            if($result){
+            if ($result) {
                 $message = 'User created succesfully';
             }
         } catch (\PDOException $e) {
-            if($e->getCode() == 23000) {
+            if ($e->getCode() == 23000) {
                 $message = 'E-mail adress already in use';
             }
         }
@@ -47,19 +48,19 @@ class DaUser {
             $stmt->bindValue(':pCountry', $User->getCountry(), \PDO::PARAM_STR);
             $stmt->bindValue(':pEmail', $User->getEmail(), \PDO::PARAM_STR);
             $result = $stmt->execute();
-            if($result){
+            if ($result) {
                 $message = 'Userinfo succesfully updated';
             }
         } catch (\PDOException $e) {
-            if($e->getCode() == 23000) {
+            if ($e->getCode() == 23000) {
                 $message = 'E-mail adress already in use';
             }
         }
         return $message;
     }
 
-    public static function selectOne($id){
-
+    public static function selectOne($id)
+    {
         $result = NULL;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
@@ -80,15 +81,15 @@ class DaUser {
         return $result;
     }
 
-    public static function selectAll(){
-
+    public static function selectAll()
+    {
         $result = array();
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn = $conn->prepare('CALL user_select_all()');
             $stmt->execute();
             $array = $stmt->fetchAll();
-            foreach($array as $row) {
+            foreach ($array as $row) {
                 $User = new \ShoppingApp\Bo\User();
                 $User->setUserId($row['user_id']);
                 $User->setFirstName($row['first_name']);
@@ -97,14 +98,14 @@ class DaUser {
                 $User->setCountry($row['country']);
                 $result[] = $User;
             }
-        } catch(\PDOExcepton $e){
+        } catch (\PDOExcepton $e) {
             echo $e->getMessage();
         }
         return $result;
     }
 
-    public static function checkPassword($email, $password){
-
+    public static function checkPassword($email, $password)
+    {
         $result = NULL;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
@@ -112,15 +113,15 @@ class DaUser {
             $stmt->bindValue(':pEmail', $email);
             $stmt->execute();
             $result = $stmt->fetch();
-            $result =  password_verify($password, $result['password']);
+            $result = password_verify($password, $result['password']);
         } catch (\PDOException $e) {
             echo $e->getMessage();
         }
         return $result;
     }
 
-    public static function delete($id){
-
+    public static function delete($id)
+    {
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL user_delete(:pId)');
@@ -131,8 +132,8 @@ class DaUser {
         }
     }
 
-    public static function addFriend($UserId, $FriendId){
-
+    public static function addFriend($UserId, $FriendId)
+    {
         $message = NULL;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
@@ -142,7 +143,7 @@ class DaUser {
             $stmtCheck->bindValue(':pFriendId', $FriendId);
             $stmtCheck->execute();
             $check = $stmtCheck->fetch(); // telt het aantal rijen
-            if($check[0] == 1){
+            if ($check[0] == 1) {
                 $message = 'You are already friends';
             } else {
                 // insert de 2 id's in de tussentabel
@@ -150,19 +151,19 @@ class DaUser {
                 $stmt->bindValue(':pUserId', $UserId);
                 $stmt->bindValue(':pFriendId', $FriendId);
                 $result = $stmt->execute();
-                if($result){
+                if ($result) {
                     // insert bidirectioneel. zodat de invitee ook bevriend is met de inviter
                     $stmt = $conn->prepare('CALL user_add_friend(:pUserId, :pFriendId)');
                     $stmt->bindValue(':pUserId', $FriendId);
                     $stmt->bindValue(':pFriendId', $UserId);
                     $result = $stmt->execute();
-                    if($result){
-                        echo'succesfully added as friend';
+                    if ($result) {
+                        echo 'succesfully added as friend';
                     }
                 }
             }
         } catch (\PDOException $e) {
-            if($e->getCode() == 23000) {
+            if ($e->getCode() == 23000) {
                 $message = 'E-mail adress already in use';
             }
         }
