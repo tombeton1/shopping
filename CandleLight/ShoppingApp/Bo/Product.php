@@ -9,7 +9,8 @@
 namespace ShoppingApp\Bo;
 
 
-class Product implements \JsonSerializable {
+class Product implements \JsonSerializable
+{
     private $productId;
     private $productName;
     private $productCategory;

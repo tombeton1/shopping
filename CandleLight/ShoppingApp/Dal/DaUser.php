@@ -163,8 +163,8 @@ class DaUser
         return $message;
     }
 
-    public static function acceptFriend($UserId, $FriendId){
-
+    public static function acceptFriend($UserId, $FriendId)
+    {
         $message = NULL;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
@@ -181,8 +181,8 @@ class DaUser
         return $message;
     }
 
-    public static function selectAllFriends($UserId){
-
+    public static function selectAllFriends($UserId)
+    {
         $result = array();
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
@@ -199,7 +199,7 @@ class DaUser
                 $result[] = $User;
             }
         } catch (\PDOException $e) {
-                echo $e->getMessage();
+            echo $e->getMessage();
         }
         return $result;
     }
