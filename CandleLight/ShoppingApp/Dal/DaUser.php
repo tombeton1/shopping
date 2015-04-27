@@ -131,40 +131,57 @@ class DaUser
         }
     }
 
+    public function checkFriend($UserId, $FriendId){
+
+        $message = NULL;
+        try {
+            if ($UserId != $FriendId){
+                $conn = \ShoppingApp\Dal\DataSource::getConnection();
+                $check = $conn->prepare('CALL user_friend_check(:pUserId, :pFriendId)');
+                $check->bindValue(':pUserId', $UserId);
+                $check->bindValue(':pFriendId', $FriendId);
+                $check->execute();
+                $result = $check->fetch();
+                if($result[0] == 1){
+                    $message = '1';
+                }
+            } else {
+                $message = '2';
+            }
+        } catch (\PDOException $e) {
+
+        }
+        return $message;
+    }
+
     public static function addFriend($UserId, $FriendId)
     {
         $message = NULL;
-        try {
-            $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            // checked of de user al bestaat de stored procedure telt de hoevelheid rijen er overeen komen.
-            $stmtCheck = $conn->prepare('CALL user_friend_check(:pUserId, :pFriendId)');
-            $stmtCheck->bindValue(':pUserId', $UserId);
-            $stmtCheck->bindValue(':pFriendId', $FriendId);
-            $stmtCheck->execute();
-            $check = $stmtCheck->fetch(); // telt het aantal rijen
-            if ($check[0] == 1) {
-                $message = 'You are already friends';
-            } else {
-                // insert de 2 id's in de tussentabel
-                $stmt = $conn->prepare('CALL user_add_friend(:pUserId, :pFriendId)');
-                $stmt->bindValue(':pUserId', $UserId);
-                $stmt->bindValue(':pFriendId', $FriendId);
-                $result = $stmt->execute();
-                if ($result) {
-                    // insert bidirectioneel. zodat de invitee ook bevriend is met de inviter
+        if ($UserId != $FriendId) {
+            try {
+                $conn = \ShoppingApp\Dal\DataSource::getConnection();
+                $check = $conn->prepare('CALL user_friend_check(:pUserId, :pFriendId)');
+                $check->bindValue(':pUserId', $UserId);
+                $check->bindValue(':pFriendId', $FriendId);
+                $check->execute();
+                $result = $check->fetch();
+                if ($result[0] == 1) {
+                    $message = 'You are already friends';
+                } else {
+                    $conn = \ShoppingApp\Dal\DataSource::getConnection();
                     $stmt = $conn->prepare('CALL user_add_friend(:pUserId, :pFriendId)');
-                    $stmt->bindValue(':pUserId', $FriendId);
-                    $stmt->bindValue(':pFriendId', $UserId);
+                    $stmt->bindValue(':pUserId', $UserId);
+                    $stmt->bindValue(':pFriendId', $FriendId);
                     $result = $stmt->execute();
                     if ($result) {
-                        $message = 'succesfully added as friend';
+                        $message = 'friend added succesfully';
                     }
                 }
+            } catch (\PDOException $e) {
+                $message = $e->getMessage();
             }
-        } catch (\PDOException $e) {
-            if ($e->getCode() == 23000) {
-                $message = 'E-mail adress already in use';
-            }
+        } else {
+            $message = 'UserID is the same as FriendID';
         }
         return $message;
     }

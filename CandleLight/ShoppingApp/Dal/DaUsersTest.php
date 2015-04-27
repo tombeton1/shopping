@@ -11,7 +11,7 @@ include_once '../../vendor/autoload.php';
 //$User = new \ShoppingApp\Bo\User();
 //$User->setFirstName('testa');
 //$User->setLastName('testa');
-//$User->setEmail('test@test.com');
+//$User->setEmail('test@testz.com');
 //$User->setCountry('belgie');
 //$User->setPassword('test');
 //echo \ShoppingApp\Dal\DaUser::insert($User);
@@ -52,8 +52,7 @@ include_once '../../vendor/autoload.php';
 //$id = 1;
 //\ShoppingApp\Dal\DaUser::delete($id);
 
-//$UserId = 2;
-//$FriendId = 3;
-//echo \ShoppingApp\Dal\DaUser::addFriend($UserId, $FriendId);
-
-
+$UserId = 3;
+$FriendId = 2;
+echo \ShoppingApp\Dal\DaUser::addFriend($UserId, $FriendId);
+//echo \ShoppingApp\Dal\DaUser::checkFriend($UserId, $FriendId);
