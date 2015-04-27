@@ -57,3 +57,12 @@ include_once '../../vendor/autoload.php';
 //echo \ShoppingApp\Dal\DaUser::addFriend($UserId, $FriendId);
 
 //echo \ShoppingApp\Dal\DaUser::acceptFriend(3, 2);
+
+//$UserId = '3';
+//$Friends = \ShoppingApp\Dal\DaUser::selectAllFriends($UserId);
+//foreach($Friends as $User){
+//     echo $User->getUserId();
+//     echo $User->getFirstName();
+//     echo $User->getLastName();
+//     echo $User->getEmail();
+//}

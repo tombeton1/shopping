@@ -180,4 +180,27 @@ class DaUser
         }
         return $message;
     }
+
+    public static function selectAllFriends($UserId){
+
+        $result = array();
+        try {
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn = $conn->prepare('CALL user_select_all_friends(:pUserId)');
+            $stmt->bindValue(':pUserId', $UserId);
+            $stmt->execute();
+            $array = $stmt->fetchAll();
+            foreach ($array as $row) {
+                $User = new \ShoppingApp\Bo\User();
+                $User->setUserId($row['user_Id']);
+                $User->setFirstName($row['first_name']);
+                $User->setLastName($row['Last_name']);
+                $User->setEmail($row['email']);
+                $result[] = $User;
+            }
+        } catch (\PDOException $e) {
+                echo $e->getMessage();
+        }
+        return $result;
+    }
 } 
