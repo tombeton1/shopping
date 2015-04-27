@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 27 apr 2015 om 14:40
+-- Genereertijd: 27 apr 2015 om 17:08
 -- Serverversie: 5.6.13
 -- PHP-versie: 5.4.17
 
@@ -117,12 +117,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `product_select_one`(
 )
 BEGIN
 SELECT * FROM `product`
-
-	inner join
-	
-`product_category` on `product`.`product_id` = `product_category`.`product_category_id`
-		
-WHERE `product`.`product_id` = pId;
+	inner join	
+	`product_category` on `product`.`product_id` = `product_category`.`product_category_id`		
+	WHERE `product`.`product_id` = pId;
 
 END$$
 
@@ -289,6 +286,14 @@ INSERT INTO `shopping_list`
         pAccess
 	);
 	SELECT LAST_INSERT_ID() INTO pId;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_list_select_all`(
+)
+BEGIN
+SELECT `shopping_list`.`shopping_list_name`, `shopping_list`.`shopping_list_id`
+	FROM `shopping_list`
+;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_list_update`(
@@ -579,8 +584,6 @@ CREATE TABLE IF NOT EXISTS `shopping_list` (
   `shopping_list_name` varchar(50) NOT NULL,
   `shopping_list_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `amount` double NOT NULL,
-  `amount_unit` varchar(100) NOT NULL,
   `shopping_list_created` varchar(50) NOT NULL,
   `shopping_list_due_date` date DEFAULT NULL,
   `shopping_list_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
