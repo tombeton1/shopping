@@ -52,7 +52,8 @@ include_once '../../vendor/autoload.php';
 //$id = 1;
 //\ShoppingApp\Dal\DaUser::delete($id);
 
-$UserId = 3;
-$FriendId = 2;
-echo \ShoppingApp\Dal\DaUser::addFriend($UserId, $FriendId);
-//echo \ShoppingApp\Dal\DaUser::checkFriend($UserId, $FriendId);
+//$UserId = 3;
+//$FriendId = 2;
+//echo \ShoppingApp\Dal\DaUser::addFriend($UserId, $FriendId);
+
+//echo \ShoppingApp\Dal\DaUser::acceptFriend(3, 2);

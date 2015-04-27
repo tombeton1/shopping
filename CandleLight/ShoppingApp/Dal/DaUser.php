@@ -41,11 +41,11 @@ class DaUser
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL user_update(:pId, :pFirstName, :pLastName, :pCountry, :pEmail)');
-            $stmt->bindValue(':pId', $User->getUserId(), \PDO::PARAM_INT);
-            $stmt->bindValue(':pFirstName', $User->getFirstName(), \PDO::PARAM_STR);
-            $stmt->bindValue(':pLastName', $User->getLastName(), \PDO::PARAM_STR);
-            $stmt->bindValue(':pCountry', $User->getCountry(), \PDO::PARAM_STR);
-            $stmt->bindValue(':pEmail', $User->getEmail(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pId', $User->getUserId());
+            $stmt->bindValue(':pFirstName', $User->getFirstName());
+            $stmt->bindValue(':pLastName', $User->getLastName());
+            $stmt->bindValue(':pCountry', $User->getCountry());
+            $stmt->bindValue(':pEmail', $User->getEmail());
             $result = $stmt->execute();
             if ($result) {
                 $message = 'Userinfo succesfully updated';
@@ -130,7 +130,7 @@ class DaUser
             echo $e->getMessage();
         }
     }
-    
+
     public static function addFriend($UserId, $FriendId)
     {
         $message = NULL;
@@ -159,6 +159,24 @@ class DaUser
             }
         } else {
             $message = 'UserID is the same as FriendID';
+        }
+        return $message;
+    }
+
+    public static function acceptFriend($UserId, $FriendId){
+
+        $message = NULL;
+        try {
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn->prepare('CALL user_accept_friend(:pUserId, :pFriendId)');
+            $stmt->bindValue(':pUserId', $UserId);
+            $stmt->bindValue(':pFriendId', $FriendId);
+            $result = $stmt->execute();
+            if ($result) {
+                $message = 'Friend request accepted';
+            }
+        } catch (\PDOException $e) {
+            $message = $e->getMessage();
         }
         return $message;
     }
