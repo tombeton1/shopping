@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 27 apr 2015 om 17:08
+-- Genereertijd: 27 apr 2015 om 17:22
 -- Serverversie: 5.6.13
 -- PHP-versie: 5.4.17
 
@@ -136,7 +136,7 @@ UPDATE `product`
 		`product`.`product_category_id` = pProductCategory,
 		`product`.`product_name` = pProductName,
 		`product`.`product_price` = pProductPrice,
-		`product`.`product_desciption` = pProductDescription
+		`product`.`product_description` = pProductDescription
 	WHERE `product`.`product_id` = pId;
 END$$
 
@@ -470,7 +470,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `product_category_id` int(11) DEFAULT NULL,
   `product_name` varchar(100) NOT NULL,
   `product_price` varchar(100) DEFAULT NULL,
-  `product_desciption` varchar(200) DEFAULT NULL,
+  `product_description` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   KEY `category_id` (`product_category_id`),
   KEY `product_category_id` (`product_category_id`)
@@ -480,7 +480,7 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- Gegevens worden uitgevoerd voor tabel `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_category_id`, `product_name`, `product_price`, `product_desciption`) VALUES
+INSERT INTO `product` (`product_id`, `product_category_id`, `product_name`, `product_price`, `product_description`) VALUES
 (2, 1, 'product1', 'Aldi, 10', 'blal lalal  alla llallalal'),
 (3, 2, 'product Updated', 'Super, 60', 'blal lalal  alla llallalal'),
 (6, 2, 'product2', 'Super, 60', 'blal lalal  alla llallalal'),
@@ -590,7 +590,14 @@ CREATE TABLE IF NOT EXISTS `shopping_list` (
   `access` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`shopping_list_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Gegevens worden uitgevoerd voor tabel `shopping_list`
+--
+
+INSERT INTO `shopping_list` (`shopping_list_name`, `shopping_list_id`, `user_id`, `shopping_list_created`, `shopping_list_due_date`, `shopping_list_updated`, `access`) VALUES
+('eerste', 1, 2, '20/12/2014', '2015-04-15', '2015-04-27 17:10:34', 1);
 
 -- --------------------------------------------------------
 

@@ -14,7 +14,7 @@ UPDATE `product`
 		`product`.`product_category_id` = pProductCategory,
 		`product`.`product_name` = pProductName,
 		`product`.`product_price` = pProductPrice,
-		`product`.`product_desciption` = pProductDescription
+		`product`.`product_description` = pProductDescription
 	WHERE `product`.`product_id` = pId;
 END //
 DELIMITER ;

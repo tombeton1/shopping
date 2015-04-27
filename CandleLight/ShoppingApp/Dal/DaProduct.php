@@ -77,7 +77,7 @@ class DaProduct
             $product->setProductCategory($array['product_category_id']);
             $product->setProductName($array['product_name']);
             $product->setProductPrice($array['product_price']);
-            $product->setProductDescription($array['product_desciption']);
+            $product->setProductDescription($array['product_description']);
 
         } catch (\PDOException $e) {
             echo $e->getMessage();
