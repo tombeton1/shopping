@@ -60,4 +60,38 @@
              echo $e->getMessage();
          }
      }
+
+     public static function selectOne($shoppinglist)
+     {
+         try{
+             $conn = \ShoppingApp\Dal\DataSource::getConnection();
+             $stmt = $conn->prepare('CALL shopping_list_select_one(:pId)');
+             $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
+             $stmt->execute();
+             $array = $stmt->fetch(\PDO::FETCH_ASSOC);
+             $shoppinglist->setShoppingListId($array['shopping_list_id']);
+             $shoppinglist->setShoppingListName($array['shopping_list_name']);
+             $shoppinglist->setUserId($array['user_id']);
+             $shoppinglist->setShoppingListCreated($array['shopping_list_created']);
+             $shoppinglist->setShoppingListDueDate($array['shopping_list_due_date']);
+             $shoppinglist->setShoppingListUpdated($array['shopping_list_updated']);
+             $shoppinglist->setAccess($array['access']);
+         } catch (\PDOException $e){
+             echo $e->getMessage();
+         }
+     }
+
+     public static function selectAll()
+     {
+         try{
+             $conn = \ShoppingApp\Dal\DataSource::getConnection();
+             $stmt = $conn->prepare('CALL shopping_list_select_all()');
+             $stmt->execute();
+             $array = $stmt->fetchAll();
+
+             return $array;
+         } catch (\PDOException $e){
+             echo $e->getMessage();
+         }
+     }
  }
