@@ -12,7 +12,6 @@ include_once '../../vendor/autoload.php';
 
 class DaUser
 {
-
     public static function insert($User)
     {
         $message = NULL;
@@ -158,7 +157,7 @@ class DaUser
                     $stmt->bindValue(':pFriendId', $UserId);
                     $result = $stmt->execute();
                     if ($result) {
-                        echo 'succesfully added as friend';
+                        $message = 'succesfully added as friend';
                     }
                 }
             }
