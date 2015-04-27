@@ -130,30 +130,7 @@ class DaUser
             echo $e->getMessage();
         }
     }
-
-    public function checkFriend($UserId, $FriendId){
-
-        $message = NULL;
-        try {
-            if ($UserId != $FriendId){
-                $conn = \ShoppingApp\Dal\DataSource::getConnection();
-                $check = $conn->prepare('CALL user_friend_check(:pUserId, :pFriendId)');
-                $check->bindValue(':pUserId', $UserId);
-                $check->bindValue(':pFriendId', $FriendId);
-                $check->execute();
-                $result = $check->fetch();
-                if($result[0] == 1){
-                    $message = '1';
-                }
-            } else {
-                $message = '2';
-            }
-        } catch (\PDOException $e) {
-
-        }
-        return $message;
-    }
-
+    
     public static function addFriend($UserId, $FriendId)
     {
         $message = NULL;
