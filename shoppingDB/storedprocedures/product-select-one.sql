@@ -9,10 +9,12 @@ CREATE PROCEDURE `product_select_one`
 
 BEGIN
 SELECT * FROM `product`
-	inner join	
+	outer join	
 	`product_category` on `product`.`product_id` = `product_category`.`product_category_id`		
 	WHERE `product`.`product_id` = pId;
 
 END //
 DELIMITER ;
+
+call product_select_one(7);
 
