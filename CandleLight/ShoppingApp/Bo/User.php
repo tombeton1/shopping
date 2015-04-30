@@ -11,7 +11,6 @@ namespace ShoppingApp\Bo;
 
 class User implements \JsonSerializable
 {
-
     private $userId;
     private $firstName;
     private $lastName;
@@ -156,7 +155,6 @@ class User implements \JsonSerializable
     public function JsonSerialize()
     {
         $vars = get_object_vars($this);
-
         return $vars;
     }
 }

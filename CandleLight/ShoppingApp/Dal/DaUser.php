@@ -186,7 +186,7 @@ class DaUser
         $result = array();
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn = $conn->prepare('CALL user_select_all_friends(:pUserId)');
+            $stmt = $conn->prepare('CALL user_select_all_friends(:pUserId)');
             $stmt->bindValue(':pUserId', $UserId);
             $stmt->execute();
             $array = $stmt->fetchAll();
@@ -199,6 +199,30 @@ class DaUser
                 $result[] = $User;
             }
         } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+        return $result;
+    }
+
+    public static function searchUsers($keyword){
+
+        $result = array();
+        $keyword = "%".$keyword."%";
+        try {
+         $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn->prepare('CALL user_search(:pKeyword)');
+            $stmt->bindValue(':pKeyword', $keyword);
+            $stmt->execute();
+            $array = $stmt->fetchAll();
+            foreach($array as $row){
+                $User = new \ShoppingApp\Bo\User();
+                $User->setUserId($row['user_id']);
+                $User->setFirstName($row['first_name']);
+                $User->setLastName($row['last_name']);
+                $User->setEmail($row['email']);
+                $result[] = $User;
+            }
+        } catch(\PDOException $e) {
             echo $e->getMessage();
         }
         return $result;

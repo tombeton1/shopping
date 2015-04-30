@@ -66,3 +66,12 @@ include_once '../../vendor/autoload.php';
 //     echo $User->getLastName();
 //     echo $User->getEmail();
 //}
+
+$keyword = 'adrie';
+$Users = \ShoppingApp\Dal\DaUser::searchUsers($keyword);
+foreach($Users as $User){
+        echo $User->getUserId();
+        echo $User->getFirstName();
+        echo $User->getLastName();
+        echo $User->getEmail();
+}
