@@ -15,7 +15,7 @@ class DaProduct
 
     public static function insert($product)
     {
-
+        $message = null;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL product_insert(:pProductCategory, :pProductName, :pProductPrice, :pProductDescription)');
@@ -25,30 +25,38 @@ class DaProduct
             $stmt->bindValue(':pProductDescription', $product->getProductDescription(), \PDO::PARAM_STR);
             $result = $stmt->execute();
             if ($result) {
-                echo 'succes';
-            } else {
-                echo 'Query/Stored Procedure syntax error';
+                $message = 'New product created';
             }
         } catch (\PDOException $e) {
-            echo $e->getMessage();
+            if ($e->getCode() == 23000) {
+                $message = 'Product already exist';
+            } else {
+                $message = $e->getMessage();
+            }
         }
+        return $message;
     }
 
     public static function delete($product)
     {
-
+        $message = null;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL product_delete(:pId)');
             $stmt->bindValue(':pId', $product->getProductId());
-            $stmt->execute();
+            $result = $stmt->execute();
+            if ($result) {
+                $message = 'Product removed';
+            }
         } catch (\PDOException $e) {
-            echo $e->getMessage();
+            $message = $e->getMessage();
         }
+        return $message;
     }
 
     public static function update($product)
     {
+        $message = NULL;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL product_update(:pId, :pProductCategory, :pProductName, :pProductPrice, :pProductDescription)');
@@ -57,40 +65,62 @@ class DaProduct
             $stmt->bindValue(':pProductName', $product->getProductName(), \PDO::PARAM_STR);
             $stmt->bindValue(':pProductPrice', $product->getProductPrice(), \PDO::PARAM_STR);
             $stmt->bindValue(':pProductDescription', $product->getProductDescription(), \PDO::PARAM_STR);
-            $stmt->execute();
-
+            $result = $stmt->execute();
+            if ($result) {
+                $message = 'Product updated';
+            }
         } catch (\PDOException $e) {
-            echo $e->getMessage();
+            $message = $e->getMessage();
         }
-
+        return $message;
     }
 
-    public static function selectOne($product){
-
+    public static function selectOne($id)
+    {
+        $result = null;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL product_select_one(:pId)');
-            $stmt->bindValue(':pId', $product->getProductId());
+            $stmt->bindValue(':pId', $id);
             $stmt->execute();
-            $array = $stmt->fetch(\PDO::FETCH_ASSOC);
-            $product->setProductId($array['product_id']);
-            $product->setProductCategory($array['product_category_id']);
-            $product->setProductName($array['product_name']);
-            $product->setProductPrice($array['product_price']);
-            $product->setProductDescription($array['product_description']);
+            $result = $stmt->fetch();
+            $product = new Product();
+            $product->setProductId($result['product_id']);
+            $product->setProductCategory($result['product_category_id']);
+            $product->setProductName($result['product_name']);
+            $product->setProductPrice($result['product_price']);
+            $product->setProductDescription($result['product_description']);
+            $result = $product;
 
         } catch (\PDOException $e) {
             echo $e->getMessage();
         }
+        return $result;
     }
 
-    public static function selectAll(){
-        $result = false;
-        $conn = \ShoppingApp\Dal\DataSource::getConnection();
-        $stmt = $conn->prepare('CALL product_select_all()');
-        $stmt->execute();
-        $row =$stmt->rowCount();
-       print_r($row) ;
+    public static function selectAll()
+    {
+        $result = array();
+        try {
+
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $stmt = $conn->prepare('CALL product_select_all()');
+            $stmt->execute();
+            $array = $stmt->fetchAll();
+            foreach ($array as $row) {
+                $product = new Product();
+                $product->setProductId($row['product_id']);
+                $product->setProductCategory($row['product_category_id']);
+                $product->setProductName($row['product_name']);
+                $product->setProductPrice($row['product_price']);
+                $product->setProductDescription($row['product_description']);
+                $result [] = $product;
+
+            }
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+        return $result;
 
     }
 

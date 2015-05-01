@@ -24,7 +24,7 @@ include_once '../../vendor/autoload.php';
 //$User->setCountry('dsdds');
 //echo \ShoppingApp\Dal\DaUser::update($User);
 
-//$User = \ShoppingApp\Dal\DaUser::selectOne(1);
+//$User = \ShoppingApp\Dal\DaUser::selectOne(2);
 //echo $User->getUserId();
 //echo $User->getFirstName();
 //echo $User->getLastName();
@@ -67,11 +67,11 @@ include_once '../../vendor/autoload.php';
 //     echo $User->getEmail();
 //}
 
-$keyword = 'adrie';
-$Users = \ShoppingApp\Dal\DaUser::searchUsers($keyword);
-foreach($Users as $User){
-        echo $User->getUserId();
-        echo $User->getFirstName();
-        echo $User->getLastName();
-        echo $User->getEmail();
-}
+//$keyword = 'adrie';
+//$Users = \ShoppingApp\Dal\DaUser::searchUsers($keyword);
+//foreach($Users as $User){
+//        echo $User->getUserId();
+//        echo $User->getFirstName();
+//        echo $User->getLastName();
+//        echo $User->getEmail();
+//}
