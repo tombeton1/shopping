@@ -121,14 +121,19 @@ class DaUser
 
     public static function delete($id)
     {
+        $message = NULL;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL user_delete(:pId)');
             $stmt->bindValue(':pId', $id);
-            $stmt->execute();
+            $result = $stmt->execute();
+            if($result){
+                $message = 'User deleted succesfully';
+            }
         } catch (\PDOException $e) {
             echo $e->getMessage();
         }
+        return $message;
     }
 
     public static function addFriend($UserId, $FriendId)
@@ -209,7 +214,7 @@ class DaUser
         $result = array();
         $keyword = "%".$keyword."%";
         try {
-         $conn = \ShoppingApp\Dal\DataSource::getConnection();
+            $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL user_search(:pKeyword)');
             $stmt->bindValue(':pKeyword', $keyword);
             $stmt->execute();

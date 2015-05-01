@@ -1,67 +1,25 @@
 [
     {
-        "name": "paulyg/autoloader",
-        "version": "v1.0.0",
+        "name": "psr/log",
+        "version": "1.0.0",
         "version_normalized": "1.0.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/paulyg/autoloader.git",
-            "reference": "ab67d543e2782e2e11d1f7e74d3fb33097e75463"
+            "url": "https://github.com/php-fig/log.git",
+            "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/paulyg/autoloader/zipball/ab67d543e2782e2e11d1f7e74d3fb33097e75463",
-            "reference": "ab67d543e2782e2e11d1f7e74d3fb33097e75463",
+            "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
+            "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
             "shasum": ""
         },
-        "require-dev": {
-            "phpunit/phpunit": "3.7.*"
-        },
-        "time": "2014-01-01 21:35:14",
-        "type": "library",
-        "installation-source": "dist",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Paul Garvin"
-            }
-        ],
-        "description": "A simple and lightweight PSR-0 and PSR-4 class autoloader",
-        "homepage": "https://github.com/paulyg/autoloader",
-        "keywords": [
-            "PSR-4",
-            "autoloading",
-            "closure",
-            "package",
-            "psr-0",
-            "psr0",
-            "psr4"
-        ]
-    },
-    {
-        "name": "corpus/autoloader",
-        "version": "v1.0.0",
-        "version_normalized": "1.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/CorpusPHP/Autoloader.git",
-            "reference": "74d9c2d64a739e441efac8d3d76819d5c0d477dc"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/CorpusPHP/Autoloader/zipball/74d9c2d64a739e441efac8d3d76819d5c0d477dc",
-            "reference": "74d9c2d64a739e441efac8d3d76819d5c0d477dc",
-            "shasum": ""
-        },
-        "time": "2014-04-14 18:30:14",
+        "time": "2012-12-21 11:40:51",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
-            "psr-4": {
-                "Corpus\\Autoloader\\": "src/"
+            "psr-0": {
+                "Psr\\Log\\": ""
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -70,12 +28,113 @@
         ],
         "authors": [
             {
-                "name": "Jesse Donat",
-                "email": "donatj@gmail.com",
-                "homepage": "http://donatstudios.com",
-                "role": "Lead"
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
             }
         ],
-        "description": "PSR-0 and PSR-4 Style Autoloaders"
+        "description": "Common interface for logging libraries",
+        "keywords": [
+            "log",
+            "psr",
+            "psr-3"
+        ]
+    },
+    {
+        "name": "psr/http-message",
+        "version": "0.10.1",
+        "version_normalized": "0.10.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/http-message.git",
+            "reference": "9723465b3e7c8ecb0436f066bfb8a13e1bac1789"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/http-message/zipball/9723465b3e7c8ecb0436f066bfb8a13e1bac1789",
+            "reference": "9723465b3e7c8ecb0436f066bfb8a13e1bac1789",
+            "shasum": ""
+        },
+        "time": "2015-04-13 14:20:01",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Http\\Message\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for HTTP messages",
+        "keywords": [
+            "http",
+            "http-message",
+            "psr",
+            "psr-7",
+            "request",
+            "response"
+        ]
+    },
+    {
+        "name": "aura/router",
+        "version": "3.x-dev",
+        "version_normalized": "3.9999999.9999999.9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/auraphp/Aura.Router.git",
+            "reference": "c08bbbe17f85b703c4f31107ab598c8aef91157f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/auraphp/Aura.Router/zipball/c08bbbe17f85b703c4f31107ab598c8aef91157f",
+            "reference": "c08bbbe17f85b703c4f31107ab598c8aef91157f",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.0",
+            "psr/http-message": "~0.0",
+            "psr/log": "~1.0"
+        },
+        "require-dev": {
+            "phly/http": "~0.0"
+        },
+        "time": "2015-05-01 18:18:44",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Aura\\Router\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Aura.Router Contributors",
+                "homepage": "https://github.com/auraphp/Aura.Router/contributors"
+            }
+        ],
+        "description": "Powerful, flexible web routing for PSR-7 requests.",
+        "homepage": "https://github.com/auraphp/Aura.Router",
+        "keywords": [
+            "psr-7",
+            "route",
+            "router",
+            "routing"
+        ]
     }
 ]

@@ -7,4 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'ShoppingApp\\' => array($baseDir . '/ShoppingApp'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'Aura\\Router\\' => array($vendorDir . '/aura/router/src'),
 );

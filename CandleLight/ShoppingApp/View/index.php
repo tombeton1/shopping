@@ -1,5 +1,9 @@
 <?php
 session_start();
+$message = NULL;
+if(isset($_SESSION['message'])) {
+   $message =   $_SESSION['message'];
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,23 +13,16 @@ session_start();
     <link rel="StyleSheet" type="text/css" href="css/main.css">
 </head>
 <body>
-
 <div class="wrapper">
     <div class="container">
         <h1>Welcome</h1>
-        <form class="form">
-            <input type="text" placeholder="Username">
-            <input type="password" placeholder="Password">
-            <button type="submit" id="login-button">Login</button>
+        <form class="form" method="POST" action="../Controllers/routes.php">
+            <input type="text" name="email" placeholder="E-mail">
+            <input type="password" name="password" placeholder="Password">
+            <label><?=$message?></label><br>
+            <button type="submit" name="submit" id="login-button">Login</button>
         </form>
     </div>
 </div>
-<script type="text/javascript">
-    $("#login-button").click(function(event){
-        event.preventDefault();
-        $('form').fadeOut(500);
-        $('.wrapper').addClass('form-success');
-    });
-</script>
 </body>
 </html>

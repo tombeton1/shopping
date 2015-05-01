@@ -5,5 +5,12 @@
             "ShoppingApp\\": "ShoppingApp/"
         }
 
+    },
+
+    "require": {
+
+    
+    "aura/router": "3.x-dev"
+
     }
 }

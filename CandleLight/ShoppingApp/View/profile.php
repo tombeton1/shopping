@@ -1,8 +1,11 @@
 <?php
-if(isset($_SESSION["user"])) {
-    header("location:profile.php");
+session_start();
+$user = NULL;
+if(isset($_SESSION['user']) != NULL) {
+    $user =   $_SESSION['user'];
 } else {
-    header("location:/index.php");
+    $_SESSION['message'] = 'not logged in';
+    header("Location: ../View/index.php");
 }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -12,6 +15,6 @@ if(isset($_SESSION["user"])) {
   <title></title>
 </head>
 <body>
-    loggedin
+    <h1>hello <?=$user?></h1>
 </body>
 </html> 

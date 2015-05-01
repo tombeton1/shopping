@@ -4,26 +4,34 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b7167c0a29791605c8d0ff29159206be",
+    "hash": "c976e79d9fa9a0d73c1d82a0bb3f5981",
     "packages": [
         {
-            "name": "corpus/autoloader",
-            "version": "v1.0.0",
+            "name": "aura/router",
+            "version": "3.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/CorpusPHP/Autoloader.git",
-                "reference": "74d9c2d64a739e441efac8d3d76819d5c0d477dc"
+                "url": "https://github.com/auraphp/Aura.Router.git",
+                "reference": "c08bbbe17f85b703c4f31107ab598c8aef91157f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CorpusPHP/Autoloader/zipball/74d9c2d64a739e441efac8d3d76819d5c0d477dc",
-                "reference": "74d9c2d64a739e441efac8d3d76819d5c0d477dc",
+                "url": "https://api.github.com/repos/auraphp/Aura.Router/zipball/c08bbbe17f85b703c4f31107ab598c8aef91157f",
+                "reference": "c08bbbe17f85b703c4f31107ab598c8aef91157f",
                 "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "psr/http-message": "~0.0",
+                "psr/log": "~1.0"
+            },
+            "require-dev": {
+                "phly/http": "~0.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Corpus\\Autoloader\\": "src/"
+                    "Aura\\Router\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -32,60 +40,111 @@
             ],
             "authors": [
                 {
-                    "name": "Jesse Donat",
-                    "email": "donatj@gmail.com",
-                    "homepage": "http://donatstudios.com",
-                    "role": "Lead"
+                    "name": "Aura.Router Contributors",
+                    "homepage": "https://github.com/auraphp/Aura.Router/contributors"
                 }
             ],
-            "description": "PSR-0 and PSR-4 Style Autoloaders",
-            "time": "2014-04-14 18:30:14"
+            "description": "Powerful, flexible web routing for PSR-7 requests.",
+            "homepage": "https://github.com/auraphp/Aura.Router",
+            "keywords": [
+                "psr-7",
+                "route",
+                "router",
+                "routing"
+            ],
+            "time": "2015-05-01 18:18:44"
         },
         {
-            "name": "paulyg/autoloader",
-            "version": "v1.0.0",
+            "name": "psr/http-message",
+            "version": "0.10.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/paulyg/autoloader.git",
-                "reference": "ab67d543e2782e2e11d1f7e74d3fb33097e75463"
+                "url": "https://github.com/php-fig/http-message.git",
+                "reference": "9723465b3e7c8ecb0436f066bfb8a13e1bac1789"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paulyg/autoloader/zipball/ab67d543e2782e2e11d1f7e74d3fb33097e75463",
-                "reference": "ab67d543e2782e2e11d1f7e74d3fb33097e75463",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/9723465b3e7c8ecb0436f066bfb8a13e1bac1789",
+                "reference": "9723465b3e7c8ecb0436f066bfb8a13e1bac1789",
                 "shasum": ""
             },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src"
+                }
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "Paul Garvin"
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
                 }
             ],
-            "description": "A simple and lightweight PSR-0 and PSR-4 class autoloader",
-            "homepage": "https://github.com/paulyg/autoloader",
+            "description": "Common interface for HTTP messages",
             "keywords": [
-                "PSR-4",
-                "autoloading",
-                "closure",
-                "package",
-                "psr-0",
-                "psr0",
-                "psr4"
+                "http",
+                "http-message",
+                "psr",
+                "psr-7",
+                "request",
+                "response"
             ],
-            "time": "2014-01-01 21:35:14"
+            "time": "2015-04-13 14:20:01"
+        },
+        {
+            "name": "psr/log",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Psr\\Log\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2012-12-21 11:40:51"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "aura/router": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

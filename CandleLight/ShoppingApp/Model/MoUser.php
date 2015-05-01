@@ -11,7 +11,7 @@ include_once '../../vendor/autoload.php';
 class MoUser
 {
 
-    public static function checkPassword($email, $password)
+    public function checkPassword($email, $password)
     {
       return \ShoppingApp\Dal\DaUser::checkPassword($email, $password);
     }
