@@ -6,6 +6,9 @@ CREATE PROCEDURE `recipe_select_one`
 )
 BEGIN
 SELECT * FROM `recipe`
-		WHERE `recipe`.`recipe_id` = pId;
+	inner join
+	`recipe_category` on `recipe`.`recipe_category_id` = `recipe_category`.`recipe_category_id`		
+	WHERE `recipe_category`.`recipe_category_id` = pId;
+		
 END //
 DELIMITER ;

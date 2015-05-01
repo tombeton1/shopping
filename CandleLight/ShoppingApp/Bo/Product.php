@@ -17,6 +17,7 @@ class Product implements \JsonSerializable
     private $productPrice;
     private $productDescription;
 
+
     function __construct()
     {
     }
