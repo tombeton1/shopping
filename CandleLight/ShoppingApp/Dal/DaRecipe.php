@@ -18,7 +18,7 @@ class DaRecipe
     public static function insert($recipe)
     {
         $message = null;
-        $recipe = new Recipe();
+       // $recipe = new Recipe();
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
            // $stmt = $conn->prepare('insert into recipe (recipe_category_id, recipe_name, recipe_amount, recipe_amount_unit, recipe_text) VALUES (?,?,?,?,?)');

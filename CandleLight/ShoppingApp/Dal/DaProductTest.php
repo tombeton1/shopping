@@ -9,7 +9,7 @@
 namespace ShoppingApp\Dal;
 
 use ShoppingApp\Bo\Product as Product;
-use ShoppingApp\Bo\ProductCategory;
+
 
 include_once '../../vendor/autoload.php';
 

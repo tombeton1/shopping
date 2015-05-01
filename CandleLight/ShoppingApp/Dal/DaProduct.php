@@ -107,7 +107,6 @@ class DaProduct
     public static function selectAll()
     {
         $result = array();
-        $catResult = array();
         try {
 
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
