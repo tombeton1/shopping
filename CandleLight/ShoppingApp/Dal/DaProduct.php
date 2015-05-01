@@ -9,6 +9,7 @@
 namespace ShoppingApp\Dal;
 
 use ShoppingApp\Bo\Product;
+use ShoppingApp\Bo\ProductCategory;
 
 class DaProduct
 {
@@ -85,11 +86,16 @@ class DaProduct
             $stmt->execute();
             $result = $stmt->fetch();
             $product = new Product();
+            $productCategory = new ProductCategory();
             $product->setProductId($result['product_id']);
             $product->setProductCategory($result['product_category_id']);
             $product->setProductName($result['product_name']);
             $product->setProductPrice($result['product_price']);
             $product->setProductDescription($result['product_description']);
+            $productCategory->setProductCategoryName($result['product_category_name']);
+            $productCategory->setProductCategoryId($result['product_category_id']);
+            $productCategory->setProductCategoryDescription($result['product_category_description']);
+            $product->setProductCategory($productCategory);
             $result = $product;
 
         } catch (\PDOException $e) {
@@ -109,11 +115,15 @@ class DaProduct
             $array = $stmt->fetchAll();
             foreach ($array as $row) {
                 $product = new Product();
+                $productCategory =new ProductCategory();
                 $product->setProductId($row['product_id']);
-                $product->setProductCategory($row['product_category_id']);
                 $product->setProductName($row['product_name']);
                 $product->setProductPrice($row['product_price']);
                 $product->setProductDescription($row['product_description']);
+                $productCategory->setProductCategoryName($row['product_category_name']);
+                $productCategory->setProductCategoryId($row['product_category_id']);
+                $productCategory->setProductCategoryDescription($row['product_category_description']);
+                $product->setProductCategory($productCategory);
                 $result [] = $product;
 
             }
