@@ -24,7 +24,7 @@ echo \ShoppingApp\Dal\DaUser::insert($User);
 //$User->setCountry('dsdds');
 //echo \ShoppingApp\Dal\DaUser::update($User);
 
-//$User = \ShoppingApp\Dal\DaUser::selectOne(1);
+//$User = \ShoppingApp\Dal\DaUser::selectOne(2);
 //echo $User->getUserId();
 //echo $User->getFirstName();
 //echo $User->getLastName();
