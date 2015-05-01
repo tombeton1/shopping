@@ -8,13 +8,13 @@
 namespace ShoppingApp\Dal;
 include_once '../../vendor/autoload.php';
 
-//$User = new \ShoppingApp\Bo\User();
-//$User->setFirstName('testa');
-//$User->setLastName('testa');
-//$User->setEmail('test@testz.com');
-//$User->setCountry('belgie');
-//$User->setPassword('test');
-//echo \ShoppingApp\Dal\DaUser::insert($User);
+$User = new \ShoppingApp\Bo\User();
+$User->setFirstName('test');
+$User->setLastName('test');
+$User->setEmail('test@test.com');
+$User->setCountry('belgie');
+$User->setPassword('test');
+echo \ShoppingApp\Dal\DaUser::insert($User);
 
 //$User = new \ShoppingApp\Bo\User();
 //$User->setUserId(1);
@@ -58,20 +58,20 @@ include_once '../../vendor/autoload.php';
 
 //echo \ShoppingApp\Dal\DaUser::acceptFriend(3, 2);
 
-//$UserId = '3';
-//$Friends = \ShoppingApp\Dal\DaUser::selectAllFriends($UserId);
-//foreach($Friends as $User){
-//     echo $User->getUserId();
-//     echo $User->getFirstName();
-//     echo $User->getLastName();
-//     echo $User->getEmail();
-//}
-
-$keyword = 'adrie';
-$Users = \ShoppingApp\Dal\DaUser::searchUsers($keyword);
-foreach($Users as $User){
-        echo $User->getUserId();
-        echo $User->getFirstName();
-        echo $User->getLastName();
-        echo $User->getEmail();
+$UserId = '3';
+$Friends = \ShoppingApp\Dal\DaUser::selectAllFriends($UserId);
+foreach($Friends as $User){
+     echo $User->getUserId();
+     echo $User->getFirstName();
+     echo $User->getLastName();
+     echo $User->getEmail();
 }
+
+//$keyword = 'adrie';
+//$Users = \ShoppingApp\Dal\DaUser::searchUsers($keyword);
+//foreach($Users as $User){
+//        echo $User->getUserId();
+//        echo $User->getFirstName();
+//        echo $User->getLastName();
+//        echo $User->getEmail();
+//}

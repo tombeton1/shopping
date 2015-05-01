@@ -20,6 +20,5 @@ return array(
     'ShoppingApp\\Dal\\DaShoppingList' => $baseDir . '/ShoppingApp/Dal/DaShoppingList.php',
     'ShoppingApp\\Dal\\DaUser' => $baseDir . '/ShoppingApp/Dal/DaUser.php',
     'ShoppingApp\\Dal\\DataSource' => $baseDir . '/ShoppingApp/Dal/DataSource.php',
-    'ShoppingApp\\Dal\\Json' => $baseDir . '/ShoppingApp/Dal/Json.php',
-    'ShoppingApp\\Dal\\JsonObject' => $baseDir . '/ShoppingApp/Dal/JsonObject.php',
+    'ShoppingApp\\Model\\MoUser' => $baseDir . '/ShoppingApp/Model/MoUser.php',
 );
