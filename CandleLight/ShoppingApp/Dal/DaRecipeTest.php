@@ -33,10 +33,10 @@ include_once '../../vendor/autoload.php';
 //$recipe->setRecipeText('mqsdlmqsdklmdsql');
 //echo DaRecipe::update($recipe);
 
-//echo DaRecipe::selectOne(3);
+//print_r( DaRecipe::selectOne(3));
 
-$recipes = DaRecipe::selectAll();
-print_r(array_values($recipes));
+//$recipes = DaRecipe::selectAll();
+//print_r(array_values($recipes));
 
 
 

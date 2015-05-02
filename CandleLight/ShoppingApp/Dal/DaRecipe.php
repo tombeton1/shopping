@@ -101,9 +101,9 @@ class DaRecipe
             $recipe->setRecipeAmount($result['recipe_amount']);
             $recipe->setRecipeAmountUnit($result['recipe_amount_unit']);
             $recipe->setRecipeText($result['recipe_text']);
-            $recipeCategory->setProductCategoryId($result['product_category_id']);
-            $recipeCategory->setProductCategoryName($result['product_category_name']);
-            $recipeCategory->setProductCategoryDescription($result['product_category_description']);
+            $recipeCategory->setProductCategoryId($result['recipe_category_id']);
+            $recipeCategory->setProductCategoryName($result['recipe_category_name']);
+            $recipeCategory->setProductCategoryDescription($result['recipe_category_description']);
             $recipe->setRecipeCategory($recipeCategory);
             $result = $recipe;
 
@@ -126,15 +126,15 @@ class DaRecipe
             foreach ($array as $row) {
                 $recipe = new Recipe();
                 $recipeCategory = new ProductCategory();
-                $recipe->setRecipeId($result['recipe_id']);
-                $recipe->setRecipeCategory($result['recipe_category_id']);
-                $recipe->setRecipeName($result['recipe_name']);
-                $recipe->setRecipeAmount($result['recipe_amount']);
-                $recipe->setRecipeAmountUnit($result['recipe_amount_unit']);
-                $recipe->setRecipeText($result['recipe_text']);
-                $recipeCategory->setProductCategoryId($result['product_category_id']);
-                $recipeCategory->setProductCategoryName($result['product_category_name']);
-                $recipeCategory->setProductCategoryDescription($result['product_category_description']);
+                $recipe->setRecipeId($row['recipe_id']);
+                $recipe->setRecipeCategory($row['recipe_category_id']);
+                $recipe->setRecipeName($row['recipe_name']);
+                $recipe->setRecipeAmount($row['recipe_amount']);
+                $recipe->setRecipeAmountUnit($row['recipe_amount_unit']);
+                $recipe->setRecipeText($row['recipe_text']);
+                $recipeCategory->setProductCategoryId($row['recipe_category_id']);
+                $recipeCategory->setProductCategoryName($row['recipe_category_name']);
+                $recipeCategory->setProductCategoryDescription($row['recipe_category_description']);
                 $recipe->setRecipeCategory($recipeCategory);
                 $result [] = $recipe;
 
