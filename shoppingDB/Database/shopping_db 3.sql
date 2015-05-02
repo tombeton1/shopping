@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 02 mei 2015 om 15:00
+-- Genereertijd: 02 mei 2015 om 16:11
 -- Serverversie: 5.6.13
 -- PHP-versie: 5.4.17
 
@@ -172,7 +172,7 @@ BEGIN
 INSERT INTO `recipe_category`
 	(
 		`recipe_category`.`recipe_category_name`,
-		`recipe_category`.`recipe_category_desciption`
+		`recipe_category`.`recipe_category_description`
 	)
 	VALUES
 	(
@@ -180,6 +180,23 @@ INSERT INTO `recipe_category`
         pRecipeCategoryDescription
 	);
 
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `recipe_category_select_all`(
+)
+BEGIN
+SELECT * FROM `recipe_category`
+
+	order by recipe_category_name;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `recipe_category_select_one`(
+	 pId INT 
+)
+BEGIN
+SELECT `recipe_category_id`, `recipe_category_name`, `recipe_category_description` FROM `recipe_category`
+		WHERE `recipe_category`.`recipe_category_id` = pId;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `recipe_category_update`(
@@ -191,10 +208,10 @@ BEGIN
 UPDATE `recipe_category`
 	SET
 
-		`recipe_category`.`recipe_category_desciption` = pRecipeCategoryName,
-		`recipe_category`.`recipe_category_desciption` = pRecipeCategoryDescription
+		`recipe_category`.`recipe_category_name` = pRecipeCategoryName,
+		`recipe_category`.`recipe_category_description` = pRecipeCategoryDescription
         
-	WHERE `recipe`.`recipe_id` = pId;
+	WHERE `recipe_category`.`recipe_category_id` = pId;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `recipe_delete`(
@@ -609,8 +626,8 @@ CREATE TABLE IF NOT EXISTS `recipe_category` (
 --
 
 INSERT INTO `recipe_category` (`recipe_category_id`, `recipe_category_name`, `recipe_category_description`) VALUES
-(1, 'ontbijt', NULL),
-(2, 'middag maal', NULL);
+(1, 'avond maal', 'niet gemakkelijk'),
+(2, 'middag maal', 'sqsd sfd qsffd qfqsf ');
 
 -- --------------------------------------------------------
 

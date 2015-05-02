@@ -39,7 +39,7 @@ class DaProductCategory
 
     public static function delete($id)
     {
-
+            $message= null;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL product_category_delete(:pId)');

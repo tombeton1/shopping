@@ -10,7 +10,7 @@ BEGIN
 INSERT INTO `recipe_category`
 	(
 		`recipe_category`.`recipe_category_name`,
-		`recipe_category`.`recipe_category_desciption`
+		`recipe_category`.`recipe_category_description`
 	)
 	VALUES
 	(

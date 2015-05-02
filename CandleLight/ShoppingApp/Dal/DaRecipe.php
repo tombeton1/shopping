@@ -23,7 +23,7 @@ class DaRecipe
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
            // $stmt = $conn->prepare('insert into recipe (recipe_category_id, recipe_name, recipe_amount, recipe_amount_unit, recipe_text) VALUES (?,?,?,?,?)');
 
-            $stmt = $conn->prepare('CALL recipe_insert(:pRecipeCategory, :pRecipeName, :pRecipeAmount, :pRecipeAmountUnit, :pRecipeText');
+            $stmt = $conn->prepare('CALL recipe_insert(:pRecipeCategory, :pRecipeName, :pRecipeAmount, :pRecipeAmountUnit, :pRecipeText)');
             $stmt->bindValue(':pRecipeCategory', $recipe->getRecipeCategory(), \PDO::PARAM_INT);
             $stmt->bindValue(':pRecipeName', $recipe->getRecipeName(), \PDO::PARAM_STR);
             $stmt->bindValue(':pRecipeAmount', $recipe->getRecipeAmount());

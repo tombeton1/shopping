@@ -11,9 +11,9 @@ BEGIN
 UPDATE `recipe_category`
 	SET
 
-		`recipe_category`.`recipe_category_desciption` = pRecipeCategoryName,
-		`recipe_category`.`recipe_category_desciption` = pRecipeCategoryDescription
+		`recipe_category`.`recipe_category_name` = pRecipeCategoryName,
+		`recipe_category`.`recipe_category_description` = pRecipeCategoryDescription
         
-	WHERE `recipe`.`recipe_id` = pId;
+	WHERE `recipe_category`.`recipe_category_id` = pId;
 END //
 DELIMITER ;
