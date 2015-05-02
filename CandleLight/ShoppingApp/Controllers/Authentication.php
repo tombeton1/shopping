@@ -8,16 +8,29 @@ class Authentication
     public $login;
     public $email;
     public $password;
-    public $message;
 
-    public function __construct($email, $password)
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
     {
-        $this->login = new \ShoppingApp\Model\MoUser();
         $this->email = $email;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password)
+    {
         $this->password = $password;
     }
 
-    public function checkLogin()
+    public function __construct()
+    {
+        $this->login = new \ShoppingApp\Model\MoUser();
+    }
+
+    public function login()
     {
         if ($_POST['token'] == $_SESSION['token']) {
             if ($this->login->checkPassword($this->email, $this->password)) {
@@ -34,6 +47,11 @@ class Authentication
             header("Location: ../View/index.php");
             die();
         }
+    }
+    public function logout(){
+        session_destroy();
+        header("Location: ../View/index.php");
+        die();
     }
 }
 

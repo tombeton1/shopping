@@ -16,5 +16,6 @@ if(isset($_SESSION['user']) != NULL) {
 </head>
 <body>
     <h1>hello <?=$user?></h1>
+    <form action="routes.php" method="POST"><button type="submit" name="action" value="logout">Log out</button></form>
 </body>
 </html> 

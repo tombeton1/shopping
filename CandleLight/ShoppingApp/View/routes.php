@@ -4,10 +4,13 @@ include_once '../../vendor/autoload.php';
 if (isset($_POST['action'])) {
     switch ($_POST['action']) {
         case 'login':
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $controller = new \ShoppingApp\Controllers\Authentication($email, $password);
-            $controller->checkLogin();
+            $controller = new \ShoppingApp\Controllers\Authentication();
+            $controller->setPassword($_POST['password']);
+            $controller->setEmail($_POST['email']);
+            $controller->login();
+        case 'logout':
+            $controller = new \ShoppingApp\Controllers\Authentication();
+            $controller->logout();
     }
 }
 ?>
