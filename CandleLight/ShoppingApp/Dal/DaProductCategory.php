@@ -8,14 +8,16 @@
 
 namespace ShoppingApp\Dal;
 
-
 use ShoppingApp\Bo\ProductCategory;
 
-class DaProductCategory {
+include_once '../../vendor/autoload.php';
+
+class DaProductCategory
+{
 
     public static function insert($productCategory)
     {
-$message= null;
+        $message = null;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL product_category_insert(:pProductCategoryName, :pProductCategoryDescription )');
@@ -23,7 +25,7 @@ $message= null;
             $stmt->bindValue(':pProductCategoryDescription', $productCategory->getProductCategoryDescription(), \PDO::PARAM_STR);
             $result = $stmt->execute();
             if ($result) {
-                $message = 'New product created';
+                $message = 'New category created';
             }
         } catch (\PDOException $e) {
             if ($e->getCode() == 23000) {
@@ -54,13 +56,13 @@ $message= null;
 
     public static function update($productCategory)
     {
-$message= null;
+        $message = null;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL product_category_update(:pId, :pProductCategoryName, :pProductCategoryDescription )');
             $stmt->bindValue(':pId', $productCategory->getProductCategoryId(), \PDO::PARAM_INT);
-            $stmt->bindValue(':pRecipeCategoryName', $productCategory->getProductCategoryName(), \PDO::PARAM_STR);
-            $stmt->bindValue(':pRecipeCategoryDescription', $productCategory->getProductCategoryDescription(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pProductCategoryName', $productCategory->getProductCategoryName(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pProductCategoryDescription', $productCategory->getProductCategoryDescription(), \PDO::PARAM_STR);;
             $result = $stmt->execute();
             if ($result) {
                 $message = 'Category updated';
@@ -72,8 +74,9 @@ $message= null;
 
     }
 
-    public static function selectOne($id){
-
+    public static function selectOne($id)
+    {
+        $result=null;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
             $stmt = $conn->prepare('CALL product_category_select_one(:pId)');
@@ -83,13 +86,16 @@ $message= null;
             $productCategory = new ProductCategory();
             $productCategory->setProductCategoryName($result['product_category_name']);
             $productCategory->setProductCategoryDescription($result['product_category_description']);
+            $result = $productCategory;
 
         } catch (\PDOException $e) {
             echo $e->getMessage();
         }
+        return $result;
     }
 
-    public static function  selectAll(){
+    public static function  selectAll()
+    {
         $result = array();
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
@@ -103,9 +109,9 @@ $message= null;
                 $productCategory->getProductCategoryDescription($row['product_category_description']);
                 $result[] = $productCategory;
             }
-            } catch(\PDOException $e){
-                echo $e->getMessage();
-            }
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
         return $result;
     }
 

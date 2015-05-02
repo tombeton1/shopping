@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 02 mei 2015 om 13:32
+-- Genereertijd: 02 mei 2015 om 15:00
 -- Serverversie: 5.6.13
 -- PHP-versie: 5.4.17
 
@@ -53,6 +53,15 @@ INSERT INTO `product_category`
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `product_category_select_all`(
+)
+BEGIN
+SELECT * FROM `product_category`
+
+	order by product_category_name;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `product_category_select_one`(
 	 pId INT 
 )
@@ -62,18 +71,17 @@ SELECT * FROM `product_category`
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `product_category_update`(
-		pID int,
+		pId int,
         pProductCategoryName varchar(100),
 		pProductCategoryDescription VARCHAR (5000)
 )
 BEGIN
 UPDATE `product_category`
 	SET
-
 		`product_category`.`product_category_name` = pProductCategoryName,
 		`product_category`.`product_category_description` = pProductCategoryDescription
         
-	WHERE `recipe`.`recipe_id` = pId;
+	WHERE `product_category`.`product_category_id` = pId;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `product_delete`(
@@ -517,7 +525,7 @@ CREATE TABLE IF NOT EXISTS `product_category` (
   `product_category_name` varchar(100) NOT NULL,
   `product_category_description` varchar(5000) DEFAULT NULL,
   PRIMARY KEY (`product_category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel `product_category`
@@ -526,8 +534,8 @@ CREATE TABLE IF NOT EXISTS `product_category` (
 INSERT INTO `product_category` (`product_category_id`, `product_category_name`, `product_category_description`) VALUES
 (1, 'groenten', 'verse gekuiste groenten'),
 (2, 'fruit', NULL),
-(3, 'Eenvoudig avond maal', 'snel klaar'),
-(4, 'Eenvoudig avond maal', 'snel klaar');
+(3, 'avondmaal maar echt slecht', 'snel klaar'),
+(5, 'Eenvoudig avond maal', 'snel klaar');
 
 -- --------------------------------------------------------
 
@@ -675,8 +683,8 @@ ALTER TABLE `product`
 -- Beperkingen voor tabel `product_recipe`
 --
 ALTER TABLE `product_recipe`
-  ADD CONSTRAINT `product_recipe_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`),
-  ADD CONSTRAINT `product_recipe_recipe_id_fkey` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`recipe_id`);
+  ADD CONSTRAINT `product_recipe_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_recipe_recipe_id_fkey` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`recipe_id`) ON DELETE CASCADE;
 
 --
 -- Beperkingen voor tabel `product_shopping_list`
