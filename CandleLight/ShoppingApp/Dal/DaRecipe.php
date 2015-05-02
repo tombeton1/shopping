@@ -24,7 +24,7 @@ class DaRecipe
            // $stmt = $conn->prepare('insert into recipe (recipe_category_id, recipe_name, recipe_amount, recipe_amount_unit, recipe_text) VALUES (?,?,?,?,?)');
 
             $stmt = $conn->prepare('CALL recipe_insert(:pRecipeCategory, :pRecipeName, :pRecipeAmount, :pRecipeAmountUnit, :pRecipeText');
-            $stmt->bindValue(':pRecipeCategory', $recipe->getRecipeCategory());
+            $stmt->bindValue(':pRecipeCategory', $recipe->getRecipeCategory(), \PDO::PARAM_INT);
             $stmt->bindValue(':pRecipeName', $recipe->getRecipeName(), \PDO::PARAM_STR);
             $stmt->bindValue(':pRecipeAmount', $recipe->getRecipeAmount());
             $stmt->bindValue(':pRecipeAmountUnit', $recipe->getRecipeAmountUnit(), \PDO::PARAM_STR);
@@ -65,13 +65,13 @@ class DaRecipe
         $message = null;
         try {
             $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn->prepare('CALL recipe_update(:pId, :pRecipeCategory, :pRecipeName, :pRecipeAmount, :pAmountUnit, :pRecipeAmountUnit, :pRecipeText)');
+            $stmt = $conn->prepare('CALL recipe_update(:pId, :pRecipeCategory, :pRecipeName, :pRecipeAmount, :pRecipeAmountUnit, :pRecipeText)');
             $stmt->bindValue(':pId', $recipe->getRecipeId(), \PDO::PARAM_INT);
             $stmt->bindValue(':pRecipeCategory', $recipe->getRecipeCategory(), \PDO::PARAM_INT);
             $stmt->bindValue(':pRecipeName', $recipe->getRecipeName(), \PDO::PARAM_STR);
             $stmt->bindValue(':pRecipeAmount', $recipe->getRecipeAmount());
             $stmt->bindValue(':pRecipeAmountUnit', $recipe->getRecipeAmountUnit(), \PDO::PARAM_STR);
-            $stmt->bindValue(':pProductDescription', $recipe->getRecipeText(), \PDO::PARAM_STR);
+            $stmt->bindValue(':pRecipeText', $recipe->getRecipeText(), \PDO::PARAM_STR);
             $result = $stmt->execute();
             if ($result) {
                 $message = 'Recipe updated';

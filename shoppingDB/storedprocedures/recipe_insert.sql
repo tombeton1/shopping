@@ -1,8 +1,8 @@
+USE shopping_db;
 DROP PROCEDURE IF EXISTS recipe_insert;
 DELIMITER //
 CREATE PROCEDURE `recipe_insert`
 (
-
 	IN pRecipeCategory int ,
     IN pRecipeName varchar(50),
     IN pRecipeAmount DOUBLE,
@@ -29,3 +29,5 @@ INSERT INTO `recipe`
 
 END //
 DELIMITER ;
+
+/*call  recipe_insert(1, 'asperges', 2 , 'kg', 'lksqjqlskfjqslkjkldjqlkdjq');*/
