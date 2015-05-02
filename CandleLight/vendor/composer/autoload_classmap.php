@@ -45,7 +45,7 @@ return array(
     'ShoppingApp\\Bo\\RecipeCategory' => $baseDir . '/ShoppingApp/Bo/RecipeCategory.php',
     'ShoppingApp\\Bo\\ShoppingList' => $baseDir . '/ShoppingApp/Bo/ShoppingList.php',
     'ShoppingApp\\Bo\\User' => $baseDir . '/ShoppingApp/Bo/User.php',
-    'ShoppingApp\\Controllers\\Login' => $baseDir . '/ShoppingApp/Controllers/Login.php',
+    'ShoppingApp\\Controllers\\Authentication' => $baseDir . '/ShoppingApp/Controllers/Authentication.php',
     'ShoppingApp\\Dal\\DaProduct' => $baseDir . '/ShoppingApp/Dal/DaProduct.php',
     'ShoppingApp\\Dal\\DaProductCategory' => $baseDir . '/ShoppingApp/Dal/DaProductCategory.php',
     'ShoppingApp\\Dal\\DaRecipe' => $baseDir . '/ShoppingApp/Dal/DaRecipe.php',

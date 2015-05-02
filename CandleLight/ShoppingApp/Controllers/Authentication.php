@@ -2,7 +2,7 @@
 
 namespace ShoppingApp\Controllers;
 include_once '../../vendor/autoload.php';
-
+session_start();
 class Authentication
 {
     public $login;
