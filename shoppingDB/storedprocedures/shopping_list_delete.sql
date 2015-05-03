@@ -1,5 +1,4 @@
 use shopping_db;
-
 DROP PROCEDURE IF EXISTS shopping_list_delete;
 DELIMITER //
 CREATE PROCEDURE `shopping_list_delete`

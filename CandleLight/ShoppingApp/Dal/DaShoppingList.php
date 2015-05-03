@@ -23,8 +23,24 @@
              $result = $stmt->execute();
              if ($result) {
                 echo 'succes';
-             } else {
-                echo 'Query/Stored Procedure syntax error';
+             }
+
+             $id = $conn->query('select @pId')->fetchColumn();
+             $products = $shoppinglist->getListProducts();
+
+             if($products){
+                 # niet voor insert maar voor update
+                 //$stmt = $conn->prepare('CALL product_shopping_list_delete(:pId)');
+                 //$stmt->bindValue(':pId', $id, \PDO::PARAM_INT);
+                 //$stmt->execute();
+                 foreach($products as $product){
+                     $stmt = $conn->prepare('CALL product_shopping_list_insert(:pProductId, :pShoppingListId, :pAmount, :pAmountUnit)');
+                     $stmt->bindValue(':pProductId', $product["id"], \PDO::PARAM_INT);
+                     $stmt->bindValue(':pShoppingListId', $id, \PDO::PARAM_INT);
+                     $stmt->bindValue(':pAmount', $product["amount"], \PDO::PARAM_INT);
+                     $stmt->bindValue(':pAmountUnit', $product["unit"], \PDO::PARAM_STR);
+                     $stmt->execute();
+                 }
              }
          } catch (\PDOException $e){
              echo $e->getMessage();

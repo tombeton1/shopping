@@ -11,9 +11,9 @@ include_once '../../vendor/autoload.php';
 $User = new \ShoppingApp\Bo\User();
 $User->setFirstName('test');
 $User->setLastName('test');
-$User->setEmail('test@test.com');
+$User->setEmail('tom@tom.com');
 $User->setCountry('belgie');
-$User->setPassword('test');
+$User->setPassword('tom');
 echo \ShoppingApp\Dal\DaUser::insert($User);
 
 //$User = new \ShoppingApp\Bo\User();
@@ -58,14 +58,14 @@ echo \ShoppingApp\Dal\DaUser::insert($User);
 
 //echo \ShoppingApp\Dal\DaUser::acceptFriend(3, 2);
 
-$UserId = '3';
-$Friends = \ShoppingApp\Dal\DaUser::selectAllFriends($UserId);
-foreach($Friends as $User){
-     echo $User->getUserId();
-     echo $User->getFirstName();
-     echo $User->getLastName();
-     echo $User->getEmail();
-}
+//$UserId = '3';
+//$Friends = \ShoppingApp\Dal\DaUser::selectAllFriends($UserId);
+//foreach($Friends as $User){
+//     echo $User->getUserId();
+//     echo $User->getFirstName();
+//     echo $User->getLastName();
+//     echo $User->getEmail();
+//}
 
 //$keyword = 'adrie';
 //$Users = \ShoppingApp\Dal\DaUser::searchUsers($keyword);
