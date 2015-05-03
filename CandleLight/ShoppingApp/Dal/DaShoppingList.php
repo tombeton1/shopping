@@ -14,11 +14,9 @@
      {
          try {
              $conn = \ShoppingApp\Dal\DataSource::getConnection();
-             $stmt = $conn->prepare('CALL shopping_list_insert(@pId, :pName, :pUserId, :pAmount, :pAmountUnit, :pCreated, :pDueDate, :pAccess)');
+             $stmt = $conn->prepare('CALL shopping_list_insert(@pId, :pName, :pUserId, :pCreated, :pDueDate, :pAccess)');
              $stmt->bindValue(':pName', $shoppinglist->getShoppingListName(), \PDO::PARAM_STR);
              $stmt->bindValue(':pUserId', $shoppinglist->getUserId(), \PDO::PARAM_INT);
-             $stmt->bindValue(':pAmount', $shoppinglist->getAmount(), \PDO::PARAM_INT);
-             $stmt->bindValue(':pAmountUnit', $shoppinglist->getAmountUnit(), \PDO::PARAM_STR);
              $stmt->bindValue(':pCreated', $shoppinglist->getShoppingListCreated(), \PDO::PARAM_STR);
              $stmt->bindValue(':pDueDate', $shoppinglist->getShoppingListDueDate(), \PDO::PARAM_INT);
              $stmt->bindValue(':pAccess', $shoppinglist->getAccess(), \PDO::PARAM_INT);

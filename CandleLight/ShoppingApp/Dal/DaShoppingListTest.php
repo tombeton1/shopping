@@ -14,14 +14,12 @@
 
  # insert
  $shoppinglist = new ShoppingList();
- //$shoppinglist->setShoppingListName('carneval');
- //$shoppinglist->setUserId(2);
- //$shoppinglist->setAmount(50.45);
- //$shoppinglist->setAmountUnit('kg');
+ $shoppinglist->setShoppingListName('carneval');
+ $shoppinglist->setUserId(2);
  //$shoppinglist->setShoppingListCreated('2015-04-10');
  //$shoppinglist->setShoppingListDueDate(20150415);
- //$shoppinglist->setAccess(1);
- //DaShoppingList::insert($shoppinglist);
+ $shoppinglist->setAccess(1);
+ DaShoppingList::insert($shoppinglist);
 
  # delete
  //$shoppinglist->setShoppingListId(1);
@@ -41,9 +39,6 @@
  //echo "Dit is de naam van de lijst: " . $shoppinglist->getShoppingListName();
 
  # select all
- $array = DaShoppingList::selectAll();
- foreach($array as $record){
-     echo "Key: $record[0]; Value: $record[1]<br>";
- }
+ //$array = DaShoppingList::selectAll();
 
  //amount & amountunit moet weg, in product/shoppinglist tussentabel

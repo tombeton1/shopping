@@ -15,12 +15,12 @@ include_once '../../vendor/autoload.php';
 
 $product = new Product();
 
-//$product->setProductId(1);
-//$product->setProductCategory('1');
-//$product->setProductName('product1111');
-//$product->setProductPrice('Super, 60');
-//$product->setProductDescription('blal lalal  alla llallalal');
-//echo DaProduct::insert($product);
+$product->setProductId(1);
+$product->setProductCategory('1');
+$product->setProductName('product1111');
+$product->setProductPrice('Super, 60');
+$product->setProductDescription('blal lalal  alla llallalal');
+echo DaProduct::insert($product);
 
 
 //$product->setProductId(9);
@@ -37,8 +37,8 @@ $product = new Product();
 //$product = DaProduct::selectOne(7);
 //echo 'dit is the ' . $product->getProductCategory()->getProductCategoryName();
 
-$products = DaProduct::selectAll();
-print_r(array_values($products));
+//$products = DaProduct::selectAll();
+//print_r(array_values($products));
 //foreach ($products as $product) {
 //    echo $product->getProductId();
 //    echo $product->getProductCategory();

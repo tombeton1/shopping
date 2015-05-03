@@ -2,7 +2,7 @@ DROP PROCEDURE IF EXISTS product_category_update;
 DELIMITER //
 CREATE PROCEDURE `product_category_update`
 (
-		pID int,
+		pId int,
         pProductCategoryName varchar(100),
 		pProductCategoryDescription VARCHAR (5000)
 )
@@ -10,10 +10,10 @@ CREATE PROCEDURE `product_category_update`
 BEGIN
 UPDATE `product_category`
 	SET
-
 		`product_category`.`product_category_name` = pProductCategoryName,
 		`product_category`.`product_category_description` = pProductCategoryDescription
         
-	WHERE `recipe`.`recipe_id` = pId;
+	WHERE `product_category`.`product_category_id` = pId;
 END //
 DELIMITER ;
+
