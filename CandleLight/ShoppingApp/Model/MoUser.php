@@ -13,10 +13,22 @@ class MoUser
 
     public function checkPassword($email, $password)
     {
-      return \ShoppingApp\Dal\DaUser::checkPassword($email, $password);
+        return \ShoppingApp\Dal\DaUser::checkPassword($email, $password);
     }
 
-    public function selectAllUsers(){
+    public function selectAllUsers()
+    {
         return json_encode(\ShoppingApp\Dal\DaUser::selectAll());
+    }
+
+    public function insertUser($firstname, $lastname, $email, $password, $country)
+    {
+        $User = new \ShoppingApp\Bo\User();
+        $User->setEmail($email);
+        $User->setFirstName($firstname);
+        $User->setLastName($lastname);
+        $User->setPassword($password);
+        $User->setCountry($country);
+        \ShoppingApp\Dal\DaUser::insert($User);
     }
 }
