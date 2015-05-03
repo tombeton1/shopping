@@ -15,4 +15,8 @@ class MoUser
     {
       return \ShoppingApp\Dal\DaUser::checkPassword($email, $password);
     }
+
+    public function selectAllUsers(){
+        return json_encode(\ShoppingApp\Dal\DaUser::selectAll());
+    }
 }
