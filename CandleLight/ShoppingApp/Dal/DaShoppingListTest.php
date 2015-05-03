@@ -16,9 +16,13 @@
  $shoppinglist = new ShoppingList();
  $shoppinglist->setShoppingListName('carneval');
  $shoppinglist->setUserId(2);
- //$shoppinglist->setShoppingListCreated('2015-04-10');
- //$shoppinglist->setShoppingListDueDate(20150415);
+ $shoppinglist->setShoppingListCreated('2015-04-10');
+ $shoppinglist->setShoppingListDueDate(20150415);
  $shoppinglist->setAccess(1);
+ //voorbeeld gegevens. de bedoeling is dat je de nodige gegevens automatiseert
+ $products[] = ["id" => 6, "amount" => 5.1, "unit" => "kg"];
+ $products[] = ["id" => 3, "amount" => 6.7, "unit" => "cm"];
+ $shoppinglist->setListProducts($products);
  DaShoppingList::insert($shoppinglist);
 
  # delete
