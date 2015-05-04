@@ -119,7 +119,7 @@
             return(
                 <div>
                 <div className="Users" onClick={this.show}>Users</div>
-                { this.state.showItem ? <UsersList/> : null }
+                <UsersList/>
                 </div>
             )
         }
