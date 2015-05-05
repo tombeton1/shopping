@@ -5,9 +5,9 @@ include_once '../../vendor/autoload.php';
 session_start();
 class Authentication
 {
-    public $login;
-    public $email;
-    public $password;
+    private $login;
+    private $email;
+    private $password;
 
     /**
      * @param mixed $email
