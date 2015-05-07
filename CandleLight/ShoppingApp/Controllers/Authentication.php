@@ -27,7 +27,7 @@ class Authentication
 
     public function __construct()
     {
-        $this->login = new \ShoppingApp\Model\MoUser();
+        $this->login = new \ShoppingApp\Model\DaUser();
     }
 
     public function login()
@@ -35,7 +35,7 @@ class Authentication
         if ($_POST['token'] == $_SESSION['token']) {
             if ($this->login->checkPassword($this->email, $this->password)) {
                 $_SESSION['user'] = $this->email;
-                header("Location: ../View/profile.php");
+                header("Location: ../View/shoppingapp.php");
                 die();
             } else {
                 $_SESSION['message'] = 'e-mail or password is not valid';

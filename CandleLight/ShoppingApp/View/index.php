@@ -24,7 +24,7 @@ if (!isset($_SESSION['token'])){
 <div class="wrapper">
     <div class="container">
         <h1>Welcome</h1>
-        <form class="form" method="POST" action="routes.php">
+        <form class="form" method="POST" action="routing.php">
             <input type="hidden" name="token" value="<?php echo $token; ?>" />
             <input type="text" name="email" placeholder="E-mail">
             <input type="password" name="password" placeholder="Password">

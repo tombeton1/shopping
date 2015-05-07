@@ -6,18 +6,24 @@
  * Time: 21:39
  */
 
-namespace ShoppingApp\Dal;
+namespace ShoppingApp\Model;
 include_once '../../vendor/autoload.php';
 
 
 class DaUser
 {
-    public static function insert($User)
+    private $conn;
+
+    public function __construct()
+    {
+        $this->conn = new \ShoppingApp\Model\DataSource();
+    }
+
+    public function insert($User)
     {
         $message = NULL;
         try {
-            $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn->prepare('CALL user_insert(:pfirst_name, :plast_name, :pcountry, :pemail, :ppassword)');
+            $stmt = $this->conn->getConnection()->prepare('CALL user_insert(:pfirst_name, :plast_name, :pcountry, :pemail, :ppassword)');
             $stmt->bindValue(':pfirst_name', $User->getFirstName());
             $stmt->bindValue(':plast_name', $User->getLastName());
             $stmt->bindValue(':pemail', $User->getEmail());
@@ -35,12 +41,11 @@ class DaUser
         return $message;
     }
 
-    public static function update($User)
+    public function update($User)
     {
         $message = NULL;
         try {
-            $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn->prepare('CALL user_update(:pId, :pFirstName, :pLastName, :pCountry, :pEmail)');
+            $stmt = $this->conn->getConnection()->prepare('CALL user_update(:pId, :pFirstName, :pLastName, :pCountry, :pEmail)');
             $stmt->bindValue(':pId', $User->getUserId());
             $stmt->bindValue(':pFirstName', $User->getFirstName());
             $stmt->bindValue(':pLastName', $User->getLastName());
@@ -58,12 +63,12 @@ class DaUser
         return $message;
     }
 
-    public static function selectOne($id)
+    public function selectOne($id)
     {
         $result = NULL;
         try {
-            $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn->prepare('CALL user_select_one(:pId)');
+
+            $stmt = $this->conn->getConnection()->prepare('CALL user_select_one(:pId)');
             $stmt->bindValue(':pId', $id);
             $stmt->execute();
             $result = $stmt->fetch();
@@ -80,12 +85,11 @@ class DaUser
         return $result;
     }
 
-    public static function selectAll()
+    public function selectAll()
     {
         $result = array();
         try {
-            $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn = $conn->prepare('CALL user_select_all()');
+            $stmt = $this->conn->getConnection()->prepare('CALL user_select_all()');
             $stmt->execute();
             $array = $stmt->fetchAll();
             foreach ($array as $row) {
@@ -103,12 +107,11 @@ class DaUser
         return $result;
     }
 
-    public static function checkPassword($email, $password)
+    public function checkPassword($email, $password)
     {
         $result = NULL;
         try {
-            $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn->prepare('CALL user_check_password(:pEmail)');
+            $stmt = $this->conn->getConnection()->prepare('CALL user_check_password(:pEmail)');
             $stmt->bindValue(':pEmail', $email);
             $stmt->execute();
             $result = $stmt->fetch();
@@ -119,15 +122,14 @@ class DaUser
         return $result;
     }
 
-    public static function delete($id)
+    public function delete($id)
     {
         $message = NULL;
         try {
-            $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn->prepare('CALL user_delete(:pId)');
+            $stmt = $this->conn->getConnection()->prepare('CALL user_delete(:pId)');
             $stmt->bindValue(':pId', $id);
             $result = $stmt->execute();
-            if($result){
+            if ($result) {
                 $message = 'User deleted succesfully';
             }
         } catch (\PDOException $e) {
@@ -136,13 +138,12 @@ class DaUser
         return $message;
     }
 
-    public static function addFriend($UserId, $FriendId)
+    public function addFriend($UserId, $FriendId)
     {
         $message = NULL;
         if ($UserId != $FriendId) {
             try {
-                $conn = \ShoppingApp\Dal\DataSource::getConnection();
-                $check = $conn->prepare('CALL user_friend_check(:pUserId, :pFriendId)');
+                $check = $this->conn->getConnection()->prepare('CALL user_friend_check(:pUserId, :pFriendId)');
                 $check->bindValue(':pUserId', $UserId);
                 $check->bindValue(':pFriendId', $FriendId);
                 $check->execute();
@@ -150,8 +151,7 @@ class DaUser
                 if ($result[0] == 1) {
                     $message = 'You are already friends';
                 } else {
-                    $conn = \ShoppingApp\Dal\DataSource::getConnection();
-                    $stmt = $conn->prepare('CALL user_add_friend(:pUserId, :pFriendId)');
+                    $stmt = $this->conn->getConnection()->prepare('CALL user_add_friend(:pUserId, :pFriendId)');
                     $stmt->bindValue(':pUserId', $UserId);
                     $stmt->bindValue(':pFriendId', $FriendId);
                     $result = $stmt->execute();
@@ -168,12 +168,11 @@ class DaUser
         return $message;
     }
 
-    public static function acceptFriend($UserId, $FriendId)
+    public function acceptFriend($UserId, $FriendId)
     {
         $message = NULL;
         try {
-            $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn->prepare('CALL user_accept_friend(:pUserId, :pFriendId)');
+            $stmt = $this->conn->getConnection()->prepare('CALL user_accept_friend(:pUserId, :pFriendId)');
             $stmt->bindValue(':pUserId', $UserId);
             $stmt->bindValue(':pFriendId', $FriendId);
             $result = $stmt->execute();
@@ -186,12 +185,11 @@ class DaUser
         return $message;
     }
 
-    public static function selectAllFriends($UserId)
+    public function selectAllFriends($UserId)
     {
         $result = array();
         try {
-            $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn->prepare('CALL user_select_all_friends(:pUserId)');
+            $stmt = $this->conn->getConnection()->prepare('CALL user_select_all_friends(:pUserId)');
             $stmt->bindValue(':pUserId', $UserId);
             $stmt->execute();
             $array = $stmt->fetchAll();
@@ -209,17 +207,16 @@ class DaUser
         return $result;
     }
 
-    public static function searchUsers($keyword){
-
+    public function searchUsers($keyword)
+    {
         $result = array();
-        $keyword = "%".$keyword."%";
+        $keyword = "%" . $keyword . "%";
         try {
-            $conn = \ShoppingApp\Dal\DataSource::getConnection();
-            $stmt = $conn->prepare('CALL user_search(:pKeyword)');
+            $stmt = $this->conn->getConnection()->prepare('CALL user_search(:pKeyword)');
             $stmt->bindValue(':pKeyword', $keyword);
             $stmt->execute();
             $array = $stmt->fetchAll();
-            foreach($array as $row){
+            foreach ($array as $row) {
                 $User = new \ShoppingApp\Bo\User();
                 $User->setUserId($row['user_id']);
                 $User->setFirstName($row['first_name']);
@@ -227,7 +224,7 @@ class DaUser
                 $User->setEmail($row['email']);
                 $result[] = $User;
             }
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             echo $e->getMessage();
         }
         return $result;

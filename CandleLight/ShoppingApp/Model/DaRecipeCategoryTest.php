@@ -6,7 +6,7 @@
  * Time: 17:09
  */
 
-namespace ShoppingApp\Dal;
+namespace ShoppingApp\Model;
 use ShoppingApp\Bo\RecipeCategory as RecipeCategory;
 include_once '../../vendor/autoload.php';
 

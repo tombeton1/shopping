@@ -1,4 +1,5 @@
 <?php
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -19,6 +20,9 @@
 
         .tab.active {
             display: block;
+        }
+        .sidr-inner{
+            background-color: #53e3a6;
         }
     </style>
     <link rel="stylesheet" href="css/jquery.sidr.light.css">

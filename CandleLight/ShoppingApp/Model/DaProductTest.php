@@ -6,7 +6,7 @@
  * Time: 15:51
  */
 
-namespace ShoppingApp\Dal;
+namespace ShoppingApp\Model;
 
 use ShoppingApp\Bo\Product as Product;
 

@@ -7,6 +7,7 @@ if (isset($_POST['action'])) {
             $controller->setPassword($_POST['password']);
             $controller->setEmail($_POST['email']);
             $controller->login();
+            break;
         case 'logout':
             $controller = new \ShoppingApp\Controllers\Authentication();
             $controller->logout();

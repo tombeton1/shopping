@@ -6,7 +6,7 @@
  * Time: 20:41
  */
 
-namespace ShoppingApp\Dal;
+namespace ShoppingApp\Model;
 
 use ShoppingApp\Bo\Recipe as Recipe;
 

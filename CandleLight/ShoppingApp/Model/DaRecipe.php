@@ -6,7 +6,7 @@
  * Time: 16:00
  */
 
-namespace ShoppingApp\Dal;
+namespace ShoppingApp\Model;
 
 
 use ShoppingApp\Bo\ProductCategory;
@@ -15,7 +15,7 @@ use ShoppingApp\Bo\Recipe;
 class DaRecipe
 {
 
-    public static function insert($recipe)
+    public function insert($recipe)
     {
         $message = null;
        // $recipe = new Recipe();
@@ -40,7 +40,7 @@ class DaRecipe
         return $message;
     }
 
-    public static function delete($id)
+    public function delete($id)
     {
         $message = null;
         try {
@@ -57,7 +57,7 @@ class DaRecipe
         return $message;
     }
 
-    public static function update($recipe)
+    public function update($recipe)
     {
         $message = null;
         try {
@@ -78,7 +78,7 @@ class DaRecipe
 
     }
 
-    public static function selectOne($id)
+    public function selectOne($id)
     {
 
         $result = null;
@@ -107,7 +107,7 @@ class DaRecipe
         return $result;
     }
 
-    public static function selectAll()
+    public function selectAll()
     {
         $result = array();
         try {

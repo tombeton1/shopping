@@ -6,11 +6,11 @@
  * Time: 18:57
  */
 
- namespace ShoppingApp\Dal;
+ namespace ShoppingApp\Model;
 
  class DaShoppingList
  {
-     public static function insert($shoppinglist)
+     public function insert($shoppinglist)
      {
          try {
              $conn = \ShoppingApp\Dal\DataSource::getConnection();
@@ -47,7 +47,7 @@
          }  
      }
      
-     public static function delete($shoppinglist)
+     public function delete($shoppinglist)
      {
          try{
              $conn = \ShoppingApp\Dal\DataSource::getConnection();
@@ -59,7 +59,7 @@
          }
      }  
 
-     public static function update($shoppinglist)
+     public function update($shoppinglist)
      {
          try{
              $conn = \ShoppingApp\Dal\DataSource::getConnection();
@@ -75,7 +75,7 @@
          }
      }
 
-     public static function selectOne($shoppinglist)
+     public function selectOne($shoppinglist)
      {
          try{
              $conn = \ShoppingApp\Dal\DataSource::getConnection();
@@ -95,7 +95,7 @@
          }
      }
 
-     public static function selectAll()
+     public function selectAll()
      {
          try{
              $conn = \ShoppingApp\Dal\DataSource::getConnection();

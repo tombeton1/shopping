@@ -6,7 +6,7 @@
  * Time: 15:27
  */
 
-namespace ShoppingApp\Dal;
+namespace ShoppingApp\Model;
 
 use ShoppingApp\Bo\Product;
 use ShoppingApp\Bo\ProductCategory;
@@ -14,7 +14,7 @@ use ShoppingApp\Bo\ProductCategory;
 class DaProduct
 {
 
-    public static function insert($product)
+    public function insert($product)
     {
         $message = null;
         try {
@@ -38,7 +38,7 @@ class DaProduct
         return $message;
     }
 
-    public static function delete($product)
+    public function delete($product)
     {
         $message = null;
         try {
@@ -55,7 +55,7 @@ class DaProduct
         return $message;
     }
 
-    public static function update($product)
+    public function update($product)
     {
         $message = NULL;
         try {
@@ -76,7 +76,7 @@ class DaProduct
         return $message;
     }
 
-    public static function selectOne($id)
+    public function selectOne($id)
     {
         $result = null;
         try {
@@ -104,7 +104,7 @@ class DaProduct
         return $result;
     }
 
-    public static function selectAll()
+    public function selectAll()
     {
         $result = array();
         try {

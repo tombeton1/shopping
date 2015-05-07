@@ -6,7 +6,7 @@
  * Time: 17:54
  */
 
-namespace ShoppingApp\Dal;
+namespace ShoppingApp\Model;
 
 use ShoppingApp\Bo\ProductCategory;
 
@@ -15,7 +15,7 @@ include_once '../../vendor/autoload.php';
 class DaProductCategory
 {
 
-    public static function insert($productCategory)
+    public function insert($productCategory)
     {
         $message = null;
         try {
@@ -37,7 +37,7 @@ class DaProductCategory
         return $message;
     }
 
-    public static function delete($id)
+    public function delete($id)
     {
             $message= null;
         try {
@@ -54,7 +54,7 @@ class DaProductCategory
         return $message;
     }
 
-    public static function update($productCategory)
+    public function update($productCategory)
     {
         $message = null;
         try {
@@ -74,7 +74,7 @@ class DaProductCategory
 
     }
 
-    public static function selectOne($id)
+    public function selectOne($id)
     {
         $result=null;
         try {
@@ -94,7 +94,7 @@ class DaProductCategory
         return $result;
     }
 
-    public static function  selectAll()
+    public function  selectAll()
     {
         $result = array();
         try {

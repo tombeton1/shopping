@@ -16,12 +16,12 @@
 
 */
 
-namespace ShoppingApp\Dal;
+namespace ShoppingApp\Model;
 
 class DataSource
 {
 
-    public static function getConnection()
+    public function getConnection()
     {
         $conn = NULL;
         try {

@@ -6,7 +6,7 @@
  * Time: 20:00
  */
 
- namespace ShoppingApp\Dal;
+ namespace ShoppingApp\Model;
 
  use ShoppingApp\Bo\ShoppingList as ShoppingList;
 

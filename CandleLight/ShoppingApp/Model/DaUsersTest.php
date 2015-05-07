@@ -5,7 +5,7 @@
  * Date: 24/04/15
  * Time: 21:44
  */
-namespace ShoppingApp\Dal;
+namespace ShoppingApp\Model;
 include_once '../../vendor/autoload.php';
 
 $User = new \ShoppingApp\Bo\User();
@@ -22,9 +22,9 @@ echo \ShoppingApp\Dal\DaUser::insert($User);
 //$User->setLastName('ddd');
 //$User->setEmail('dsdfds@sfd');
 //$User->setCountry('dsdds');
-//echo \ShoppingApp\Dal\DaUser::update($User);
+//echo \ShoppingApp\Model\DaUser::update($User);
 
-//$User = \ShoppingApp\Dal\DaUser::selectOne(2);
+//$User = \ShoppingApp\Model\DaUser::selectOne(2);
 //echo $User->getUserId();
 //echo $User->getFirstName();
 //echo $User->getLastName();
@@ -32,7 +32,7 @@ echo \ShoppingApp\Dal\DaUser::insert($User);
 //echo $User->getEmail();
 //echo $User->getFirstName();
 
-//$Users = \ShoppingApp\Dal\DaUser::selectAll();
+//$Users = \ShoppingApp\Model\DaUser::selectAll();
 //foreach($Users as $User){
 //     echo $User->getUserId();
 //     echo $User->getFirstName();
@@ -43,23 +43,23 @@ echo \ShoppingApp\Dal\DaUser::insert($User);
 
 //$email = 'test@test.com';
 //$password = 'test';
-//if (\ShoppingApp\Dal\DaUser::login($email, $password)){
+//if (\ShoppingApp\Model\DaUser::login($email, $password)){
 //    echo'correct';
 //} else {
 //    echo'bad password';
 //};
 
 //$id = 1;
-//\ShoppingApp\Dal\DaUser::delete($id);
+//\ShoppingApp\Model\DaUser::delete($id);
 
 //$UserId = 3;
 //$FriendId = 2;
-//echo \ShoppingApp\Dal\DaUser::addFriend($UserId, $FriendId);
+//echo \ShoppingApp\Model\DaUser::addFriend($UserId, $FriendId);
 
-//echo \ShoppingApp\Dal\DaUser::acceptFriend(3, 2);
+//echo \ShoppingApp\Model\DaUser::acceptFriend(3, 2);
 
 //$UserId = '3';
-//$Friends = \ShoppingApp\Dal\DaUser::selectAllFriends($UserId);
+//$Friends = \ShoppingApp\Model\DaUser::selectAllFriends($UserId);
 //foreach($Friends as $User){
 //     echo $User->getUserId();
 //     echo $User->getFirstName();
@@ -68,7 +68,7 @@ echo \ShoppingApp\Dal\DaUser::insert($User);
 //}
 
 //$keyword = 'adrie';
-//$Users = \ShoppingApp\Dal\DaUser::searchUsers($keyword);
+//$Users = \ShoppingApp\Model\DaUser::searchUsers($keyword);
 //foreach($Users as $User){
 //        echo $User->getUserId();
 //        echo $User->getFirstName();
