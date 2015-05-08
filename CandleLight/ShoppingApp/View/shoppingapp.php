@@ -4,6 +4,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
     </style>
     <title></title>
@@ -49,6 +51,8 @@
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.sidr.min.js"></script>
 <script type="text/javascript">
