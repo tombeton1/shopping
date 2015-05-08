@@ -11,6 +11,7 @@ if (isset($_POST['action'])) {
         case 'logout':
             $controller = new \ShoppingApp\Controllers\Authentication();
             $controller->logout();
+
     }
 }
 ?>
