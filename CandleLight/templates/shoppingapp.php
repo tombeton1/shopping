@@ -159,7 +159,7 @@ if(!isset($_SESSION['user'])) {
     };
     function loadUser() {
         $.ajax({
-            url: '/CandleLight/api/users/<?=$User->getUserId();?>',
+            url: '/CandleLight/api/users/<?= $User->getUserId();?>',
             type: 'GET',
             dataType: 'json',
             cache: false,
