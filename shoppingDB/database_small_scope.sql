@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `shopping_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `shopping_db`;
 -- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
 -- Host: localhost    Database: shopping_db
@@ -306,13 +308,13 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `user_check_password`(
 	 pEmail nvarchar (100) 
 )
 BEGIN
-SELECT `users`.`password` FROM `users` WHERE `users`.`email` = pEmail;
+SELECT `users`.`password`, `users`.first_name, `users`.last_name, `users`.user_id FROM `users` WHERE `users`.`email` = pEmail;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -520,4 +522,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-11  0:56:46
+-- Dump completed on 2015-05-11  1:08:34
