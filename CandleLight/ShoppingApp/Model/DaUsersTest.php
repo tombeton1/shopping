@@ -7,14 +7,16 @@
  */
 namespace ShoppingApp\Model;
 include_once '../../vendor/autoload.php';
+$func = new \ShoppingApp\Model\DaUser();
 
-//$User = new \ShoppingApp\Bo\User();
-//$User->setFirstName('test');
-//$User->setLastName('test');
-//$User->setEmail('tom@tom.com');
-//$User->setCountry('belgie');
-//$User->setPassword('tom');
-//echo \ShoppingApp\Dal\DaUser::insert($User);
+$User = new \ShoppingApp\Bo\User();
+$User->setFirstName('test');
+$User->setLastName('test');
+$User->setEmail('tom');
+$User->setCountry('belgie');
+$User->setPassword('tom');
+echo $func->insert($User);
+//echo \ShoppingApp\Model\insert($User);
 
 //$User = new \ShoppingApp\Bo\User();
 //$User->setUserId(1);
@@ -24,8 +26,7 @@ include_once '../../vendor/autoload.php';
 //$User->setCountry('dsdds');
 //echo \ShoppingApp\Model\DaUser::update($User);
 
-//$func = new \ShoppingApp\Model\DaUser();
-//$User = $func->selectOne(2);
+//$User = \ShoppingApp\Model\DaUser::selectOne(2);
 //echo $User->getUserId();
 //echo $User->getFirstName();
 //echo $User->getLastName();
@@ -42,16 +43,16 @@ include_once '../../vendor/autoload.php';
 //     echo $User->getCountry();
 //}
 
-$email = 'test@test.com';
-$password = 'test';
-$func = new \ShoppingApp\Model\DaUser();
-if($func->checkPassword($email, $password) != FALSE){
-    $User = $func->checkPassword($email, $password);
-   echo $User->getFirstName();
-} else {
-    echo 'pass onjuist';
-}
-
+//$email = 'test@test.com';
+//$password = 'test';
+//$User = new \ShoppingApp\Model\DaUser();
+//if($User->checkPassword($email, $password)){
+//   $firstname = $User->checkPassword($email, $password);
+//    print_r($firstname->getUserId());
+//
+//} else {
+//    echo'fout';
+//}
 
 
 //$id = 1;
