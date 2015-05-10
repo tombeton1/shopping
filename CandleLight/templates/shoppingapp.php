@@ -1,5 +1,11 @@
 <?php
-
+session_start();
+$User;
+if(!isset($_SESSION['user'])) {
+    header("Location: /CandleLight/");
+} else {
+   $User = $_SESSION['user'];
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -38,7 +44,7 @@
     </div>
     <div class="tab-content">
         <div id="tab1" class="tab active">
-            user info
+            <?= $User->getFirstName();?>
         </div>
         <div id="tab2" class="tab">
             shopping list

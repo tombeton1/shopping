@@ -24,9 +24,9 @@ class Authentication
     public function login()
     {
         if ($this->token == $_SESSION['token']) {
-            if ($this->login->checkPassword($this->email, $this->password)) {
-                $this->login->
-                $_SESSION['user'] = $this->email;
+            if ($this->login->checkPassword($this->email, $this->password) != FALSE) {
+                $User = $this->login->checkPassword($this->email, $this->password);
+                $_SESSION['user'] = $User;
                 header("Location: /CandleLight/app/");
                 die();
             } else {

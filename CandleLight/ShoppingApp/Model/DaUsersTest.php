@@ -24,7 +24,8 @@ include_once '../../vendor/autoload.php';
 //$User->setCountry('dsdds');
 //echo \ShoppingApp\Model\DaUser::update($User);
 
-//$User = \ShoppingApp\Model\DaUser::selectOne(2);
+//$func = new \ShoppingApp\Model\DaUser();
+//$User = $func->selectOne(2);
 //echo $User->getUserId();
 //echo $User->getFirstName();
 //echo $User->getLastName();
@@ -43,14 +44,14 @@ include_once '../../vendor/autoload.php';
 
 $email = 'test@test.com';
 $password = 'test';
-$User = new \ShoppingApp\Model\DaUser();
-if($User->checkPassword($email, $password)){
-   $firstname = $User->checkPassword($email, $password);
-    print_r($firstname->getUserId());
-
+$func = new \ShoppingApp\Model\DaUser();
+if($func->checkPassword($email, $password) != FALSE){
+    $User = $func->checkPassword($email, $password);
+   echo $User->getFirstName();
 } else {
-    echo'fout';
+    echo 'pass onjuist';
 }
+
 
 
 //$id = 1;

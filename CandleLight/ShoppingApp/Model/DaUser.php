@@ -114,13 +114,15 @@ class DaUser
             $stmt->bindValue(':pEmail', $email);
             $stmt->execute();
             $result = $stmt->fetch();
-            $result = password_verify($password, $result['password']);
-            if($result){
+            $check = password_verify($password, $result['password']);
+            if($check){
                 $User = new \ShoppingApp\Bo\User();
                 $User->setUserId($result['user_id']);
                 $User->setFirstName($result['first_name']);
                 $User->setLastName($result['last_name']);
                 $result = $User;
+            } else {
+                $result = FALSE;
             }
         } catch (\PDOException $e) {
             echo $e->getMessage();
