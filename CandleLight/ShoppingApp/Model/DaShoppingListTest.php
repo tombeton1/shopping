@@ -23,15 +23,15 @@
  $products[] = ["id" => 6, "amount" => 5.1, "unit" => "kg"];
  $products[] = ["id" => 3, "amount" => 6.7, "unit" => "cm"];
  $shoppinglist->setListProducts($products);
- DaShoppingList::insert($shoppinglist);
+ //DaShoppingList::insert($shoppinglist);
 
  # delete
  //$shoppinglist->setShoppingListId(1);
  //DaShoppingList::delete($shoppinglist);
 
  # update
- //$shoppinglist->setShoppingListId(2);
- //$shoppinglist->setShoppingListName('bloemkool');
+ $shoppinglist->setShoppingListId(26);
+ $shoppinglist->setShoppingListName('bloemkool');
  //$shoppinglist->setUserId(2);
  //$shoppinglist->setShoppingListDueDate(20150428);
  //$shoppinglist->setAccess(2);
@@ -44,5 +44,8 @@
 
  # select all
  //$array = DaShoppingList::selectAll();
+
+ # select by user
+ $array = DaShoppingList::selectByUser(2);
 
  //amount & amountunit moet weg, in product/shoppinglist tussentabel

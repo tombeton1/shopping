@@ -13,7 +13,7 @@
      public function insert($shoppinglist)
      {
          try {
-             $conn = \ShoppingApp\Dal\DataSource::getConnection();
+             $conn = \ShoppingApp\Model\DataSource::getConnection();
              $stmt = $conn->prepare('CALL shopping_list_insert(@pId, :pName, :pUserId, :pCreated, :pDueDate, :pAccess)');
              $stmt->bindValue(':pName', $shoppinglist->getShoppingListName(), \PDO::PARAM_STR);
              $stmt->bindValue(':pUserId', $shoppinglist->getUserId(), \PDO::PARAM_INT);
@@ -29,16 +29,12 @@
              $products = $shoppinglist->getListProducts();
 
              if($products){
-                 # niet voor insert maar voor update
-                 //$stmt = $conn->prepare('CALL product_shopping_list_delete(:pId)');
-                 //$stmt->bindValue(':pId', $id, \PDO::PARAM_INT);
-                 //$stmt->execute();
                  foreach($products as $product){
                      $stmt = $conn->prepare('CALL product_shopping_list_insert(:pProductId, :pShoppingListId, :pAmount, :pAmountUnit)');
-                     $stmt->bindValue(':pProductId', $product["id"], \PDO::PARAM_INT);
+                     $stmt->bindValue(':pProductId', $product['id'], \PDO::PARAM_INT);
                      $stmt->bindValue(':pShoppingListId', $id, \PDO::PARAM_INT);
-                     $stmt->bindValue(':pAmount', $product["amount"], \PDO::PARAM_INT);
-                     $stmt->bindValue(':pAmountUnit', $product["unit"], \PDO::PARAM_STR);
+                     $stmt->bindValue(':pAmount', $product['amount'], \PDO::PARAM_INT);
+                     $stmt->bindValue(':pAmountUnit', $product['unit'], \PDO::PARAM_STR);
                      $stmt->execute();
                  }
              }
@@ -50,7 +46,7 @@
      public function delete($shoppinglist)
      {
          try{
-             $conn = \ShoppingApp\Dal\DataSource::getConnection();
+             $conn = \ShoppingApp\Model\DataSource::getConnection();
              $stmt = $conn->prepare('CALL shopping_list_delete(:pId)');
              $stmt->bindValue(':pId', $shoppinglist->getShoppingListId());
              $stmt->execute();
@@ -62,7 +58,7 @@
      public function update($shoppinglist)
      {
          try{
-             $conn = \ShoppingApp\Dal\DataSource::getConnection();
+             $conn = \ShoppingApp\Model\DataSource::getConnection();
              $stmt = $conn->prepare('CALL shopping_list_update(:pId, :pName, :pUserId, :pDueDate, :pAccess)');
              $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
              $stmt->bindValue(':pName', $shoppinglist->getShoppingListName(), \PDO::PARAM_STR);
@@ -70,6 +66,22 @@
              $stmt->bindValue(':pDueDate', $shoppinglist->getShoppingListDueDate(), \PDO::PARAM_INT);
              $stmt->bindValue(':pAccess', $shoppinglist->getAccess(), \PDO::PARAM_INT);
              $stmt->execute();
+
+             $products = $shoppinglist->getListProducts();
+
+             if($products){
+                 $stmt = $conn->prepare('CALL product_shopping_list_delete(:pId)');
+                 $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
+                 $stmt->execute();
+                 foreach($products as $product){
+                     $stmt = $conn->prepare('CALL product_shopping_list_insert(:pProductId, :pShoppingListId, :pAmount, :pAmountUnit)');
+                     $stmt->bindValue(':pProductId', $product['id'], \PDO::PARAM_INT);
+                     $stmt->bindValue(':pShoppingListId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
+                     $stmt->bindValue(':pAmount', $product['amount'], \PDO::PARAM_INT);
+                     $stmt->bindValue(':pAmountUnit', $product['unit'], \PDO::PARAM_STR);
+                     $stmt->execute();
+                 }
+             }
          } catch (\PDOException $e){
              echo $e->getMessage();
          }
@@ -78,7 +90,7 @@
      public function selectOne($shoppinglist)
      {
          try{
-             $conn = \ShoppingApp\Dal\DataSource::getConnection();
+             $conn = \ShoppingApp\Model\DataSource::getConnection();
              $stmt = $conn->prepare('CALL shopping_list_select_one(:pId)');
              $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
              $stmt->execute();
@@ -98,8 +110,23 @@
      public function selectAll()
      {
          try{
-             $conn = \ShoppingApp\Dal\DataSource::getConnection();
+             $conn = \ShoppingApp\Model\DataSource::getConnection();
              $stmt = $conn->prepare('CALL shopping_list_select_all()');
+             $stmt->execute();
+             $array = $stmt->fetchAll();
+
+             return $array;
+         } catch (\PDOException $e){
+             echo $e->getMessage();
+         }
+     }
+
+     public function selectByUser($id)
+     {
+         try{
+             $conn = \ShoppingApp\Model\DataSource::getConnection();
+             $stmt = $conn->prepare('CALL shopping_list_select_by_user(:pId)');
+             $stmt->bindValue(':pId', $id, \PDO::PARAM_INT);
              $stmt->execute();
              $array = $stmt->fetchAll();
 
