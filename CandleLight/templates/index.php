@@ -19,13 +19,13 @@ if (!isset($_SESSION['token'])){
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="StyleSheet" type="text/css" href="View/css/main.css">
+    <link rel="StyleSheet" type="text/css" href="templates/css/main.css">
 </head>
 <body>
 <div class="wrapper">
     <div class="container">
         <h1>Welcome</h1>
-        <form class="form" method="POST" action="/CandleLight/login/">
+        <form class="form" method="POST" action="login">
             <input type="hidden" name="token" value="<?php echo $token; ?>" />
             <input type="text" name="email" placeholder="E-mail">
             <input type="password" name="password" placeholder="Password">

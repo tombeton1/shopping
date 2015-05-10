@@ -7,7 +7,6 @@
  */
 
 namespace ShoppingApp\Model;
-include_once '../../vendor/autoload.php';
 
 
 class DaUser
