@@ -67,7 +67,7 @@ if(!isset($_SESSION['user'])) {
                                         <label class="col-sm-2 control-label" for="first-name">First name</label>
 
                                         <div class="col-sm-4">
-                                            <input class="form-control" type="text" name="last-name" maxlength="50"
+                                            <input id="first-name" class="form-control" type="text" name="first-name" maxlength="50"
                                                    pattern="[^()[\]{}*&^%$<>#0-9@!]+$" required="true"/>
                                         </div>
                                     </div>
@@ -75,7 +75,7 @@ if(!isset($_SESSION['user'])) {
                                         <label class="col-sm-2 control-label" for="last-name">Family name</label>
 
                                         <div class="col-sm-4">
-                                            <input class="form-control" type="text" name="last-name" maxlength="50"
+                                            <input id="last-name" class="form-control" type="text" name="last-name" maxlength="50"
                                                    pattern="[^()[\]{}*&^%$<>#0-9@!]+$" required="true"/>
                                         </div>
                                     </div>
@@ -83,7 +83,7 @@ if(!isset($_SESSION['user'])) {
                                         <label class="col-sm-2 control-label" for="country">Country</label>
 
                                         <div class="col-sm-4">
-                                            <input class="form-control" type="text" name="country" maxlength="50"
+                                            <input id="country" class="form-control" type="text" name="country" maxlength="50"
                                                    pattern="[^()[\]{}*&^%$<>#0-9@!]+$" required="false">
                                         </div>
                                     </div>
@@ -91,37 +91,16 @@ if(!isset($_SESSION['user'])) {
                                         <label class="col-sm-2 control-label" for="user-email">Email</label>
 
                                         <div class="col-sm-4">
-                                            <input class="form-control" type="email" maxlength="100"
+                                            <input id="email" class="form-control" type="email" maxlength="100"
                                                    pattern="\b[A-Z0-9._+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,4}\b$)"
                                                    name="email" required="true">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="password">Password</label>
-
-                                        <div class="col-sm-4">
-                                            <input class="form-control" id="inputPassword" type="password"
-                                                   name="password"
-                                                   data-minlength="6" maxlength="15" required="true">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="confirm-password">Confirm
-                                            password</label>
-
-                                        <div class="col-sm-4">
-                                            <input class="form-control" type="password" data-minlength="6"
-                                                   maxlength="15" data-match="#inputPassword"
-                                                   data-match-error="Passwords don't match"
-                                                   name="check" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"></label>
 
                                         <div class="col-sm-2">
-                                            <button type="submit" class="button-default">insert or update</button>
+                                            <button type="submit" name="action" class="button-default">update</button>
                                         </div>
                                     </div>
                                 </form>
@@ -165,7 +144,10 @@ if(!isset($_SESSION['user'])) {
             cache: false,
             async: true
         }).done(function (data) {
-            console.log(data);
+            $("#first-name").val(data.firstName);
+            $("#last-name").val(data.lastName);
+            $("#country").val(data.country);
+            $("#email").val(data.email);
         });
     };
 </script>
