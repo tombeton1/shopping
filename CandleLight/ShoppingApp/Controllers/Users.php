@@ -10,5 +10,5 @@ namespace ShoppingApp\Controllers;
 
 include_once '../../vendor/autoload.php';
 
-$users = new  \ShoppingApp\Model\MoUser();
-echo $users->selectAllUsers();
+$users = new  \ShoppingApp\Model\DaUser();
+echo $users->selectAll();

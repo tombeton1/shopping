@@ -115,6 +115,13 @@ class DaUser
             $stmt->execute();
             $result = $stmt->fetch();
             $result = password_verify($password, $result['password']);
+            if($result){
+                $User = new \ShoppingApp\Bo\User();
+                $User->setUserId($result['user_id']);
+                $User->setFirstName($result['first_name']);
+                $User->setLastName($result['last_name']);
+                $result = $User;
+            }
         } catch (\PDOException $e) {
             echo $e->getMessage();
         }

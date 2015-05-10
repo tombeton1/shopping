@@ -4,22 +4,19 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+    <title>App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/CandleLight/templates/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-    </style>
-    <title></title>
+    <link rel="stylesheet" href="/CandleLight/templates/css/jquery.sidr.light.css">
     <style>
         .tab-links:after {
             display: block;
             clear: both;
             content: '';
         }
-
         .tab {
             display: none;
         }
-
         .tab.active {
             display: block;
         }
@@ -27,16 +24,16 @@
             background-color: #53e3a6;
         }
     </style>
-    <link rel="stylesheet" href="/CandleLight/templates/css/jquery.sidr.light.css">
 </head>
 <body>
 <a id="simple-menu" href="#sidr">Toggle menu</a>
 <div class="tabs">
     <div id="sidr">
         <ul class="tab-links">
-            <li class="active"><a href="#tab1">User</a></li>
-            <li><a href="#tab2">Shopping list</a></li>
-            <li><a href="#tab3">Recipe</a></li>
+            <li class="active"><a href="#tab1">Grocery List</a></li>
+            <li><a href="#tab2">Friends</a></li>
+            <li><a href="#tab3">Settings</a></li>
+            <li><a href="/CandleLight/logout">Log out</a></li>
         </ul>
     </div>
     <div class="tab-content">
@@ -63,7 +60,31 @@
             $(this).parent('li').addClass('active').siblings().removeClass('active');
             e.preventDefault();
         });
+        loadUsers();
+        loadUser(3);
     });
+    function loadUsers() {
+        $.ajax({
+            url: '/CandleLight/api/users',
+            type: 'GET',
+            dataType: 'json',
+            cache: false,
+            async: true
+        }).done(function (data) {
+            console.log(data);
+        });
+    };
+    function loadUser(id) {
+        $.ajax({
+            url: '/CandleLight/api/users/' + id,
+            type: 'GET',
+            dataType: 'json',
+            cache: false,
+            async: true
+        }).done(function (data) {
+            console.log(data);
+        });
+    };
 </script>
 </body>
 </html> 

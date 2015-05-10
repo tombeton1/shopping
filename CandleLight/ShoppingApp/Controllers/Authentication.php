@@ -25,6 +25,7 @@ class Authentication
     {
         if ($this->token == $_SESSION['token']) {
             if ($this->login->checkPassword($this->email, $this->password)) {
+                $this->login->
                 $_SESSION['user'] = $this->email;
                 header("Location: /CandleLight/app/");
                 die();
@@ -35,13 +36,13 @@ class Authentication
             }
         } else {
             $_SESSION['message'] = 'token invalid or corrupted';
-            header("Location: /");
+            header("Location: /CandleLight/");
             die();
         }
     }
-    public function logout(){
+    public static  function logout(){
         session_destroy();
-        header("Location: ../templates/index.php");
+        header("Location: /CandleLight/");
         die();
     }
 }

@@ -7,31 +7,19 @@
  */
 
 namespace ShoppingApp\Controllers;
-use ShoppingApp\Model\DaUser as User;
 
 
-function login(){
+class User {
+    private $user;
 
-    $user = new User();
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    if ($_POST['token'] == $_SESSION['token']) {
-        if ($user->checkPassword($email, $password)) {
-            $_SESSION['user'] = $email;
-            header("Location: /app/");
-            die();
-        } else {
-            $_SESSION['message'] = 'e-mail or password is not valid';
-            header("Location: /");
-            die();
-        }
-    } else {
-        $_SESSION['message'] = 'token invalid or corrupted';
-        header("Location: /");
-        die();
+    public function __construct(){
+        $this->user = new \ShoppingApp\Model\DaUser();
     }
-}
-function test(){
 
-    echo 'test';
+    public function getUsers(){
+        return json_encode($this->user->selectAll());
+    }
+    public function getUser($id){
+        return json_encode($this->user->selectOne($id));
+    }
 }

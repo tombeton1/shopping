@@ -15,5 +15,19 @@ $app->post('/login', function() use($app){
 $app->get('/app/', function () use ($app){
     $app->render('shoppingapp.php');
 });
+$app->get('/logout/', function () {
+   \ShoppingApp\Controllers\Authentication::logout();
+});
+$app->get('/api/users', 'getUsers');
+$app->get('/api/users/:id', 'getUser');
 $app->run();
+function getUsers(){
+    $controller = new \ShoppingApp\Controllers\User();
+    echo ($controller->getUsers());
+}
+function getUser($id){
+    $controller = new \ShoppingApp\Controllers\User();
+    echo ($controller->getUser($id));
+}
+
 ?>

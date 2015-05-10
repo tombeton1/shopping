@@ -8,13 +8,13 @@
 namespace ShoppingApp\Model;
 include_once '../../vendor/autoload.php';
 
-$User = new \ShoppingApp\Bo\User();
-$User->setFirstName('test');
-$User->setLastName('test');
-$User->setEmail('tom@tom.com');
-$User->setCountry('belgie');
-$User->setPassword('tom');
-echo \ShoppingApp\Dal\DaUser::insert($User);
+//$User = new \ShoppingApp\Bo\User();
+//$User->setFirstName('test');
+//$User->setLastName('test');
+//$User->setEmail('tom@tom.com');
+//$User->setCountry('belgie');
+//$User->setPassword('tom');
+//echo \ShoppingApp\Dal\DaUser::insert($User);
 
 //$User = new \ShoppingApp\Bo\User();
 //$User->setUserId(1);
@@ -41,13 +41,17 @@ echo \ShoppingApp\Dal\DaUser::insert($User);
 //     echo $User->getCountry();
 //}
 
-//$email = 'test@test.com';
-//$password = 'test';
-//if (\ShoppingApp\Model\DaUser::login($email, $password)){
-//    echo'correct';
-//} else {
-//    echo'bad password';
-//};
+$email = 'test@test.com';
+$password = 'test';
+$User = new \ShoppingApp\Model\DaUser();
+if($User->checkPassword($email, $password)){
+   $firstname = $User->checkPassword($email, $password);
+   echo $firstname;
+
+} else {
+    echo'fout';
+}
+
 
 //$id = 1;
 //\ShoppingApp\Model\DaUser::delete($id);
