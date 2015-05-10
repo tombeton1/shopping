@@ -1,29 +1,14 @@
 <?php
-
 namespace ShoppingApp\Controllers;
-include_once '../../vendor/autoload.php';
 session_start();
 class Authentication
 {
     private $login;
-    private $email;
-    private $password;
 
     /**
      * @param mixed $email
      */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
 
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
 
     public function __construct()
     {
@@ -32,25 +17,27 @@ class Authentication
 
     public function login()
     {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
         if ($_POST['token'] == $_SESSION['token']) {
-            if ($this->login->checkPassword($this->email, $this->password)) {
-                $_SESSION['user'] = $this->email;
-                header("Location: ../View/shoppingapp.php");
+            if ($this->login->checkPassword($email, $password)) {
+                $_SESSION['user'] = $email;
+                header("Location: /app/");
                 die();
             } else {
                 $_SESSION['message'] = 'e-mail or password is not valid';
-                header("Location: ../View/index.php");
+                header("Location: /");
                 die();
             }
         } else {
             $_SESSION['message'] = 'token invalid or corrupted';
-            header("Location: ../View/index.php");
+            header("Location: /");
             die();
         }
     }
     public function logout(){
         session_destroy();
-        header("Location: ../View/index.php");
+        header("Location: ../templates/index.php");
         die();
     }
 }

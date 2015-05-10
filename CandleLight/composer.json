@@ -10,7 +10,7 @@
     "require": {
 
     
-    "aura/router": "3.x-dev"
+    "slim/slim": "~2.6"
 
     }
 }

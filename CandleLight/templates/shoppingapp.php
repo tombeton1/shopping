@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/CandleLight/View/css/bootstrap.min.css" rel="stylesheet">
     <style>
     </style>
     <title></title>
@@ -27,7 +27,7 @@
             background-color: #53e3a6;
         }
     </style>
-    <link rel="stylesheet" href="css/jquery.sidr.light.css">
+    <link rel="stylesheet" href="/CandleLight/View/css/jquery.sidr.light.css">
 </head>
 <body>
 <a id="simple-menu" href="#sidr">Toggle menu</a>
@@ -51,10 +51,9 @@
         </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.sidr.min.js"></script>
+<script type="text/javascript" src="/CandleLight/View/js/jquery.min.js"></script>
+<script type="text/javascript" src="/CandleLight/View/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/CandleLight/View/js/jquery.sidr.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#simple-menu').sidr();

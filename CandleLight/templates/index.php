@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $message = '';
 if(!isset($_SESSION['message'])) {
     $message = '';
@@ -18,13 +19,13 @@ if (!isset($_SESSION['token'])){
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="StyleSheet" type="text/css" href="css/main.css">
+    <link rel="StyleSheet" type="text/css" href="View/css/main.css">
 </head>
 <body>
 <div class="wrapper">
     <div class="container">
         <h1>Welcome</h1>
-        <form class="form" method="POST" action="routing.php">
+        <form class="form" method="POST" action="/CandleLight/login/">
             <input type="hidden" name="token" value="<?php echo $token; ?>" />
             <input type="text" name="email" placeholder="E-mail">
             <input type="password" name="password" placeholder="Password">
