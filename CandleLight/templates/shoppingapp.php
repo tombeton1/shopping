@@ -1,6 +1,6 @@
 <?php
 session_start();
-$User;
+$User = NULL;
 if(!isset($_SESSION['user'])) {
     header("Location: /CandleLight/");
 } else {
@@ -44,7 +44,7 @@ if(!isset($_SESSION['user'])) {
     </div>
     <div class="tab-content">
         <div id="tab1" class="tab active">
-            <?= $User->getFirstName();?>
+            <?= $User->getFirstName(), $User->getLastName();?>
         </div>
         <div id="tab2" class="tab">
             shopping list
@@ -157,9 +157,9 @@ if(!isset($_SESSION['user'])) {
             console.log(data);
         });
     };
-    function loadUser(id) {
+    function loadUser() {
         $.ajax({
-            url: '/CandleLight/api/users/' + id,
+            url: '/CandleLight/api/users/<?=$User->getUserId();?>',
             type: 'GET',
             dataType: 'json',
             cache: false,

@@ -3,6 +3,7 @@ DROP PROCEDURE IF EXISTS user_check_password;
 DELIMITER //
 CREATE PROCEDURE `user_check_password`
 (
+	 OUT pId INT,
 	 pEmail nvarchar (100) 
 )
 BEGIN
