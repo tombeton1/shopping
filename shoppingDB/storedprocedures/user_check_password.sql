@@ -6,6 +6,6 @@ CREATE PROCEDURE `user_check_password`
 	 pEmail nvarchar (100) 
 )
 BEGIN
-SELECT `users`.`password`, `users`.first_name, `users`.last_name FROM `users` WHERE `users`.`email` = pEmail;
+SELECT `users`.`password`, `users`.first_name, `users`.last_name, `users`.user_id FROM `users` WHERE `users`.`email` = pEmail;
 END //
 DELIMITER ;

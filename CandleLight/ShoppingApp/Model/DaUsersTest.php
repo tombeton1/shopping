@@ -46,7 +46,7 @@ $password = 'test';
 $User = new \ShoppingApp\Model\DaUser();
 if($User->checkPassword($email, $password)){
    $firstname = $User->checkPassword($email, $password);
-   echo $firstname;
+    print_r($firstname->getUserId());
 
 } else {
     echo'fout';
