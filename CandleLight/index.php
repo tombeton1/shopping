@@ -20,6 +20,7 @@ $app->get('/logout/', function () {
 });
 $app->get('/api/users', 'getUsers');
 $app->get('/api/users/:id', 'getUser');
+$app->put('/api/users/:id', 'updateUser');
 $app->run();
 function getUsers(){
     $controller = new \ShoppingApp\Controllers\User();
@@ -29,5 +30,15 @@ function getUser($id){
     $controller = new \ShoppingApp\Controllers\User();
     echo ($controller->getUser($id));
 }
-
+function updateUser($id){
+    $User = new ShoppingApp\Bo\User();
+    $request = Slim::getInstance()->request();
+    $User->setUserId($id);
+    $User->setFirstName($request->put('first-name'));
+    $User->setLastName($request->put('last-name'));
+    $User->setCountry($request->put('country'));
+    $User->setEmail($request->put('email'));
+    $controller = new \ShoppingApp\Controllers\User();
+    echo ($controller->updateUser($User));
+}
 ?>

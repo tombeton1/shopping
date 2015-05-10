@@ -1,10 +1,10 @@
 <?php
 session_start();
 $User = NULL;
-if(!isset($_SESSION['user'])) {
+if (!isset($_SESSION['user'])) {
     header("Location: /CandleLight/");
 } else {
-   $User = $_SESSION['user'];
+    $User = $_SESSION['user'];
 }
 ?>
 <!DOCTYPE HTML>
@@ -20,19 +20,23 @@ if(!isset($_SESSION['user'])) {
             clear: both;
             content: '';
         }
+
         .tab {
             display: none;
         }
+
         .tab.active {
             display: block;
         }
-        .sidr-inner{
+
+        .sidr-inner {
             background-color: #53e3a6;
         }
     </style>
 </head>
 <body>
 <a id="simple-menu" href="#sidr">Toggle menu</a>
+
 <div class="tabs">
     <div id="sidr">
         <ul class="tab-links">
@@ -44,7 +48,7 @@ if(!isset($_SESSION['user'])) {
     </div>
     <div class="tab-content">
         <div id="tab1" class="tab active">
-            <?= $User->getFirstName(), $User->getLastName();?>
+            <?= $User->getFirstName(), $User->getLastName(); ?>
         </div>
         <div id="tab2" class="tab">
             shopping list
@@ -55,7 +59,7 @@ if(!isset($_SESSION['user'])) {
                     <div id="create-user">
                         <div class="col-lg-* col-md-* col-sm-* col-xs-* ">
                             <div class="grey-border">
-                                <form class="form form-horizontal " id="create-user-form">
+                                <form class="form form-horizontal" id="update-user-form">
                                     <div class="form-group  text-center">
                                         <label class="col-sm-2 control-label"></label>
 
@@ -67,24 +71,27 @@ if(!isset($_SESSION['user'])) {
                                         <label class="col-sm-2 control-label" for="first-name">First name</label>
 
                                         <div class="col-sm-4">
-                                            <input id="first-name" class="form-control" type="text" name="first-name" maxlength="50"
-                                                   pattern="[^()[\]{}*&^%$<>#0-9@!]+$" required="true"/>
+                                            <input id="first-name" class="form-control" type="text" name="first-name"
+                                                   maxlength="50"
+                                                   pattern="[^()[\]{}*&^%$<>#0-9@!]+$" required="true" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="last-name">Family name</label>
 
                                         <div class="col-sm-4">
-                                            <input id="last-name" class="form-control" type="text" name="last-name" maxlength="50"
-                                                   pattern="[^()[\]{}*&^%$<>#0-9@!]+$" required="true"/>
+                                            <input id="last-name" class="form-control" type="text" name="last-name"
+                                                   maxlength="50"
+                                                   pattern="[^()[\]{}*&^%$<>#0-9@!]+$" required="true" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="country">Country</label>
 
                                         <div class="col-sm-4">
-                                            <input id="country" class="form-control" type="text" name="country" maxlength="50"
-                                                   pattern="[^()[\]{}*&^%$<>#0-9@!]+$" required="false">
+                                            <input id="country" class="form-control" type="text" name="country"
+                                                   maxlength="50"
+                                                   pattern="[^()[\]{}*&^%$<>#0-9@!]+$" required="false" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -93,14 +100,15 @@ if(!isset($_SESSION['user'])) {
                                         <div class="col-sm-4">
                                             <input id="email" class="form-control" type="email" maxlength="100"
                                                    pattern="\b[A-Z0-9._+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,4}\b$)"
-                                                   name="email" required="true">
+                                                   name="email" required="true" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"></label>
 
                                         <div class="col-sm-2">
-                                            <button type="submit" name="action" class="button-default">update</button>
+                                            <input class="button" id="update" type="submit" value="Edit"
+                                                   onClick="enableInput()"/>
                                         </div>
                                     </div>
                                 </form>
@@ -108,48 +116,93 @@ if(!isset($_SESSION['user'])) {
                         </div>
                     </div>
                 </div>
-    </div>
-</div>
-<script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
-<script type="text/javascript" src="/CandleLight/templates/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/CandleLight/templates/js/jquery.sidr.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#simple-menu').sidr();
-        $('.tabs .tab-links a').on('click', function (e) {
-            var currentAttrValue = $(this).attr('href');
-            $('.tabs ' + currentAttrValue).show().siblings().hide();
-            $(this).parent('li').addClass('active').siblings().removeClass('active');
-            e.preventDefault();
-        });
-        loadUsers();
-        loadUser(3);
-    });
-    function loadUsers() {
-        $.ajax({
-            url: '/CandleLight/api/users',
-            type: 'GET',
-            dataType: 'json',
-            cache: false,
-            async: true
-        }).done(function (data) {
-            console.log(data);
-        });
-    };
-    function loadUser() {
-        $.ajax({
-            url: '/CandleLight/api/users/<?= $User->getUserId();?>',
-            type: 'GET',
-            dataType: 'json',
-            cache: false,
-            async: true
-        }).done(function (data) {
-            $("#first-name").val(data.firstName);
-            $("#last-name").val(data.lastName);
-            $("#country").val(data.country);
-            $("#email").val(data.email);
-        });
-    };
-</script>
+            </div>
+        </div>
+        <script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/CandleLight/templates/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/CandleLight/templates/js/jquery.sidr.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#simple-menu').sidr();
+                $('.tabs .tab-links a').on('click', function (e) {
+                    var currentAttrValue = $(this).attr('href');
+                    $('.tabs ' + currentAttrValue).show().siblings().hide();
+                    $(this).parent('li').addClass('active').siblings().removeClass('active');
+                    e.preventDefault();
+                });
+                loadUser();
+
+                $('#update-user-form').submit(function (e) {
+
+                    var updatebtn = $('#update');
+                    $.ajax({
+                        url: '/CandleLight/api/users/<?=$User->getUserId()?>',
+                        type: 'put',
+                        dataType: 'text',
+                        cache: false,
+                        async: true,
+                        data: $('#update-user-form').serialize(),
+                        beforeSend: function () {
+                            updatebtn.val('updating').attr('disabled', 'disabled');
+                        }
+                    }).done(function (data) {
+
+                    }).always(function () {
+                        loadUser();
+                        disableInput();
+                        updatebtn.val('edit').removeAttr('disabled');
+                    });
+                    e.preventDefault();
+                });
+            });
+            function loadUsers() {
+                $.ajax({
+                    url: '/CandleLight/api/users',
+                    type: 'GET',
+                    dataType: 'json',
+                    cache: false,
+                    async: true
+                }).done(function (data) {
+                    console.log(data);
+                });
+            }
+            ;
+            function loadUser() {
+                $.ajax({
+                    url: '/CandleLight/api/users/<?= $User->getUserId();?>',
+                    type: 'GET',
+                    dataType: 'json',
+                    cache: false,
+                    async: true
+                }).done(function (data) {
+                    $("#first-name").val(data.firstName);
+                    $("#last-name").val(data.lastName);
+                    $("#country").val(data.country);
+                    $("#email").val(data.email);
+                });
+            }
+            ;
+            function enableInput() {
+                if (document.getElementById("update").type === "submit") {
+                    document.getElementById("update").type = "button";
+                    document.getElementById("update").value = "Update";
+                    document.getElementById("first-name").disabled = false;
+                    document.getElementById("last-name").disabled = false;
+                    document.getElementById("country").disabled = false;
+                    document.getElementById("email").disabled = false;
+                } else if (document.getElementById("update").type === "button") {
+                    document.getElementById("update").type = "submit";
+                }
+            }
+            ;
+
+            function disableInput() {
+                document.getElementById("first-name").disabled = true;
+                document.getElementById("last-name").disabled = true;
+                document.getElementById("country").disabled = true;
+                document.getElementById("email").disabled = true;
+            }
+            ;
+        </script>
 </body>
 </html> 

@@ -22,4 +22,7 @@ class User {
     public function getUser($id){
         return json_encode($this->user->selectOne($id));
     }
+    public function updateUser($User){
+        return json_encode($this->user->update($User));
+    }
 }
