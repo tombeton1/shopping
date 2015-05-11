@@ -14,9 +14,10 @@
      {
          try {
              $conn = \ShoppingApp\Model\DataSource::getConnection();
-             $stmt = $conn->prepare('CALL shopping_list_insert(@pId, :pName, :pUserId, :pCreated, :pDueDate, :pAccess)');
+             $stmt = $conn->prepare('CALL shopping_list_insert(@pId, :pName, :pUserId, :pOwnerText, :pCreated, :pDueDate, :pAccess)');
              $stmt->bindValue(':pName', $shoppinglist->getShoppingListName(), \PDO::PARAM_STR);
              $stmt->bindValue(':pUserId', $shoppinglist->getUserId(), \PDO::PARAM_INT);
+             $stmt->bindValue(':pOwnerText', $shoppinglist->getOwnerText(), \PDO::PARAM_STR);
              $stmt->bindValue(':pCreated', $shoppinglist->getShoppingListCreated(), \PDO::PARAM_STR);
              $stmt->bindValue(':pDueDate', $shoppinglist->getShoppingListDueDate(), \PDO::PARAM_INT);
              $stmt->bindValue(':pAccess', $shoppinglist->getAccess(), \PDO::PARAM_INT);
@@ -25,18 +26,6 @@
                 echo 'succes';
              }
 
-             $id = $conn->query('select @pId')->fetchColumn();
-             $products = $shoppinglist->getListProducts();
-
-             if($products){
-                 foreach($products as $product){
-                     $stmt = $conn->prepare('CALL product_shopping_list_insert(:pProductId, :pShoppingListId, :pAmount, :pAmountUnit)');
-                     $stmt->bindValue(':pProductId', $product['id'], \PDO::PARAM_INT);
-                     $stmt->bindValue(':pShoppingListId', $id, \PDO::PARAM_INT);
-                     $stmt->bindValue(':pAmount', $product['amount'], \PDO::PARAM_INT);
-                     $stmt->bindValue(':pAmountUnit', $product['unit'], \PDO::PARAM_STR);
-                     $stmt->execute();
-                 }
              }
          } catch (\PDOException $e){
              echo $e->getMessage();
@@ -59,29 +48,28 @@
      {
          try{
              $conn = \ShoppingApp\Model\DataSource::getConnection();
-             $stmt = $conn->prepare('CALL shopping_list_update(:pId, :pName, :pUserId, :pDueDate, :pAccess)');
+             $stmt = $conn->prepare('CALL shopping_list_update(:pId, :pName, :pUserId, :pOwnerText, :pDueDate, :pAccess, :pLastUpdatedBy)');
              $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
              $stmt->bindValue(':pName', $shoppinglist->getShoppingListName(), \PDO::PARAM_STR);
              $stmt->bindValue(':pUserId', $shoppinglist->getUserId(), \PDO::PARAM_INT);
+             $stmt->bindValue(':pOwnerText', $shoppinglist->getOwnerText(), \PDO::PARAM_STR);
              $stmt->bindValue(':pDueDate', $shoppinglist->getShoppingListDueDate(), \PDO::PARAM_INT);
              $stmt->bindValue(':pAccess', $shoppinglist->getAccess(), \PDO::PARAM_INT);
+             $stmt->bindValue(':pLastUpdatedBy', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
              $stmt->execute();
-
-             $products = $shoppinglist->getListProducts();
-
-             if($products){
-                 $stmt = $conn->prepare('CALL product_shopping_list_delete(:pId)');
-                 $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
-                 $stmt->execute();
-                 foreach($products as $product){
-                     $stmt = $conn->prepare('CALL product_shopping_list_insert(:pProductId, :pShoppingListId, :pAmount, :pAmountUnit)');
-                     $stmt->bindValue(':pProductId', $product['id'], \PDO::PARAM_INT);
-                     $stmt->bindValue(':pShoppingListId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
-                     $stmt->bindValue(':pAmount', $product['amount'], \PDO::PARAM_INT);
-                     $stmt->bindValue(':pAmountUnit', $product['unit'], \PDO::PARAM_STR);
-                     $stmt->execute();
-                 }
              }
+         } catch (\PDOException $e){
+             echo $e->getMessage();
+         }
+     }
+
+     public function updateByFriend($id)
+     {
+         try{
+             $conn = \ShoppingApp\Model\DataSource::getConnection();
+             $stmt = $conn->prepare('CALL shopping_list_update_by_friend(:pFriendsText, :pLastUpdatedBy)');
+             //verdere uitwerking
+             
          } catch (\PDOException $e){
              echo $e->getMessage();
          }
@@ -98,6 +86,8 @@
              $shoppinglist->setShoppingListId($array['shopping_list_id']);
              $shoppinglist->setShoppingListName($array['shopping_list_name']);
              $shoppinglist->setUserId($array['user_id']);
+             $shoppinglist->setOwnerText($array['owner_text']);
+             $shoppinglist->setFriendsText($array['friends_text']);
              $shoppinglist->setShoppingListCreated($array['shopping_list_created']);
              $shoppinglist->setShoppingListDueDate($array['shopping_list_due_date']);
              $shoppinglist->setShoppingListUpdated($array['shopping_list_updated']);

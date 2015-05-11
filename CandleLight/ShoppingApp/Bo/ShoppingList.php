@@ -14,6 +14,8 @@ class ShoppingList implements \JsonSerializable
     private $shoppingListName;
     private $shoppingListId;
     private $userId;
+    private $ownerText;
+    private $friendsText;
     private $listProducts;
     private $shoppingListCreated;
     private $shoppingListDueDate;
@@ -70,6 +72,38 @@ class ShoppingList implements \JsonSerializable
     public function setUserId($userId)
     {
         $this->userId = $userId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOwnerText()
+    {
+        return $this->ownerText;
+    }
+
+    /**
+     * @param mixed $ownerText
+     */
+    public function setOwnerText($ownerText)
+    {
+        $this->ownerText = $ownerText;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFriendsText()
+    {
+        return $this->friendsText;
+    }
+
+    /**
+     * @param mixed $friendsText
+     */
+    public function setFriendsText($friendsText)
+    {
+        $this->friendsText = $friendsText;
     }
 
     /**
