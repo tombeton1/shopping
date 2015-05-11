@@ -31,6 +31,7 @@ if (!isset($_SESSION['token'])){
             <input type="password" name="password" placeholder="Password">
             <label><?=$message?></label><br>
             <button type="submit" name="action" value="login" id="login-button">Login</button>
+            <button type="submit" name="action" value="login" id="login-button">Login</button>
         </form>
     </div>
 </div>

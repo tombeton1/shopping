@@ -7,16 +7,15 @@
  */
 namespace ShoppingApp\Model;
 include_once '../../vendor/autoload.php';
-$func = new \ShoppingApp\Model\DaUser();
-
-$User = new \ShoppingApp\Bo\User();
-$User->setFirstName('test');
-$User->setLastName('test');
-$User->setEmail('tom');
-$User->setCountry('belgie');
-$User->setPassword('tom');
-echo $func->insert($User);
-//echo \ShoppingApp\Model\insert($User);
+//$func = new \ShoppingApp\Model\DaUser();
+//
+//$User = new \ShoppingApp\Bo\User();
+//$User->setFirstName('test');
+//$User->setLastName('test');
+//$User->setEmail('test@test.com');
+//$User->setCountry('belgie');
+//$User->setPassword('test');
+//echo $func->insert($User);
 
 //$User = new \ShoppingApp\Bo\User();
 //$User->setUserId(1);
@@ -64,8 +63,9 @@ echo $func->insert($User);
 
 //echo \ShoppingApp\Model\DaUser::acceptFriend(3, 2);
 
-//$UserId = '3';
-//$Friends = \ShoppingApp\Model\DaUser::selectAllFriends($UserId);
+//$UserId = '4';
+//$func = new \ShoppingApp\Model\DaUser();
+//$Friends = $func->selectAllFriends($UserId);
 //foreach($Friends as $User){
 //     echo $User->getUserId();
 //     echo $User->getFirstName();

@@ -41,7 +41,11 @@ if (!isset($_SESSION['user'])) {
     <div id="sidr">
         <ul class="tab-links">
             <li class="active"><a href="#tab1">Grocery List</a></li>
-            <li><a href="#tab2">Friends</a></li>
+            <li><a href="#tab2">Friends</a>
+                <ul>
+                    <li><a href="#"> Search for Friends</a></li>
+                </ul>
+            </li>
             <li><a href="#tab3">Settings</a></li>
             <li><a href="/CandleLight/logout">Log out</a></li>
         </ul>
@@ -54,7 +58,6 @@ if (!isset($_SESSION['user'])) {
             shopping list
         </div>
         <div id="tab3" class="tab">
-            <div class="tab-content">
                 <div class="col-lg-7 ">
                     <div id="create-user">
                         <div class="col-lg-* col-md-* col-sm-* col-xs-* ">
@@ -116,7 +119,6 @@ if (!isset($_SESSION['user'])) {
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/bootstrap.min.js"></script>
