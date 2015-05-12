@@ -21,6 +21,7 @@ class ShoppingList implements \JsonSerializable
     private $shoppingListDueDate;
     private $shoppingListUpdated;
     private $access;
+    private $lastUpdatedBy;
 
     function __construct()
     {
@@ -184,6 +185,22 @@ class ShoppingList implements \JsonSerializable
     public function setAccess($access)
     {
         $this->access = $access;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastUpdatedBy()
+    {
+        return $this->lastUpdatedBy;
+    }
+
+    /**
+     * @param mixed $lastUpdatedBy
+     */
+    public function setLastUpdatedBy($lastUpdatedBy)
+    {
+        $this->lastUpdatedBy = $lastUpdatedBy;
     }
 
     public function JsonSerialize()

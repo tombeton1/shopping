@@ -22,10 +22,7 @@
              $stmt->bindValue(':pDueDate', $shoppinglist->getShoppingListDueDate(), \PDO::PARAM_INT);
              $stmt->bindValue(':pAccess', $shoppinglist->getAccess(), \PDO::PARAM_INT);
              $result = $stmt->execute();
-             if ($result) {
-                echo 'succes';
-             }
-
+             if ($result) { echo 'succes'; }
          } catch (\PDOException $e){
              echo $e->getMessage();
          }
@@ -55,19 +52,20 @@
              $stmt->bindValue(':pDueDate', $shoppinglist->getShoppingListDueDate(), \PDO::PARAM_INT);
              $stmt->bindValue(':pAccess', $shoppinglist->getAccess(), \PDO::PARAM_INT);
              $stmt->execute();
-
          } catch (\PDOException $e){
              echo $e->getMessage();
          }
      }
 
-     public function updateByFriend($id)
+     public function updateByFriend($shoppinglist)
      {
          try{
              $conn = \ShoppingApp\Model\DataSource::getConnection();
-             $stmt = $conn->prepare('CALL shopping_list_update_by_friend(:pFriendsText, :pLastUpdatedBy)');
-             //verdere uitwerking
-             
+             $stmt = $conn->prepare('CALL shopping_list_update_by_friend(:pId, :pFriendsText, :pLastUpdatedBy)');
+             $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
+             $stmt->bindValue(':pFriendsText', $shoppinglist->getFriendsText(), \PDO::PARAM_STR);
+             $stmt->bindValue(':pLastUpdatedBy', $shoppinglist->getLastUpdatedBy(), \PDO::PARAM_INT);
+             $stmt->execute();
          } catch (\PDOException $e){
              echo $e->getMessage();
          }

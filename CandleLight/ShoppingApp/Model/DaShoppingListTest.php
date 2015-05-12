@@ -12,6 +12,8 @@
 
  include_once '../../vendor/autoload.php';
 
+ updateByFriend();
+
  function insert()
  {
      $shoppinglist = new ShoppingList();
@@ -44,7 +46,15 @@
      $shoppinglist->setAccess(2);
      DaShoppingList::update($shoppinglist);
  }
- 
+
+ function updateByFriend()
+ {
+     $shoppinglist = new ShoppingList();
+     $shoppinglist->setShoppingListId(33);
+     $shoppinglist->setFriendsText('extra informatie');
+     $shoppinglist->setLastUpdatedBy(3);
+     DaShoppingList::updateByFriend($shoppinglist);
+ }
 
  function selectOne()
  {
@@ -58,7 +68,7 @@
  {
      $array = DaShoppingList::selectAll();
      foreach($array as $records){
-         echo "Dit is de naam van de lijst: $records['shopping_list_name'], met de ID: $records['shopping_list_id']<br/>";
+         echo "Dit is de naam van de lijst: {$records['shopping_list_name']}, met de ID: {$records['shopping_list_id']}<br/>";
      }
  }
  
@@ -67,6 +77,6 @@
  {
      $array = DaShoppingList::selectByUser(2);
      foreach($array as $records){
-         echo "Dit is de naam van de lijst: $records['shopping_list_name'], met de ID: $records['shopping_list_id']<br/>";
+         echo "Dit is de naam van de lijst: {$records['shopping_list_name']}, met de ID: {$records['shopping_list_id']}<br/>";
      }
  }
