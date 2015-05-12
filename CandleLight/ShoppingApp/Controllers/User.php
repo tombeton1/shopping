@@ -27,9 +27,5 @@ class User {
     }
     public function insertUser($User){
         return json_encode($this->user->insert($User));
-<<<<<<< HEAD
-=======
-//        $this->user->insert($User);
->>>>>>> parent of ea9b15a... insert fix
     }
 }
