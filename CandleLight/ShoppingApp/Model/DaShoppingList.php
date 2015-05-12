@@ -12,7 +12,7 @@
  {
      public function insert($shoppinglist)
      {
-         try {
+         try{
              $conn = \ShoppingApp\Model\DataSource::getConnection();
              $stmt = $conn->prepare('CALL shopping_list_insert(@pId, :pName, :pUserId, :pOwnerText, :pCreated, :pDueDate, :pAccess)');
              $stmt->bindValue(':pName', $shoppinglist->getShoppingListName(), \PDO::PARAM_STR);
@@ -26,10 +26,9 @@
                 echo 'succes';
              }
 
-             }
          } catch (\PDOException $e){
              echo $e->getMessage();
-         }  
+         }
      }
      
      public function delete($shoppinglist)
@@ -48,16 +47,15 @@
      {
          try{
              $conn = \ShoppingApp\Model\DataSource::getConnection();
-             $stmt = $conn->prepare('CALL shopping_list_update(:pId, :pName, :pUserId, :pOwnerText, :pDueDate, :pAccess, :pLastUpdatedBy)');
+             $stmt = $conn->prepare('CALL shopping_list_update(:pId, :pName, :pUserId, :pOwnerText, :pDueDate, :pAccess)');
              $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
              $stmt->bindValue(':pName', $shoppinglist->getShoppingListName(), \PDO::PARAM_STR);
              $stmt->bindValue(':pUserId', $shoppinglist->getUserId(), \PDO::PARAM_INT);
              $stmt->bindValue(':pOwnerText', $shoppinglist->getOwnerText(), \PDO::PARAM_STR);
              $stmt->bindValue(':pDueDate', $shoppinglist->getShoppingListDueDate(), \PDO::PARAM_INT);
              $stmt->bindValue(':pAccess', $shoppinglist->getAccess(), \PDO::PARAM_INT);
-             $stmt->bindValue(':pLastUpdatedBy', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
              $stmt->execute();
-             }
+
          } catch (\PDOException $e){
              echo $e->getMessage();
          }
