@@ -58,10 +58,6 @@ if (!isset($_SESSION['token'])) {
         $('#insert-user-form').submit(function (e) {
 
             var insertbtn = $('#register-button');
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of ea9b15a... insert fix
             $.ajax({
                 url: '/CandleLight/api/users/',
                 type: 'post',
