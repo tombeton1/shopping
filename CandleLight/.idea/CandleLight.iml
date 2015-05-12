@@ -4,33 +4,30 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/slim/slim" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="PHP">
         <CLASSES>
-          <root url="file:///Applications/MAMP/bin/php/php5.6.2/lib/php" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/slim/slim" />
+          <root url="file://$MODULE_DIR$/vendor/psr/log" />
+          <root url="file://$MODULE_DIR$/vendor/symfony/yaml" />
+          <root url="file://$MODULE_DIR$/vendor/psr/http-message" />
         </CLASSES>
         <SOURCES>
-          <root url="file:///Applications/MAMP/bin/php/php5.6.2/lib/php" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="PHARS">
-        <CLASSES>
-          <root url="phar:///Applications/MAMP/bin/php/php5.6.2/lib/php/PEAR/phpunit.phar" />
-          <root url="phar:///Applications/MAMP/bin/php/php5.6.2/lib/php/phpunit.phar" />
-        </CLASSES>
-        <SOURCES>
-          <root url="phar:///Applications/MAMP/bin/php/php5.6.2/lib/php/PEAR/phpunit.phar" />
-          <root url="phar:///Applications/MAMP/bin/php/php5.6.2/lib/php/phpunit.phar" />
+          <root url="file://$MODULE_DIR$/vendor/slim/slim" />
+          <root url="file://$MODULE_DIR$/vendor/psr/log" />
+          <root url="file://$MODULE_DIR$/vendor/symfony/yaml" />
+          <root url="file://$MODULE_DIR$/vendor/psr/http-message" />
         </SOURCES>
       </library>
     </orderEntry>
   </component>
 </module>
-
