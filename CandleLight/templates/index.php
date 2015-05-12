@@ -2,15 +2,15 @@
 session_start();
 
 $message = '';
-if(!isset($_SESSION['message'])) {
+if (!isset($_SESSION['message'])) {
     $message = '';
 } else {
-    $message =  $_SESSION['message'];
+    $message = $_SESSION['message'];
 }
 $token = hash('sha512', uniqid(rand(), TRUE));
 $_SESSION['token'] = $token;
 $_SESSION['token_time'] = time();
-if (!isset($_SESSION['token'])){
+if (!isset($_SESSION['token'])) {
     $_SESSION['token'] = hash('sha512', uniqid(rand(), TRUE));
 }
 ?>
@@ -25,15 +25,67 @@ if (!isset($_SESSION['token'])){
 <div class="wrapper">
     <div class="container">
         <h1>Welcome</h1>
+
         <form class="form" method="POST" action="login">
-            <input type="hidden" name="token" value="<?php echo $token; ?>" />
+            <input type="hidden" name="token" value="<?php echo $token; ?>"/>
             <input type="text" name="email" placeholder="E-mail">
             <input type="password" name="password" placeholder="Password">
-            <label><?=$message?></label><br>
-            <button type="submit" name="action" value="login" id="login-button">Login</button>
+            <label><?= $message ?></label><br>
             <button type="submit" name="action" value="login" id="login-button">Login</button>
         </form>
+        <form class="form" action="">
+            <!--            <input class="button" id="update" type="submit" onclick="$('#register').toggle(); disableInput();"  value="Register" />-->
+            <button type="button" onclick="$('#register').toggle(); disableInput();" value="Register"></button>
+        </form>
+        <div id="register" style="display: none">
+            <form class="form" method="POST" id="insert-user-form">
+                <input type="email" name="email" placeholder="E-mail" required="true">
+                <input type="text" name="first-name" placeholder="First Name" required="true">
+                <input type="text" name="last-name" placeholder="Last Name" required="true">
+                <input type="text" name="country" placeholder="Country" required="false">
+                <input type="password" name="password" placeholder="Password" required="true">
+                <input type="password" placeholder="Confirm password" required="true">
+                <label><?= $message ?></label><br>
+                <button type="submit" name="action" value="register" id="register-button">Register</button>
+            </form>
+        </div>
     </div>
 </div>
+<script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
+<!--<script>-->
+<!--    $(document).ready(function ()) {-->
+<!--        function disableInput() {-->
+<!--            if (document.getElementById("register-btn").type === "submit") {-->
+<!--                document.getElementById("register-btn").type = "button";-->
+<!--                document.getElementById("register-btn").value = "Close";-->
+<!--            } else if (document.getElementById("register-btn").type === "button") {-->
+<!--                document.getElementById("register-btn").type = "submit";-->
+<!--            }-->
+<!--        }-->
+<!--        ;-->
+<!---->
+<!--    });-->
+<!--</script>-->
+<script>
+    $(document).ready(function () {
+
+        $('#insert-user-form').submit(function (e) {
+
+            var insertbtn = $('#register-button');
+            $.ajax({
+                url: '/CandleLight/api/users/',
+                type: 'post',
+                dataType: 'text',
+                cache: false,
+                async: true,
+                data: $('#insert-user-form').serialize()
+
+
+            }).done(function (data) {
+                disableInput();
+            })
+            e.preventDefault();
+        });
+</script>
 </body>
 </html>

@@ -25,4 +25,7 @@ class User {
     public function updateUser($User){
         return json_encode($this->user->update($User));
     }
+    public function insertUser($User){
+        $this->user->insert($User);
+    }
 }
