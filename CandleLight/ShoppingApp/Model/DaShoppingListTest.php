@@ -12,8 +12,6 @@
 
  include_once '../../vendor/autoload.php';
 
- updateByFriend();
-
  function insert()
  {
      $shoppinglist = new ShoppingList();
