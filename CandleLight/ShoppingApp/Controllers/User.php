@@ -26,11 +26,6 @@ class User {
         return json_encode($this->user->update($User));
     }
     public function insertUser($User){
-<<<<<<< HEAD
         return json_encode($this->user->insert($User));
-        //$this->user->insert($User);
-=======
-        $this->user->insert($User);
->>>>>>> a0a2c7bb050872e9ed51b3838802e26ebbda4940
     }
 }

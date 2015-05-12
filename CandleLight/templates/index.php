@@ -53,15 +53,14 @@ if (!isset($_SESSION['token'])) {
     </div>
 </div>
 <script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
-<script type="text/javascript">
+<script>
     $(document).ready(function () {
         $('#insert-user-form').submit(function (e) {
-<<<<<<< HEAD
-=======
+
             var insertbtn = $('#register-button');
->>>>>>> a0a2c7bb050872e9ed51b3838802e26ebbda4940
+
             $.ajax({
-                url: '/CandleLight/api/users',
+                url: '/CandleLight/api/users/',
                 type: 'post',
                 dataType: 'text',
                 cache: false,
@@ -84,27 +83,14 @@ if (!isset($_SESSION['token'])) {
         });
 
     });
-<<<<<<< HEAD
         function disableInput() {
             if (document.getElementById("register-close").type === "submit") {
                 document.getElementById("register-close").type = "button";
                 document.getElementById("register-close").value = "Close";
-            } else if (document.getElementById("register-close").type === "button") {
-                document.getElementById("register-close").type = "submit";
+            } else if (document.getElementById("update").type === "button") {
+                document.getElementById("update").type = "submit";
             }
         };
-=======
-    function disableInput() {
-        if (document.getElementById("register-close").type === "submit") {
-            document.getElementById("register-close").type = "button";
-            document.getElementById("register-close").value = "Close";
-        } else if (document.getElementById("register-close").type === "button") {
-            document.getElementById("register-close").type = "submit";
-        }
-    }
-    ;
-
->>>>>>> a0a2c7bb050872e9ed51b3838802e26ebbda4940
 </script>
 </body>
 </html>
