@@ -67,7 +67,7 @@ CREATE TABLE `shopping_list` (
   KEY `shopping_list_updated_by_fkey_idx` (`last_updated_by`),
   CONSTRAINT `shopping_list_updated_by_fkey` FOREIGN KEY (`last_updated_by`) REFERENCES `users` (`user_id`),
   CONSTRAINT `shopping_list_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,6 +138,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_list_insert`(
 	OUT pId INT ,
 	IN pName NVARCHAR (50) ,
     IN pUserId INT,
+    IN pOwnerText NVARCHAR (1000),
     IN pCreated NVARCHAR (50),
     IN pDueDate DATE,
     IN pAccess TINYINT
@@ -147,6 +148,7 @@ INSERT INTO `shopping_list`
 	(
 		`shopping_list`.`shopping_list_name`,
 		`shopping_list`.`user_id`,
+        `shopping_list`.`owner_text`,
 		`shopping_list`.`shopping_list_created`,
         `shopping_list`.`shopping_list_due_date`,
         `shopping_list`.`access`
@@ -155,6 +157,7 @@ INSERT INTO `shopping_list`
 	(
 		pName,
         pUserId,
+        pOwnerText,
         NOW(),
         pDueDate,
         pAccess
@@ -174,12 +177,14 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_list_select_all`(
 )
 BEGIN
-SELECT `shopping_list`.`shopping_list_name`, `shopping_list`.`shopping_list_id`
+SELECT `shopping_list`.`shopping_list_name`, `shopping_list`.`shopping_list_id`,
+	`shopping_list`.`last_updated_by`, `shopping_list`.`shopping_list_due_date`,
+    `shopping_list`.`shopping_list_updated`
 	FROM `shopping_list`
 ;
 END ;;
@@ -202,9 +207,33 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_list_select_by_user`(
 	pId INT
 )
 BEGIN
-SELECT `shopping_list`.`shopping_list_name`, `shopping_list`.`shopping_list_id`
+SELECT `shopping_list`.`shopping_list_name`, `shopping_list`.`shopping_list_id`,
+	`shopping_list`.`last_updated_by`, `shopping_list`.`shopping_list_due_date`,
+    `shopping_list`.`shopping_list_updated`
 	FROM `shopping_list` WHERE `user_id` = pId
 ;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `shopping_list_select_one` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_list_select_one`(
+	 pId INT 
+)
+BEGIN
+SELECT * FROM `shopping_list`
+	WHERE `shopping_list`.`shopping_list_id` = pId;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -219,24 +248,26 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_list_update`(
 	pId INT ,
 	pName NVARCHAR (50) ,
-	pUserId INT ,
+	pUserId INT,
+    pOwnerText NVARCHAR (1000),
     pDueDate DATE, 
     pAccess TINYINT
-	
 )
 BEGIN
 UPDATE `shopping_list`
 	SET
 		`shopping_list_name` = pName,
 		`user_id` = pUserId,
+        `owner_text` = pOwnerText,
 		`shopping_list_due_date` = pDueDate,
 		`shopping_list_updated` = NOW(),
-		`access` = pAccess
+		`access` = pAccess,
+        `last_updated_by` = pUserId
 	WHERE `shopping_list`.`shopping_list_id` = pId;
 END ;;
 DELIMITER ;
@@ -522,4 +553,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-11  1:08:34
+-- Dump completed on 2015-05-12 15:42:23

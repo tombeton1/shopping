@@ -7,7 +7,9 @@ CREATE PROCEDURE `shopping_list_select_by_user`
 	pId INT
 )
 BEGIN
-SELECT `shopping_list`.`shopping_list_name`, `shopping_list`.`shopping_list_id`
+SELECT `shopping_list`.`shopping_list_name`, `shopping_list`.`shopping_list_id`,
+	`shopping_list`.`last_updated_by`, `shopping_list`.`shopping_list_due_date`,
+    `shopping_list`.`shopping_list_updated`
 	FROM `shopping_list` WHERE `user_id` = pId
 ;
 END //
