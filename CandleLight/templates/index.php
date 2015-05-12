@@ -34,8 +34,7 @@ if (!isset($_SESSION['token'])) {
             <button type="submit" name="action" value="login" id="login-button">Login</button>
         </form>
         <form class="form" action="">
-            <!--            <input class="button" id="update" type="submit" onclick="$('#register').toggle(); disableInput();"  value="Register" />-->
-            <button type="button" onclick="$('#register').toggle(); disableInput();" value="Register"></button>
+           <input class="button" id="register-close" type="submit" onclick="$('#register').toggle(); disableInput();"  value="Register" />
         </form>
         <div id="register" style="display: none">
             <form class="form" method="POST" id="insert-user-form">
@@ -52,23 +51,8 @@ if (!isset($_SESSION['token'])) {
     </div>
 </div>
 <script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
-<!--<script>-->
-<!--    $(document).ready(function ()) {-->
-<!--        function disableInput() {-->
-<!--            if (document.getElementById("register-btn").type === "submit") {-->
-<!--                document.getElementById("register-btn").type = "button";-->
-<!--                document.getElementById("register-btn").value = "Close";-->
-<!--            } else if (document.getElementById("register-btn").type === "button") {-->
-<!--                document.getElementById("register-btn").type = "submit";-->
-<!--            }-->
-<!--        }-->
-<!--        ;-->
-<!---->
-<!--    });-->
-<!--</script>-->
 <script>
     $(document).ready(function () {
-
         $('#insert-user-form').submit(function (e) {
 
             var insertbtn = $('#register-button');
@@ -79,13 +63,23 @@ if (!isset($_SESSION['token'])) {
                 cache: false,
                 async: true,
                 data: $('#insert-user-form').serialize()
-
-
             }).done(function (data) {
                 disableInput();
             })
             e.preventDefault();
         });
+
+    });
+        function disableInput() {
+            if (document.getElementById("register-close").type === "submit") {
+                document.getElementById("register-close").type = "button";
+                document.getElementById("register-close").value = "Close";
+            } else if (document.getElementById("update").type === "button") {
+                document.getElementById("update").type = "submit";
+            }
+        }
+    ;
 </script>
 </body>
 </html>
+
