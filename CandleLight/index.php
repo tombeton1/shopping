@@ -51,6 +51,6 @@ function insertUser(){
     $User->setEmail($request->post('email'));
     $User->setPassword($request->post('password'));
     $controller = new \ShoppingApp\Controllers\User();
-    echo ($controller->insert($User));
+    echo ($controller->insertUser($User));
 }
 
