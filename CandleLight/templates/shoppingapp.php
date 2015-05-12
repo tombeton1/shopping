@@ -52,7 +52,7 @@ if (!isset($_SESSION['user'])) {
     </div>
     <div class="tab-content">
         <div id="tab1" class="tab active">
-            <?= $User->getFirstName() . " " . $User->getLastName(); ?>
+            <?= $User->getFirstName(), $User->getLastName(); ?>
         </div>
         <div id="tab2" class="tab">
             shopping list
