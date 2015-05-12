@@ -58,7 +58,10 @@ if (!isset($_SESSION['token'])) {
         $('#insert-user-form').submit(function (e) {
 
             var insertbtn = $('#register-button');
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of ea9b15a... insert fix
             $.ajax({
                 url: '/CandleLight/api/users/',
                 type: 'post',
@@ -90,7 +93,8 @@ if (!isset($_SESSION['token'])) {
             } else if (document.getElementById("update").type === "button") {
                 document.getElementById("update").type = "submit";
             }
-        };
+        }
+    ;
 </script>
 </body>
 </html>
