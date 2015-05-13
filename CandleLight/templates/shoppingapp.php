@@ -41,23 +41,25 @@ if (!isset($_SESSION['user'])) {
     <div id="sidr">
         <ul class="tab-links">
             <li class="active"><a href="#tab1">Grocery List</a></li>
-            <li><a href="#tab2">Friends</a>
+            <li><a href="#tab2" onclick="getFriends();">Friends</a>
                 <ul>
-                    <li><a href="#"> Search for Friends</a></li>
+                    <li><a href="#tab3"> Search for Friends</a></li>
+                    <li><a href="#tab4">Friend requests</a></li>
                 </ul>
             </li>
-            <li><a href="#tab3">Settings</a></li>
+            <li><a href="#tab5">Settings</a></li>
             <li><a href="/CandleLight/logout">Log out</a></li>
         </ul>
     </div>
     <div class="tab-content">
         <div id="tab1" class="tab active">
-            <?= $User->getFirstName(), $User->getLastName(); ?>
+            <p>Welkom <?= $User->getFirstName()?> <?= $User->getLastName();?></p>
         </div>
         <div id="tab2" class="tab">
-            shopping list
+            <h1>Friends</h1>
+            <div id="friends-list"></div>
         </div>
-        <div id="tab3" class="tab">
+        <div id="#tab5" class="tab">
                 <div class="col-lg-7 ">
                     <div id="create-user">
                         <div class="col-lg-* col-md-* col-sm-* col-xs-* ">
@@ -133,6 +135,7 @@ if (!isset($_SESSION['user'])) {
                     e.preventDefault();
                 });
                 loadUser();
+                loadUsers();
 
                 $('#update-user-form').submit(function (e) {
 
@@ -184,6 +187,22 @@ if (!isset($_SESSION['user'])) {
                 });
             }
             ;
+            function getFriends(){
+                $.ajax({
+                    url:'/CandleLight/api/users/friends/3',
+                    type: 'GET',
+                    dataType: 'json',
+                    cache: false,
+                    async: true
+                }).done(function (data){
+                    data.forEach(function (user) {
+                        $('#friends-list').append('<p>' + user.firstName + ' ' + user.lastName +  '</p>');
+                        console.log(user.firstName);
+                        console.log(user.lastName);
+
+                    });
+                })
+            }
             function enableInput() {
                 if (document.getElementById("update").type === "submit") {
                     document.getElementById("update").type = "button";

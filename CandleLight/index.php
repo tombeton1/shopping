@@ -22,6 +22,7 @@ $app->get('/api/users', 'getUsers');
 $app->get('/api/users/:id', 'getUser');
 $app->put('/api/users/:id', 'updateUser');
 $app->post('/api/users', 'insertUser');
+$app->get('/api/users/friends/:id', 'getFriends');
 $app->run();
 function getUsers(){
     $controller = new \ShoppingApp\Controllers\User();
@@ -40,7 +41,8 @@ function updateUser($id){
     $User->setCountry($request->put('country'));
     $User->setEmail($request->put('email'));
     $controller = new \ShoppingApp\Controllers\User();
-    echo ($controller->updateUser($User));
+    $controller->updateUser($User);
+    echo $controller->getMessage();
 }
 function insertUser(){
     $User = new ShoppingApp\Bo\User();
@@ -53,5 +55,9 @@ function insertUser(){
     $controller = new \ShoppingApp\Controllers\User();
     ($controller->insertUser($User));
     echo ($controller->getMessage());
+}
+function getFriends($id){
+    $controller = new \ShoppingApp\Controllers\User();
+    echo $controller->getFriends($id);
 }
 

@@ -31,4 +31,7 @@ class User {
     public function  getMessage(){
         return json_encode($this->user->getMessage());
     }
+    public function getFriends($id){
+        return json_encode($this->user->selectAllFriends($id));
+    }
 }

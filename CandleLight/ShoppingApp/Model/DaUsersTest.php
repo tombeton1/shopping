@@ -57,11 +57,13 @@ include_once '../../vendor/autoload.php';
 //$id = 1;
 //\ShoppingApp\Model\DaUser::delete($id);
 
-//$UserId = 3;
+//$UserId = 4;
 //$FriendId = 2;
-//echo \ShoppingApp\Model\DaUser::addFriend($UserId, $FriendId);
+//$func = new \ShoppingApp\Model\DaUser();
+//echo $func->addFriend($UserId, $FriendId);
 
-//echo \ShoppingApp\Model\DaUser::acceptFriend(3, 2);
+$func = new \ShoppingApp\Model\DaUser();
+echo $func->acceptFriend(3,2);
 
 //$UserId = '4';
 //$func = new \ShoppingApp\Model\DaUser();
