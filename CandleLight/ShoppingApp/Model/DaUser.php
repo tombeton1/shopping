@@ -27,13 +27,6 @@ class DaUser
         return $this->message;
     }
 
-    /**
-     * @param mixed $message
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-    }
 
     public function insert($User)
     {

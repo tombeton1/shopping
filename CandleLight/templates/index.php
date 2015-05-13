@@ -35,7 +35,6 @@ if (!isset($_SESSION['token'])) {
         </form>
         <div id="messageResult"></div>
         <form class="form" action="">
-<!--            <label>--><?//= $message ?><!--</label><br>-->
             <input class="button" id="register-close" type="submit" onclick="$('#register').toggle(); disableInput();"
                    value="Register"/>
         </form>
