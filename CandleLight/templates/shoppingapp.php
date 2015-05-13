@@ -195,6 +195,7 @@ if (!isset($_SESSION['user'])) {
                     cache: false,
                     async: true
                 }).done(function (data){
+                    $('#friends-list').html('');
                     data.forEach(function (user) {
                         $('#friends-list').append('<p>' + user.firstName + ' ' + user.lastName +  '</p>');
                         console.log(user.firstName);
