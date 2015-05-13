@@ -19,7 +19,7 @@ if (!isset($_SESSION['token'])) {
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="StyleSheet" type="text/css" href="css/main.css">
+    <link rel="StyleSheet" type="text/css" href="templates/css/main.css">
 </head>
 <body>
 <div class="wrapper">
