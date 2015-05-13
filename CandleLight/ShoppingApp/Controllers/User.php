@@ -28,4 +28,7 @@ class User {
     public function insertUser($User){
         return json_encode($this->user->insert($User));
     }
+    public function  getMessage(){
+        return json_encode($this->user->getMessage());
+    }
 }

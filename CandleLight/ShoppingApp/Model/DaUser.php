@@ -17,10 +17,27 @@ class DaUser
     {
         $this->conn = new \ShoppingApp\Model\DataSource();
     }
+    private $message;
+
+    /**
+     * @return mixed
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param mixed $message
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
 
     public function insert($User)
     {
-        $message = NULL;
+       $this->message = NULL;
         try {
             $stmt = $this->conn->getConnection()->prepare('CALL user_insert(:pfirst_name, :plast_name, :pcountry, :pemail, :ppassword)');
             $stmt->bindValue(':pfirst_name', $User->getFirstName());
@@ -30,14 +47,14 @@ class DaUser
             $stmt->bindValue(':ppassword', password_hash($User->getPassword(), PASSWORD_DEFAULT));
             $result = $stmt->execute();
             if ($result) {
-                $message = 'User created succesfully';
+                $this->message = 'User created succesfully';
             }
         } catch (\PDOException $e) {
             if ($e->getCode() == 23000) {
-                $message = 'E-mail adress already in use';
+                $this->message = 'E-mail adress already in use';
             }
         }
-        return $message;
+        return $this->message;
     }
 
     public function update($User)

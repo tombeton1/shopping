@@ -33,8 +33,9 @@ if (!isset($_SESSION['token'])) {
             <label><?= $message ?></label><br>
             <button type="submit" name="action" value="login" id="login-button">Login</button>
         </form>
+        <div id="messageResult"></div>
         <form class="form" action="">
-            <label><?= $message ?></label><br>
+<!--            <label>--><?//= $message ?><!--</label><br>-->
             <input class="button" id="register-close" type="submit" onclick="$('#register').toggle(); disableInput();"
                    value="Register"/>
         </form>
@@ -57,6 +58,8 @@ if (!isset($_SESSION['token'])) {
     $(document).ready(function () {
         $('#insert-user-form').submit(function (e) {
             var insertbtn = $('#register-button');
+            var $message = $('#messageResult');
+
             $.ajax({
                 url: '/CandleLight/api/users',
                 type: 'post',
@@ -65,9 +68,12 @@ if (!isset($_SESSION['token'])) {
                 async: true,
                 data: $('#insert-user-form').serialize()
             }).done(function (data) {
+                var $messageData = data.toString();
                 $("#insert-user-form").trigger('reset');
                 $('#register').toggle();
                 document.getElementById("register-close").value = "Register";
+                $message.append('<div>"'+$messageData+'"</div>');
+
             })
             e.preventDefault();
         });
