@@ -18,12 +18,28 @@ $app->get('/app/', function () use ($app){
 $app->get('/logout/', function () {
    \ShoppingApp\Controllers\Authentication::logout();
 });
-$app->get('/api/users', 'getUsers');
-$app->get('/api/users/:id', 'getUser');
-$app->put('/api/users/:id', 'updateUser');
+$app->get('/api/users', 'auth', 'getUsers');
+$app->get('/api/users/:id', 'auth', 'getUser');
+$app->put('/api/users/:id', 'auth', 'updateUser');
 $app->post('/api/users', 'insertUser');
-$app->get('/api/users/friends/:id', 'getFriends');
+$app->get('/api/users/friends/:id', 'auth', 'getFriends');
 $app->run();
+
+function auth(){
+    if(!isset($_SESSION['token'])){
+        $token = new \ShoppingApp\Controllers\Authentication($_SESSION['token'], '', '');
+        if ($token->validate() === false){
+            $app = \Slim\Slim::getInstance();
+            $app->flash('error', 'Login required');
+            $app->redirect('CandleLight/index.php');
+        }
+    } else {
+        $app = \Slim\Slim::getInstance();
+        $app->flash('error', 'Login required');
+        $app->redirect('CandleLight/index.php');
+    }
+}
+
 function getUsers(){
     $controller = new \ShoppingApp\Controllers\User();
     echo ($controller->getUsers());

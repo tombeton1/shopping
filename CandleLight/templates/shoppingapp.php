@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $User = NULL;
 if (!isset($_SESSION['user'])) {
     header("Location: /CandleLight/");
@@ -59,7 +60,7 @@ if (!isset($_SESSION['user'])) {
             <h1>Friends</h1>
             <div id="friends-list"></div>
         </div>
-        <div id="#tab5" class="tab">
+        <div id="tab5" class="tab">
                 <div class="col-lg-7 ">
                     <div id="create-user">
                         <div class="col-lg-* col-md-* col-sm-* col-xs-* ">
@@ -168,7 +169,7 @@ if (!isset($_SESSION['user'])) {
                     cache: false,
                     async: true
                 }).done(function (data) {
-                    console.log(data);
+
                 });
             }
             ;

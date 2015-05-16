@@ -247,4 +247,42 @@ class DaUser
         }
         return $result;
     }
+
+    public function insertToken($email)
+    {
+        try{
+            $conn = new \PDO("mysql:host=localhost;port=3306;dbname=shopping_security", "root", "root", array(\PDO::ATTR_PERSISTENT => true));
+            $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $conn->prepare('CALL shopping_security_insert_token(:pEmail, :pToken)');
+            $stmt->bindValue(':pEmail', $email, \PDO::PARAM_STR);
+            $stmt->bindValue(':pToken', $_SESSION['token'], \PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (\PDOException $e){
+
+        }
+    }
+
+    public function checkToken($token)
+    {
+        $return = null;
+        try{
+            $conn = new \PDO("mysql:host=localhost;port=3306;dbname=shopping_security", "root", "root", array(\PDO::ATTR_PERSISTENT => true));
+            $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $conn->prepare('CALL shopping_security_check_token(:pToken)');
+            $stmt->bindValue(':pToken', $token, \PDO::PARAM_STR);
+            $result = $stmt->execute();
+
+            if ($result === 0){
+                $return = false;
+            } else {
+                $return = $stmt->fetch(\PDO::FETCH_ASSOC);
+            }
+
+        } catch (\PDOException $e){
+
+        }
+        return $return;
+    }
 } 

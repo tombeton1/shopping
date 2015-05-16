@@ -25,6 +25,7 @@ class Authentication
     {
         if ($this->token == $_SESSION['token']) {
             if ($this->login->checkPassword($this->email, $this->password) != FALSE) {
+                $this->login->insertToken($this->email);
                 $User = $this->login->checkPassword($this->email, $this->password);
                 $_SESSION['user'] = $User;
                 header("Location: /CandleLight/app/");
@@ -45,6 +46,9 @@ class Authentication
         header("Location: /CandleLight/");
         die();
     }
-}
 
+    public function validate(){
+        return $this->login->checkToken($this->token);
+    }
+}
 ?>
