@@ -4,7 +4,7 @@ use Slim\Slim;
 $app = new Slim();
 $app->get('/', function () use ($app) {
     $app->render('index.php');
-});
+})->name('index');
 $app->post('/login', function() use($app){
     $token = $app->request->post('token');
     $email = $app->request->post('email');
@@ -30,13 +30,11 @@ function auth(){
         $token = new \ShoppingApp\Controllers\Authentication($_SESSION['token'], '', '');
         if ($token->validate() === false){
             $app = \Slim\Slim::getInstance();
-            $app->flash('error', 'Login required');
-            $app->redirect('CandleLight/index.php');
+            $app->redirect($app->urlFor('index'));
         }
     } else {
         $app = \Slim\Slim::getInstance();
-        $app->flash('error', 'Login required');
-        $app->redirect('CandleLight/index.php');
+        $app->redirect($app->urlFor('index'));
     }
 }
 
