@@ -2,6 +2,7 @@
 include_once "vendor/autoload.php";
 use Slim\Slim;
 $app = new Slim();
+
 $app->get('/', function () use ($app) {
     $app->render('index.php');
 })->name('index');
@@ -19,10 +20,10 @@ $app->get('/logout/', function () {
    \ShoppingApp\Controllers\Authentication::logout();
 });
 $app->get('/api/users', 'auth', 'getUsers');
-$app->get('/api/users/:id', 'auth', 'getUser');
+$app->get('/api/users/:id/', 'auth', 'getUser');
 $app->put('/api/users/:id', 'auth', 'updateUser');
 $app->post('/api/users', 'insertUser');
-$app->get('/api/users/friends/:id', 'auth', 'getFriends');
+$app->get('/api/users/friends/:id','auth', 'getFriends');
 $app->run();
 
 function auth(){
@@ -73,5 +74,9 @@ function insertUser(){
 function getFriends($id){
     $controller = new \ShoppingApp\Controllers\User();
     echo $controller->getFriends($id);
+}
+function getFriendsRequests($id){
+    $controller = new \ShoppingApp\Controllers\Users();
+    echo $controller->getFriendsRequests($id);
 }
 

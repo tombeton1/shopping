@@ -17,6 +17,7 @@ class DaUser
     {
         $this->conn = new \ShoppingApp\Model\DataSource();
     }
+
     private $message;
 
     /**
@@ -30,7 +31,7 @@ class DaUser
 
     public function insert($User)
     {
-       $this->message = NULL;
+        $this->message = NULL;
         try {
             $stmt = $this->conn->getConnection()->prepare('CALL user_insert(:pfirst_name, :plast_name, :pcountry, :pemail, :ppassword)');
             $stmt->bindValue(':pfirst_name', $User->getFirstName());
@@ -125,7 +126,7 @@ class DaUser
             $stmt->execute();
             $result = $stmt->fetch();
             $check = password_verify($password, $result['password']);
-            if($check){
+            if ($check) {
                 $User = new \ShoppingApp\Bo\User();
                 $User->setUserId($result['user_id']);
                 $User->setFirstName($result['first_name']);
@@ -208,6 +209,28 @@ class DaUser
         $result = array();
         try {
             $stmt = $this->conn->getConnection()->prepare('CALL user_select_all_friends(:pUserId)');
+            $stmt->bindValue(':pUserId', $UserId);
+            $stmt->execute();
+            $array = $stmt->fetchAll();
+            foreach ($array as $row) {
+                $User = new \ShoppingApp\Bo\User();
+                $User->setUserId($row['user_Id']);
+                $User->setFirstName($row['first_name']);
+                $User->setLastName($row['Last_name']);
+                $User->setEmail($row['email']);
+                $result[] = $User;
+            }
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+        return $result;
+    }
+
+    public function selectFriendRequests($UserId)
+    {
+        $result = array();
+        try {
+            $stmt = $this->conn->getConnection()->prepare('CALL user_select_friends_requests(:pUserId)');
             $stmt->bindValue(':pUserId', $UserId);
             $stmt->execute();
             $array = $stmt->fetchAll();

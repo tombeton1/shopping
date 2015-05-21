@@ -42,13 +42,13 @@ if (!isset($_SESSION['user'])) {
     <div id="sidr">
         <ul class="tab-links">
             <li class="active"><a href="#tab1">Grocery List</a></li>
-            <li><a href="#tab2" onclick="getFriends();">Friends</a>
+            <li><a href="#tab2" onclick="getFriends(userId);">Friends</a>
                 <ul>
                     <li><a href="#tab3"> Search for Friends</a></li>
                     <li><a href="#tab4">Friend requests</a></li>
                 </ul>
             </li>
-            <li><a href="#tab5">Settings</a></li>
+            <li><a onclick="loadUser(userId);" href="#tab5">Settings</a></li>
             <li><a href="/CandleLight/logout">Log out</a></li>
         </ul>
     </div>
@@ -126,7 +126,9 @@ if (!isset($_SESSION['user'])) {
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.sidr.min.js"></script>
+        <script type="text/javascript" src="/CandleLight/templates/js/ajax.js"></script>
         <script type="text/javascript">
+            var userId = '<?=$User->getUserId()?>';
             $(document).ready(function () {
                 $('#simple-menu').sidr();
                 $('.tabs .tab-links a').on('click', function (e) {
@@ -135,76 +137,7 @@ if (!isset($_SESSION['user'])) {
                     $(this).parent('li').addClass('active').siblings().removeClass('active');
                     e.preventDefault();
                 });
-                loadUser();
-                loadUsers();
-
-                $('#update-user-form').submit(function (e) {
-
-                    var updatebtn = $('#update');
-                    $.ajax({
-                        url: '/CandleLight/api/users/<?=$User->getUserId()?>',
-                        type: 'put',
-                        dataType: 'text',
-                        cache: false,
-                        async: true,
-                        data: $('#update-user-form').serialize(),
-                        beforeSend: function () {
-                            updatebtn.val('updating').attr('disabled', 'disabled');
-                        }
-                    }).done(function (data) {
-
-                    }).always(function () {
-                        loadUser();
-                        disableInput();
-                        updatebtn.val('edit').removeAttr('disabled');
-                    });
-                    e.preventDefault();
-                });
             });
-            function loadUsers() {
-                $.ajax({
-                    url: '/CandleLight/api/users',
-                    type: 'GET',
-                    dataType: 'json',
-                    cache: false,
-                    async: true
-                }).done(function (data) {
-
-                });
-            }
-            ;
-            function loadUser() {
-                $.ajax({
-                    url: '/CandleLight/api/users/<?= $User->getUserId();?>',
-                    type: 'GET',
-                    dataType: 'json',
-                    cache: false,
-                    async: true
-                }).done(function (data) {
-                    $("#first-name").val(data.firstName);
-                    $("#last-name").val(data.lastName);
-                    $("#country").val(data.country);
-                    $("#email").val(data.email);
-                });
-            }
-            ;
-            function getFriends(){
-                $.ajax({
-                    url:'/CandleLight/api/users/friends/3',
-                    type: 'GET',
-                    dataType: 'json',
-                    cache: false,
-                    async: true
-                }).done(function (data){
-                    $('#friends-list').html('');
-                    data.forEach(function (user) {
-                        $('#friends-list').append('<p>' + user.firstName + ' ' + user.lastName +  '</p>');
-                        console.log(user.firstName);
-                        console.log(user.lastName);
-
-                    });
-                })
-            }
             function enableInput() {
                 if (document.getElementById("update").type === "submit") {
                     document.getElementById("update").type = "button";
@@ -216,16 +149,13 @@ if (!isset($_SESSION['user'])) {
                 } else if (document.getElementById("update").type === "button") {
                     document.getElementById("update").type = "submit";
                 }
-            }
-            ;
-
+            };
             function disableInput() {
                 document.getElementById("first-name").disabled = true;
                 document.getElementById("last-name").disabled = true;
                 document.getElementById("country").disabled = true;
                 document.getElementById("email").disabled = true;
-            }
-            ;
+            };
         </script>
 </body>
 </html> 

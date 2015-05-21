@@ -34,4 +34,7 @@ class User {
     public function getFriends($id){
         return json_encode($this->user->selectAllFriends($id));
     }
+    public function getFriendsRequest($id){
+        return json_encode($this->user->selectFriendRequests($id));
+    }
 }

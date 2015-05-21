@@ -62,10 +62,10 @@ include_once '../../vendor/autoload.php';
 //$func = new \ShoppingApp\Model\DaUser();
 //echo $func->addFriend($UserId, $FriendId);
 
-$func = new \ShoppingApp\Model\DaUser();
-echo $func->acceptFriend(3,2);
+//$func = new \ShoppingApp\Model\DaUser();
+//echo $func->acceptFriend(3,2);
 
-//$UserId = '4';
+//$UserId = '2';
 //$func = new \ShoppingApp\Model\DaUser();
 //$Friends = $func->selectAllFriends($UserId);
 //foreach($Friends as $User){
@@ -73,6 +73,16 @@ echo $func->acceptFriend(3,2);
 //     echo $User->getFirstName();
 //     echo $User->getLastName();
 //     echo $User->getEmail();
+//}
+
+//$UserId = '4';
+//$func = new \ShoppingApp\Model\DaUser();
+//$Friends = $func->selectFriendRequests($UserId);
+//foreach($Friends as $User){
+//    echo $User->getUserId();
+//    echo $User->getFirstName();
+//    echo $User->getLastName();
+//    echo $User->getEmail();
 //}
 
 //$keyword = 'adrie';
