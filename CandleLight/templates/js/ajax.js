@@ -1,37 +1,6 @@
 /**
  * Created by lenny on 20/05/15.
  */
-function loadUser(userId) {
-    $.ajax({
-        url: '/CandleLight/api/users/'+ userId,
-        type: 'GET',
-        dataType: 'json',
-        cache: false,
-        async: true
-    }).done(function (data) {
-        $("#first-name").val(data.firstName);
-        $("#last-name").val(data.lastName);
-        $("#country").val(data.country);
-        $("#email").val(data.email);
-    });
-};
-
-function getFriends(userId){
-    $.ajax({
-        url:'/CandleLight/api/users/friends/'+ userId,
-        type: 'GET',
-        dataType: 'json',
-        cache: false,
-        async: true
-    }).done(function (data){
-        $('#friends-list').html('');
-        data.forEach(function (user) {
-            $('#friends-list').append('<p>' + user.firstName + ' ' + user.lastName +  '</p>');
-        });
-    })
-};
-
-
 ///////// DOCUMENT READY ///////////////
 $(document).ready(function(){
 

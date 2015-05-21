@@ -1,12 +1,13 @@
 <?php
 session_start();
-
 $User = NULL;
 if (!isset($_SESSION['user'])) {
     header("Location: /CandleLight/");
 } else {
     $User = $_SESSION['user'];
 }
+$rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -42,13 +43,13 @@ if (!isset($_SESSION['user'])) {
     <div id="sidr">
         <ul class="tab-links">
             <li class="active"><a href="#tab1">Grocery List</a></li>
-            <li><a href="#tab2" onclick="getFriends(userId);">Friends</a>
+            <li><a href="#tab2">Friends</a>
                 <ul>
                     <li><a href="#tab3"> Search for Friends</a></li>
                     <li><a href="#tab4">Friend requests</a></li>
                 </ul>
             </li>
-            <li><a onclick="loadUser(userId);" href="#tab5">Settings</a></li>
+            <li><a href="#tab5">Settings</a></li>
             <li><a href="/CandleLight/logout">Log out</a></li>
         </ul>
     </div>
@@ -126,9 +127,9 @@ if (!isset($_SESSION['user'])) {
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.sidr.min.js"></script>
+        <script type="text/javascript" src="/CandleLight/templates/js/ShoppingApp.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/ajax.js"></script>
         <script type="text/javascript">
-            var userId = '<?=$User->getUserId()?>';
             $(document).ready(function () {
                 $('#simple-menu').sidr();
                 $('.tabs .tab-links a').on('click', function (e) {
@@ -138,6 +139,12 @@ if (!isset($_SESSION['user'])) {
                     e.preventDefault();
                 });
             });
+            ShoppingApp.init({
+                url: "/CandleLight/api/users/",
+                friendUrl: "/CandleLight/api/users/friends/",
+                userId: "<?=$User->getUserId()?>"
+            });
+
             function enableInput() {
                 if (document.getElementById("update").type === "submit") {
                     document.getElementById("update").type = "button";
