@@ -61,6 +61,19 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
             <h1>Friends</h1>
             <div id="friends-list"></div>
         </div>
+        <div id="tab3" class="tabe">
+            <div class="col-lg-4">
+            <h1>Search for friends</h1>
+            <input class="form-control" id="search-users" type="text" name="keyword" placeholder="Search by username, name or email (minimal 3 characters)">
+            <div class="col-lg-12" id="results">
+
+            </div>
+            </div>
+        </div>
+        <div id="tab4" class="tab">
+            <h1>Friends requests</h1>
+            <div id="friends-requests-list"></div>
+        </div>
         <div id="tab5" class="tab">
                 <div class="col-lg-7 ">
                     <div id="create-user">
@@ -141,7 +154,6 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
             });
             ShoppingApp.init({
                 url: "/CandleLight/api/users/",
-                friendUrl: "/CandleLight/api/users/friends/",
                 userId: "<?=$User->getUserId()?>"
             });
 

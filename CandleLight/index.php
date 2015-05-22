@@ -24,6 +24,9 @@ $app->get('/api/users/:id/', 'auth', 'getUser');
 $app->put('/api/users/:id/', 'auth', 'updateUser');
 $app->post('/api/users', 'insertUser');
 $app->get('/api/users/friends/:id','auth', 'getFriends');
+$app->get('/api/users/friends/requests/:id/','auth', 'getFriendsRequests');
+$app->get('/api/users/friends/search/:keyword/','auth', 'searchFriends');
+
 $app->run();
 
 function auth(){
@@ -76,7 +79,11 @@ function getFriends($id){
     echo $controller->getFriends($id);
 }
 function getFriendsRequests($id){
-    $controller = new \ShoppingApp\Controllers\Users();
-    echo $controller->getFriendsRequests($id);
+    $controller = new \ShoppingApp\Controllers\User();
+    echo $controller->getFriendsRequest($id);
+}
+function searchFriends($keyword){
+    $controller = new \ShoppingApp\Controllers\User();
+    echo $controller->searchUsers($keyword);
 }
 

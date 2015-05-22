@@ -86,7 +86,8 @@ include_once '../../vendor/autoload.php';
 //}
 
 //$keyword = 'adrie';
-//$Users = \ShoppingApp\Model\DaUser::searchUsers($keyword);
+//$func = new \ShoppingApp\Model\DaUser();
+//$Users = $func->searchUsers($keyword);
 //foreach($Users as $User){
 //        echo $User->getUserId();
 //        echo $User->getFirstName();

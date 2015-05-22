@@ -11,8 +11,10 @@ var ShoppingApp = (function () {
     var init = function(options){
         config.push(options);
         UserModule.init();
+        FriendsModule.init();
         UserModule.getUser();
         FriendsModule.getFriends();
+        FriendsModule.getFriendsRequest();
     };
 
     // UserModule Module voor alle user interacties.
@@ -83,16 +85,62 @@ var ShoppingApp = (function () {
 
     var FriendsModule = (function (){
 
+        var init = function (){
+            events();
+        };
+
+        var events = function(){
+
+            //search friends event
+            $('#search-users').keyup(function (e) {
+                var keyword = $(this).val();
+                if (keyword.length >= 3){
+                    _searchFriends(keyword).done(function (data){
+                        var $results = $('#results').html('');
+                        if (data.length === 0) {
+                            $($results).append('<tr><td>User not found</td></tr>');
+                        };
+                        data.forEach(function (user){
+                            $($results).append('<p>' + user.firstName + ' ' + user.lastName +'<br>' + user.email +  '</p>');
+                        });
+                    });
+                } else {
+                    $('#results').html('');
+                };
+            });
+        };
+
         // private function ajax request voor friends.
         var _getFriends = function (){
                return $.ajax({
-                    url: config[0].friendUrl + config[0].userId,
+                    url: config[0].url + 'friends/' + config[0].userId,
                     type: 'GET',
                     dataType: 'json',
                     cache: false,
                     async: true
                 })
         };
+
+        // private function aajx request voor friendsrequests
+        var _getFriendsRequests = function (){
+            return $.ajax({
+                url: config[0].url + 'friends/requests/' + config[0].userId,
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                async: true
+            })
+        };
+
+        var _searchFriends = function (keyword){
+            return $.ajax ({
+                url: config[0].url + 'friends/search/' + keyword,
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                async: true
+            })
+        }
 
         // public methode om friends naar de DOM te sturen.
         var getFriends = function (){
@@ -104,9 +152,20 @@ var ShoppingApp = (function () {
             })
         };
 
+        var getFriendsRequests = function (){
+            return _getFriendsRequests().done(function (data){
+                $('#friends-requests-list').html('');
+                data.forEach(function(request){
+                    $('#friends-requests-list').append('<p>' + request.firstName + ' ' + request.lastName + '</p>');
+                });
+            })
+        }
+
         // return public methods van friends module.
         return{
-            getFriends: getFriends
+            init: init,
+            getFriends: getFriends,
+            getFriendsRequest: getFriendsRequests
         }
     })();
 
