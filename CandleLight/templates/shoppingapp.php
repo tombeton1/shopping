@@ -14,7 +14,6 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
 <head>
     <title>App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/CandleLight/templates/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/CandleLight/templates/css/jquery.sidr.light.css">
     <style>
         .tab-links:after {
@@ -35,10 +34,10 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
             background-color: #53e3a6;
         }
     </style>
+    <link href="/CandleLight/templates/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <a id="simple-menu" href="#sidr">Toggle menu</a>
-
 <div class="tabs">
     <div id="sidr">
         <ul class="tab-links">
@@ -46,7 +45,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
             <li><a href="#tab2">Friends</a>
                 <ul>
                     <li><a href="#tab3"> Search for Friends</a></li>
-                    <li><a href="#tab4">Friend requests</a></li>
+                    <li><a id="requests" href="#tab4"></li>
                 </ul>
             </li>
             <li><a href="#tab5">Settings</a></li>
@@ -55,24 +54,30 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
     </div>
     <div class="tab-content">
         <div id="tab1" class="tab active">
+            <div class="col-lg-4">
             <p>Welkom <?= $User->getFirstName()?> <?= $User->getLastName();?></p>
+            </div>
         </div>
         <div id="tab2" class="tab">
+            <div class="col-lg-4">
             <h1>Friends</h1>
             <div id="friends-list"></div>
+            </div>
         </div>
-        <div id="tab3" class="tabe">
+        <div id="tab3" class="tab">
             <div class="col-lg-4">
             <h1>Search for friends</h1>
+            <div id="add-friend-message"></div>
             <input class="form-control" id="search-users" type="text" name="keyword" placeholder="Search by username, name or email (minimal 3 characters)">
-            <div class="col-lg-12" id="results">
-
-            </div>
+            <div class="col-lg-12" id="results"></div>
             </div>
         </div>
         <div id="tab4" class="tab">
+            <div class="col-lg-4">
             <h1>Friends requests</h1>
+                <div id="request-friend-message"></div>
             <div id="friends-requests-list"></div>
+            </div>
         </div>
         <div id="tab5" class="tab">
                 <div class="col-lg-7 ">

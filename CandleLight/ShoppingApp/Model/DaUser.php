@@ -248,6 +248,22 @@ class DaUser
         return $result;
     }
 
+    public function deleteFriend($userId, $friendId){
+        $message = NULL;
+        try {
+            $stmt = $this->conn->getConnection()->prepare('CALL user_delete_friend(:pUserId, :pFriendId)');
+            $stmt->bindValue(':pUserId', $userId);
+            $stmt->bindValue(':pFriendId', $friendId);
+            $result = $stmt->execute();
+            if ($result) {
+                $message = 'Friend deleted succesfully';
+            }
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+        return $message;
+    }
+
     public function searchUsers($keyword)
     {
         $result = array();

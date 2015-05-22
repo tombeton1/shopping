@@ -40,4 +40,13 @@ class User {
     public function searchUsers($keyword){
         return json_encode($this->user->searchUsers($keyword));
     }
+    public function acceptRequest($userId, $friendId){
+        return json_encode($this->user->acceptFriend($userId, $friendId));
+    }
+    public function deleteFriend($userId, $friendId){
+        return json_encode($this->user->deleteFriend($userId, $friendId));
+    }
+    public function addFriend($userId, $friendId){
+        return $this->user->addFriend($userId, $friendId);
+    }
 }

@@ -101,12 +101,48 @@ var ShoppingApp = (function () {
                             $($results).append('<tr><td>User not found</td></tr>');
                         };
                         data.forEach(function (user){
-                            $($results).append('<p>' + user.firstName + ' ' + user.lastName +'<br>' + user.email +  '</p>');
+                            $($results).append('<p>' + user.firstName + ' ' + user.lastName +'<br>' + user.email +  '</p> <button id="add-friend-btn" type="submit" value="'+ user.userId +'">Add friend</button>');
                         });
                     });
                 } else {
                     $('#results').html('');
                 };
+            });
+
+            // accept button friends requests
+            $(document).on('click', '#accept-request-btn', function () {
+                var friendId = ($(this).attr("value"));
+                _acceptRequest(friendId).done(function(data){
+                    var $message = $('#request-friend-message').html('');
+                    $message.append(data);
+                    setTimeout(function () {
+                        $message.fadeOut('slow');
+                        $message.empty();
+                    }, 2800);
+                    getFriends();
+                    getFriendsRequests();
+                });
+            });
+
+            $(document).on('click', '#decline-request-btn', function(){
+                var friendId =($(this).attr("value"));
+                _deleteFriend(friendId).done(function(data){
+                   getFriendsRequests();
+                   getFriends();
+                })
+            });
+
+            $(document).on('click', '#add-friend-btn', function(){
+                var friendId =($(this).attr("value"));
+                _addFriend(friendId).done(function(data){
+                    var $message = $('#add-friend-message').html('');
+                    $message.append(data);
+                    setTimeout(function () {
+                        $message.fadeOut('slow');
+                        $message.empty();
+                    }, 2800);
+                    getFriendsRequests();
+                })
             });
         };
 
@@ -140,14 +176,44 @@ var ShoppingApp = (function () {
                 cache: false,
                 async: true
             })
-        }
+        };
+
+        var _acceptRequest = function (friendId){
+            return $.ajax({
+                url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId + '/' ,
+                type: 'PUT',
+                dataType: 'json',
+                cache: false,
+                async: true
+            })
+        };
+        var _deleteFriend = function (friendId){
+            return $.ajax({
+                url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId + '/' ,
+                type: 'DELETE',
+                dataType:'json',
+                cache: false,
+                async: true
+            })
+        };
+
+        // private method add friend
+         var _addFriend = function(friendId){
+             return $.ajax({
+                 url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId + '/' ,
+                 type: 'POST',
+                 dataType: 'text',
+                 cache: false,
+                 async: true
+             })
+         };
 
         // public methode om friends naar de DOM te sturen.
         var getFriends = function (){
             return _getFriends().done(function (data){
                 $('#friends-list').html('');
                 data.forEach(function (user) {
-                    $('#friends-list').append('<p>' + user.firstName + ' ' + user.lastName +  '</p>');
+                    $('#friends-list').append('<p>' + user.firstName + ' ' + user.lastName +  '</p><button id="decline-request-btn" type="submit" value="'+ user.userId +'">Delete Friend</button>');
                 });
             })
         };
@@ -155,11 +221,19 @@ var ShoppingApp = (function () {
         var getFriendsRequests = function (){
             return _getFriendsRequests().done(function (data){
                 $('#friends-requests-list').html('');
+                var $requests = $('#requests').html('');
+                var requests = 0;
                 data.forEach(function(request){
-                    $('#friends-requests-list').append('<p>' + request.firstName + ' ' + request.lastName + '</p>');
+                    $('#friends-requests-list').append('<p>' + request.firstName + ' ' + request.lastName + '<br><button id="accept-request-btn" type="submit" value="'+ request.userId +'">accept</button><button id="decline-request-btn" type="submit" value="'+ request.userId +'">decline</button> </p>');
+                    requests++;
                 });
-            })
-        }
+                if(requests === 0){
+                    $requests.append('no friend requests');
+                } else {
+                    $requests.append('You have ' + requests + ' friend requests');
+                }
+            });
+        };
 
         // return public methods van friends module.
         return{
