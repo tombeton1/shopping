@@ -21,7 +21,7 @@ $app->get('/logout/', function () {
 });
 $app->get('/api/users', 'auth', 'getUsers');
 $app->get('/api/users/:id/', 'auth', 'getUser');
-$app->put('/api/users/:id', 'auth', 'updateUser');
+$app->put('/api/users/:id/', 'auth', 'updateUser');
 $app->post('/api/users', 'insertUser');
 $app->get('/api/users/friends/:id','auth', 'getFriends');
 $app->run();
