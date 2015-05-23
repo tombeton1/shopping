@@ -45,12 +45,12 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
     <div id="sidr">
         <ul class="tab-links">
             <li><div class="circle"></div></li>
-            <li class="user-name">Hi! <?= $User->getFirstName()?> <?= $User->getLastName();?> </li>
+            <li class="user-name">Hi! <?= $User->getFirstName()?></li>
             <li class="active"><a href="#tab1">Grocery List</a></li>
-            <li><a href="#tab2">Friends</a>
+            <li><a href="#tab2">Friends <div class="sidebar-grey-badge" id="friends"></div></a>
                 <ul>
                     <li><a href="#tab3"> Search for Friends</a></li>
-                    <li><a id="requests" href="#tab4"></li>
+                    <li><a href="#tab4">Friend requests <div class="sidebar-badge" id="requests"></div></a></li>
                 </ul>
             </li>
             <li><a href="#tab5">Settings</a></li>
@@ -81,12 +81,12 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
             <div class="col-lg-4">
             <h1>Friends requests</h1>
                 <div id="request-friend-message"></div>
-            <div id="friends-requests-list"></div>
+                <div id="friends-requests-list"></div>
             </div>
         </div>
         <div id="tab5" class="tab">
                 <div class="col-lg-7 ">
-                    <div id="create-user">
+                    <div class="create-user">
                         <div class="col-lg-* col-md-* col-sm-* col-xs-* ">
                             <div class="grey-border">
                                 <form class="form form-horizontal" id="update-user-form">
@@ -131,7 +131,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"></label>
                                         <div class="col-sm-2">
-                                            <input  class="action-button" id="update" type="submit" value="Edit" />
+                                            <input  class="button action-button" id="update" type="submit" value="Edit" />
                                         </div>
                                     </div>
                                 </form>
