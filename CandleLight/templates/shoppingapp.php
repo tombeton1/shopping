@@ -37,10 +37,11 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
     <link href="/CandleLight/templates/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<a id="simple-menu" href="#sidr">Toggle menu</a>
+<a id="responsive-menu-button" href="#sidr">Toggle menu</a>
 <div class="tabs">
     <div id="sidr">
         <ul class="tab-links">
+            <button id="menu-close-btn" type="button" onclick="$.sidr('close', 'sidr');">Close</button>
             <li class="active"><a href="#tab1">Grocery List</a></li>
             <li><a href="#tab2">Friends</a>
                 <ul>
@@ -146,17 +147,42 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         <script type="text/javascript" src="/CandleLight/templates/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.sidr.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/ShoppingApp.js"></script>
-        <script type="text/javascript" src="/CandleLight/templates/js/ajax.js"></script>
+        <script type="text/javascript" src="/CandleLight/templates/js/jquery.touchwipe.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#simple-menu').sidr();
+                $('#responsive-menu-button').sidr();
+                $('li a').click(function(){
+                    $.sidr('close', 'sidr');
+                    $('#simple-menu').show();
+                });
+                $('#simple-menu').click(function(){
+                   $('#simple-menu').hide();
+                });
+                $('#menu-close-btn').click(function(){
+                    $('#simple-menu').show();
+                })
+
                 $('.tabs .tab-links a').on('click', function (e) {
                     var currentAttrValue = $(this).attr('href');
                     $('.tabs ' + currentAttrValue).show().siblings().hide();
                     $(this).parent('li').addClass('active').siblings().removeClass('active');
                     e.preventDefault();
                 });
+
             });
+            $(window).touchwipe({
+                wipeLeft: function() {
+                    // Close
+                    $.sidr('close', 'sidr');
+                },
+                wipeRight: function() {
+                    // Open
+                    $.sidr('open', 'sidr');
+                },
+                preventDefaultEvents: false
+            });
+
+
             ShoppingApp.init({
                 url: "/CandleLight/api/users/",
                 userId: "<?=$User->getUserId()?>"
