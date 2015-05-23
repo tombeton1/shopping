@@ -29,12 +29,16 @@ var ShoppingApp = (function () {
             $('li a').click(function(){
                 $.sidr('close', 'sidr');
                 $('#simple-menu').show();
+                var child = document.querySelector('.material-design-hamburger__icon').childNodes[1].classList;
+                child.remove('material-design-hamburger__icon--to-arrow');
+                child.add('material-design-hamburger__icon--from-arrow');
+
             });
             $('#simple-menu').click(function(){
                 $('#simple-menu').hide();
-            });
-            $('#menu-close-btn').click(function(){
-                $('#simple-menu').show();
+                //document.querySelector('.material-design-hamburger__icon').childNodes[1].classList.remove('material-design-hamburger__icon--from-arrow');
+                //child.remove('material-design-hamburger__icon--from-arrow');
+                //child.add('material-design-hamburger__icon--to-arrow');
             });
             $('.tabs .tab-links a').on('click', function (e) {
                 var currentAttrValue = $(this).attr('href');
@@ -43,17 +47,32 @@ var ShoppingApp = (function () {
                 e.preventDefault();
             });
             $(window).touchwipe({
+
                 wipeLeft: function() {
-                    // Close
                     $.sidr('close', 'sidr');
+                    var child = document.querySelector('.material-design-hamburger__icon').childNodes[1].classList;
+                    child.remove('material-design-hamburger__icon--to-arrow');
+                    child.add('material-design-hamburger__icon--from-arrow');
                 },
                 wipeRight: function() {
-                    // Open
                     $.sidr('open', 'sidr');
                 },
                 preventDefaultEvents: false
             });
-        }
+
+            document.querySelector('.material-design-hamburger__icon').addEventListener(
+                'click',
+                function() {
+                    var child = this.childNodes[1].classList;
+                    if (child.contains('material-design-hamburger__icon--to-arrow')) {
+                        child.remove('material-design-hamburger__icon--to-arrow');
+                        child.add('material-design-hamburger__icon--from-arrow');
+                    } else {
+                        child.remove('material-design-hamburger__icon--from-arrow');
+                        child.add('material-design-hamburger__icon--to-arrow');
+                    }
+                });
+        };
         return{
             init: init
         }
@@ -291,7 +310,7 @@ var ShoppingApp = (function () {
                 if(requests === 0){
                     $requests.append('no friend requests');
                 } else {
-                    $requests.append('You have ' + requests + ' friend requests');
+                    $requests.append('Friend requests<a class="sidebar-badge">'+ requests +'</a>');
                 }
             });
         };

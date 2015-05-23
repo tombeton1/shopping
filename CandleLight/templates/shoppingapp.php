@@ -14,34 +14,38 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
 <head>
     <title>App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/CandleLight/templates/css/jquery.sidr.light.css">
+    <link href="/CandleLight/templates/css/app.css" rel="stylesheet">
+    <link href="/CandleLight/templates/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .tab-links:after {
             display: block;
             clear: both;
             content: '';
         }
-
         .tab {
             display: none;
         }
-
         .tab.active {
             display: block;
         }
-
         .sidr-inner {
             background-color: #53e3a6;
         }
     </style>
-    <link href="/CandleLight/templates/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<a id="responsive-menu-button" href="#sidr">Toggle menu</a>
+<nav class="header">
+<a id="responsive-menu-button" href="#sidr"><section class="material-design-hamburger">
+    <button class="material-design-hamburger__icon">
+        <span class="material-design-hamburger__layer"></span>
+    </button>
+    </section></a>
+</nav>
 <div class="tabs">
     <div id="sidr">
         <ul class="tab-links">
-            <button id="menu-close-btn" type="button" onclick="$.sidr('close', 'sidr');">Close</button>
+            <li><div class="circle"></div></li>
+            <li class="user-name">Hi! <?= $User->getFirstName()?> <?= $User->getLastName();?> </li>
             <li class="active"><a href="#tab1">Grocery List</a></li>
             <li><a href="#tab2">Friends</a>
                 <ul>
@@ -56,7 +60,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
     <div class="tab-content">
         <div id="tab1" class="tab active">
             <div class="col-lg-4">
-            <p>Welkom <?= $User->getFirstName()?> <?= $User->getLastName();?></p>
+                <h1>Your Grocery list</h1>
             </div>
         </div>
         <div id="tab2" class="tab">
@@ -89,7 +93,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                                     <div class="form-group  text-center">
                                         <label class="col-sm-2 control-label"></label>
                                         <div class="col-sm-4">
-                                            <h2 class="h2">User</h2>
+                                            <h1>Settings</h1>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -127,7 +131,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"></label>
                                         <div class="col-sm-2">
-                                            <input class="button" id="update" type="submit" value="Edit"/>
+                                            <input  class="action-button" id="update" type="submit" value="Edit" />
                                         </div>
                                     </div>
                                 </form>
@@ -140,7 +144,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         <script type="text/javascript" src="/CandleLight/templates/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.sidr.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.touchwipe.min.js"></script>
-        <script type="text/javascript" src="/CandleLight/templates/js/ShoppingApp.min.js"></script>
+        <script type="text/javascript" src="/CandleLight/templates/js/ShoppingApp.js"></script>
         <script type="text/javascript">
             ShoppingApp.init({
                 url: "/CandleLight/api/users/",

@@ -18,6 +18,7 @@ gulp.task('css', function() {
     return gulp.src('templates/css/main.css')
         .pipe(gulp.dest('templates/css/'))
         .pipe(minifyCss({compatibility: 'ie8'}))
+        .pipe(rename({ extname: '.min.css' }))
         .pipe(gulp.dest('templates/css/'));
 });
 
