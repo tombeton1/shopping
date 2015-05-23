@@ -88,14 +88,12 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                                 <form class="form form-horizontal" id="update-user-form">
                                     <div class="form-group  text-center">
                                         <label class="col-sm-2 control-label"></label>
-
                                         <div class="col-sm-4">
                                             <h2 class="h2">User</h2>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="first-name">First name</label>
-
                                         <div class="col-sm-4">
                                             <input id="first-name" class="form-control" type="text" name="first-name"
                                                    maxlength="50"
@@ -104,7 +102,6 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="last-name">Family name</label>
-
                                         <div class="col-sm-4">
                                             <input id="last-name" class="form-control" type="text" name="last-name"
                                                    maxlength="50"
@@ -113,7 +110,6 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="country">Country</label>
-
                                         <div class="col-sm-4">
                                             <input id="country" class="form-control" type="text" name="country"
                                                    maxlength="50"
@@ -122,7 +118,6 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="user-email">Email</label>
-
                                         <div class="col-sm-4">
                                             <input id="email" class="form-control" type="email" maxlength="100"
                                                    pattern="\b[A-Z0-9._+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,4}\b$)"
@@ -131,10 +126,8 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"></label>
-
                                         <div class="col-sm-2">
-                                            <input class="button" id="update" type="submit" value="Edit"
-                                                   onClick="enableInput()"/>
+                                            <input class="button" id="update" type="submit" value="Edit"/>
                                         </div>
                                     </div>
                                 </form>
@@ -149,63 +142,10 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         <script type="text/javascript" src="/CandleLight/templates/js/ShoppingApp.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.touchwipe.min.js"></script>
         <script type="text/javascript">
-            $(document).ready(function () {
-                $('#responsive-menu-button').sidr();
-                $('li a').click(function(){
-                    $.sidr('close', 'sidr');
-                    $('#simple-menu').show();
-                });
-                $('#simple-menu').click(function(){
-                   $('#simple-menu').hide();
-                });
-                $('#menu-close-btn').click(function(){
-                    $('#simple-menu').show();
-                })
-
-                $('.tabs .tab-links a').on('click', function (e) {
-                    var currentAttrValue = $(this).attr('href');
-                    $('.tabs ' + currentAttrValue).show().siblings().hide();
-                    $(this).parent('li').addClass('active').siblings().removeClass('active');
-                    e.preventDefault();
-                });
-
-            });
-            $(window).touchwipe({
-                wipeLeft: function() {
-                    // Close
-                    $.sidr('close', 'sidr');
-                },
-                wipeRight: function() {
-                    // Open
-                    $.sidr('open', 'sidr');
-                },
-                preventDefaultEvents: false
-            });
-
-
             ShoppingApp.init({
                 url: "/CandleLight/api/users/",
                 userId: "<?=$User->getUserId()?>"
             });
-
-            function enableInput() {
-                if (document.getElementById("update").type === "submit") {
-                    document.getElementById("update").type = "button";
-                    document.getElementById("update").value = "Update";
-                    document.getElementById("first-name").disabled = false;
-                    document.getElementById("last-name").disabled = false;
-                    document.getElementById("country").disabled = false;
-                    document.getElementById("email").disabled = false;
-                } else if (document.getElementById("update").type === "button") {
-                    document.getElementById("update").type = "submit";
-                }
-            };
-            function disableInput() {
-                document.getElementById("first-name").disabled = true;
-                document.getElementById("last-name").disabled = true;
-                document.getElementById("country").disabled = true;
-                document.getElementById("email").disabled = true;
-            };
         </script>
 </body>
 </html> 

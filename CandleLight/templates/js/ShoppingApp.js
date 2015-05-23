@@ -10,6 +10,7 @@ var ShoppingApp = (function () {
     // constructor: alle modules worden hier geinitializeerd
     var init = function(options){
         config.push(options);
+        UserInterfaceModule.init();
         UserModule.init();
         FriendsModule.init();
         UserModule.getUser();
@@ -17,6 +18,47 @@ var ShoppingApp = (function () {
         FriendsModule.getFriendsRequest();
     };
 
+    // user interface 
+    var UserInterfaceModule = (function(){
+
+        var init = function(){
+            events();
+        };
+
+        var events = function(){
+            $('#responsive-menu-button').sidr();
+            $('li a').click(function(){
+                $.sidr('close', 'sidr');
+                $('#simple-menu').show();
+            });
+            $('#simple-menu').click(function(){
+                $('#simple-menu').hide();
+            });
+            $('#menu-close-btn').click(function(){
+                $('#simple-menu').show();
+            });
+            $('.tabs .tab-links a').on('click', function (e) {
+                var currentAttrValue = $(this).attr('href');
+                $('.tabs ' + currentAttrValue).show().siblings().hide();
+                $(this).parent('li').addClass('active').siblings().removeClass('active');
+                e.preventDefault();
+            });
+            $(window).touchwipe({
+                wipeLeft: function() {
+                    // Close
+                    $.sidr('close', 'sidr');
+                },
+                wipeRight: function() {
+                    // Open
+                    $.sidr('open', 'sidr');
+                },
+                preventDefaultEvents: false
+            });
+        }
+        return{
+            init: init
+        }
+    })();
     // UserModule Module voor alle user interacties.
     var UserModule = (function(){
 
@@ -34,11 +76,24 @@ var ShoppingApp = (function () {
                 _putUser().done(function (){
 
                 }).always(function (){
-                   UserModule.getUser();
-                   disableInput();
+                    getUser();
+                   _disableInput();
                    $('#update').val('edit').removeAttr('disabled');
                 });
                 e.preventDefault();
+            });
+
+            $(document).on('click', '#update', function(){
+                if (document.getElementById("update").type === "submit") {
+                    document.getElementById("update").type = "button";
+                    document.getElementById("update").value = "Update";
+                    document.getElementById("first-name").disabled = false;
+                    document.getElementById("last-name").disabled = false;
+                    document.getElementById("country").disabled = false;
+                    document.getElementById("email").disabled = false;
+                } else if (document.getElementById("update").type === "button") {
+                    document.getElementById("update").type = "submit";
+                }
             });
 
         };
@@ -64,6 +119,13 @@ var ShoppingApp = (function () {
                 cache: false,
                 async: true
             })
+        };
+
+        var  _disableInput = function() {
+            document.getElementById("first-name").disabled = true;
+            document.getElementById("last-name").disabled = true;
+            document.getElementById("country").disabled = true;
+            document.getElementById("email").disabled = true;
         };
 
         //public method wordt ajax data  doorgestuurd.
