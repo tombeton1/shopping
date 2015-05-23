@@ -3,7 +3,6 @@
  */
 
 var ShoppingApp = (function () {
-
     //array in ShoppingApp scope voor opties url en userId, deze kan met alle submodules worden gebruikt.
     var config = [];
 
@@ -18,7 +17,7 @@ var ShoppingApp = (function () {
         FriendsModule.getFriendsRequest();
     };
 
-    // user interface 
+    // user interface
     var UserInterfaceModule = (function(){
 
         var init = function(){

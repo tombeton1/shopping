@@ -139,8 +139,8 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.sidr.min.js"></script>
-        <script type="text/javascript" src="/CandleLight/templates/js/ShoppingApp.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.touchwipe.min.js"></script>
+        <script type="text/javascript" src="/CandleLight/templates/js/ShoppingApp.min.js"></script>
         <script type="text/javascript">
             ShoppingApp.init({
                 url: "/CandleLight/api/users/",
