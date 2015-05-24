@@ -73,7 +73,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
             <div class="col-lg-4">
             <h1>Search for friends</h1>
             <div id="add-friend-message"></div>
-            <input class="form-control" id="search-users" type="text" name="keyword" placeholder="Search by username, name or email (minimal 3 characters)">
+            <input class="form-control" id="search-users" type="text" name="keyword" placeholder="Name or Email (minimal 3 characters)">
             <div class="col-lg-12" id="results"></div>
             </div>
         </div>
@@ -131,7 +131,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"></label>
                                         <div class="col-sm-2">
-                                            <input  class="button action-button" id="update" type="submit" value="Edit" />
+                                            <input  class="button-flat button-edit" id="update" type="submit" value="Edit" />
                                         </div>
                                     </div>
                                 </form>

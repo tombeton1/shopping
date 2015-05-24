@@ -96,7 +96,7 @@ var ShoppingApp = (function () {
                 }).always(function (){
                     getUser();
                    _disableInput();
-                   $('#update').val('edit').removeAttr('disabled');
+                   $('#update').val('Edit').removeAttr('disabled');
                 });
                 e.preventDefault();
             });
@@ -181,7 +181,7 @@ var ShoppingApp = (function () {
                             $($results).append('<tr><td>User not found</td></tr>');
                         };
                         data.forEach(function (user){
-                            $($results).append('<div class="search-results"><p>' + user.firstName + ' ' + user.lastName +'<br>' + user.email +  '</p> <button class="button action-button" id="add-friend-btn" type="submit" value="'+ user.userId +'">Add friend</button></div>');
+                            $($results).append('<div class="search-results"><p>' + user.firstName + ' ' + user.lastName +'<br>' + user.email +  '</p> <button class="button-flat button-green" id="add-friend-btn" type="submit" value="'+ user.userId +'">Add friend</button></div>');
                         });
                     });
                 } else {
@@ -295,7 +295,7 @@ var ShoppingApp = (function () {
                 var $friends = $('#friends').html('');
                 var friends = 0;
                 data.forEach(function (user) {
-                    $('#friends-list').append('<div class="friends-list"><p>' + user.firstName + ' ' + user.lastName +  '</p><button class="button action-button" id="decline-request-btn" type="submit" value="'+ user.userId +'">Delete Friend</button></div>');
+                    $('#friends-list').append('<div class="friends-list"><p>' + user.firstName + ' ' + user.lastName +  '</p><button class="button-flat" id="decline-request-btn" type="submit" value="'+ user.userId +'">Delete Friend</button></div>');
                     friends++
                 });
                 if(friends === 0){
@@ -313,7 +313,7 @@ var ShoppingApp = (function () {
                 var $requests = $('#requests').html('');
                 var requests = 0;
                 data.forEach(function(request){
-                    $('#friends-requests-list').append('<div class="friend-requests"><p>' + request.firstName + ' ' + request.lastName + ' wants to add you to his/her friend list </p><button class="button accept-button" id="accept-request-btn" type="submit" value="'+ request.userId +'">accept</button><button class="button decline-button" id="decline-request-btn" type="submit" value="'+ request.userId +'">decline</button></div>');
+                    $('#friends-requests-list').append('<div class="friend-requests"><p>' + request.firstName + ' ' + request.lastName + ' wants to add you to his/her friend list </p><button class="button-raised accept-button" id="accept-request-btn" type="submit" value="'+ request.userId +'">accept</button><button class="button-raised decline-button" id="decline-request-btn" type="submit" value="'+ request.userId +'">decline</button></div>');
                     requests++;
                 });
                 if(requests === 0){
