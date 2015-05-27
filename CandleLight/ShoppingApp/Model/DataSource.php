@@ -35,4 +35,19 @@ class DataSource
         }
         return $conn;
     }
+
+    public function getSecurityConnection()
+    {
+        $conn = NULL;
+        try {
+            $conn = new \PDO("mysql:host=localhost;port=3306;dbname=shopping_security", "root", "root", array(\PDO::ATTR_PERSISTENT => true));
+            $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        } catch (\PDOException $e) {
+
+        }
+        if($conn != NULL) {
+
+        }
+        return $conn;
+    }
 }

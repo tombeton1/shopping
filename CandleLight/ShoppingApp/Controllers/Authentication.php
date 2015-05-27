@@ -50,5 +50,9 @@ class Authentication
     public function validate(){
         return $this->login->checkToken($this->token);
     }
+
+    public function validateKey(){
+        return $this->login->checkKey($this->token);
+    }
 }
 ?>

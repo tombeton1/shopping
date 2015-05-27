@@ -19,6 +19,28 @@ $app->get('/app/', function () use ($app){
 $app->get('/logout/', function () {
    \ShoppingApp\Controllers\Authentication::logout();
 });
+
+$auth = function (\Slim\Route $route) {
+    if(array_key_exists('key', $route->getParams())){
+        $token = new \ShoppingApp\Controllers\Authentication($_SESSION['token'], '', '');
+        if($token->validateKey() == false){
+            $app = \Slim\Slim::getInstance();
+            $app->redirect($app->urlFor('index'));
+        }
+    } else {
+        if(!isset($_SESSION['token'])){
+            $token = new \ShoppingApp\Controllers\Authentication($_SESSION['token'], '', '');
+            if ($token->validate() === false){
+                $app = \Slim\Slim::getInstance();
+                $app->redirect($app->urlFor('index'));
+            }
+        } else {
+            $app = \Slim\Slim::getInstance();
+            $app->redirect($app->urlFor('index'));
+        }
+    }
+};
+
 $app->get('/api/users', 'auth', 'getUsers');
 $app->get('/api/users/:id/', 'auth', 'getUser');
 $app->put('/api/users/:id/', 'auth', 'updateUser');
