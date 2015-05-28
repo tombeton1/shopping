@@ -134,11 +134,6 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                             <div class="content">test</div>
                     </div>
                     <button id="open-modal">open</button>
-                    <div id="modal2">
-                        <a href="#" class="content" id="close">close</a>
-                        <div class="content">test</div>
-                    </div>
-
                 </div>
         </div>
                 </div>

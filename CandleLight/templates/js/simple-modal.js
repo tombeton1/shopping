@@ -9,6 +9,9 @@ var SimpleModal = (function (){
         //local variables modal
         var modal = document.getElementById(modalId);
         var children = modal.children;
+        for(var i = 0; i < children.length; i++){
+            children[i].style.display = 'none';
+        }
 
         // black fade element
         var fade = document.getElementById('fade');
@@ -21,6 +24,7 @@ var SimpleModal = (function (){
                 btn.appendChild(t);
                 btn.classList.add('close');
                 modal.insertBefore(btn, modal.childNodes[0]);
+
                 for(var i = 0; i < children.length; i++){
                     children[i].style.display = 'block';
                 }
