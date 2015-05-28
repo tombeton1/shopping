@@ -15,7 +15,7 @@
 }
 body {
     margin: 0 auto;
-    background-color: #F5F5FF;
+    background-color: #ffffff;
     opacity: 1;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -36,8 +36,8 @@ body {
     background-color: #B2DFDB;
     border-radius: 2px;
     color: #ffffff;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 22px;
+    padding-right: 22px;
     font-size: 20px;
     margin-right: 1em;
     transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -61,13 +61,14 @@ body {
 .button-green{
     color:#2E7D32;
 }
-.button-edit {
+.button-yellow {
     color: #FFC107;
     margin-left: 13px;
 }
 
 button:focus {outline:0;}
 a:focus{outline:0;}
+input:focus{outline:0;}
 
 .button:hover {
     opacity: 0.7;
@@ -83,6 +84,58 @@ a:focus{outline:0;}
 }
 .decline-button {
     background-color: #FF7043;
+}
+.overlay {
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    position: absolute;
+    z-index: 100;
+    -moz-opacity: 0.7;
+    opacity:.70;
+    filter: alpha(opacity=70);
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+    -webkit-transition: all 0.5s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+    -moz-transition: all 0.5s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+    transition: all 0.5s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+}
+
+.modal {
+    position: absolute;
+    display: block;
+    margin-top: 2%;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 20em;
+    background-color: #ffffff;
+    z-index: 1002;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    opacity: 1;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+    -webkit-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+    -moz-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+    transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+}
+.modal-close {
+    opacity: 0;
+    -webkit-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+    -moz-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+    transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+}
+.button-close {
+    display: none;
+}
+.content{
+    display: none;
 }
 /*=================================================================================
 ============Content================================================================

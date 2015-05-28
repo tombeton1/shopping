@@ -14,8 +14,9 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
 <head>
     <title>App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/CandleLight/templates/css/app.css" rel="stylesheet">
     <link href="/CandleLight/templates/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/CandleLight/templates/css/app.css" rel="stylesheet">
+
     <style>
         .tab-links:after {
             display: block;
@@ -79,65 +80,67 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         </div>
         <div id="tab4" class="tab">
             <div class="col-lg-4">
-            <h1>Friends requests</h1>
+                <h1>Friends requests</h1>
                 <div id="request-friend-message"></div>
                 <div id="friends-requests-list"></div>
             </div>
         </div>
         <div id="tab5" class="tab">
-                <div class="col-lg-7 ">
-                    <div class="create-user">
-                        <div class="col-lg-* col-md-* col-sm-* col-xs-* ">
-                            <div class="grey-border">
-                                <form class="form form-horizontal" id="update-user-form">
-                                    <div class="form-group  text-center">
-                                        <label class="col-sm-2 control-label"></label>
-                                        <div class="col-sm-4">
-                                            <h1>Settings</h1>
-                                        </div>
-                                    </div>
+            <div class="close-animation" id="fade"></div>
+                <div class="col-lg-4">
+                    <h1>Settings</h1>
+                    <form class="form form-horizontal" id="update-user-form">
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="first-name">First name</label>
-                                        <div class="col-sm-4">
+                                        <label class="col-sm-4 control-label" for="first-name">First name</label>
+                                        <div class="col-sm-8">
                                             <input id="first-name" class="form-control" type="text" name="first-name"
                                                    maxlength="50"
                                                    pattern="[^()[\]{}*&^%$<>#0-9@!]+$" required="true" disabled/>
-                                        </div>
+                                            </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="last-name">Family name</label>
-                                        <div class="col-sm-4">
+                                        <label class="col-sm-4 control-label" for="last-name">Family name</label>
+                                        <div class="col-sm-8">
                                             <input id="last-name" class="form-control" type="text" name="last-name"
                                                    maxlength="50"
                                                    pattern="[^()[\]{}*&^%$<>#0-9@!]+$" required="true" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="country">Country</label>
-                                        <div class="col-sm-4">
+                                        <label class="col-sm-4 control-label" for="country">Country</label>
+                                        <div class="col-sm-8">
                                             <input id="country" class="form-control" type="text" name="country"
                                                    maxlength="50"
                                                    pattern="[^()[\]{}*&^%$<>#0-9@!]+$" required="false" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="user-email">Email</label>
-                                        <div class="col-sm-4">
+                                        <label class="col-sm-4 control-label" for="user-email">Email</label>
+                                        <div class="col-sm-8">
                                             <input id="email" class="form-control" type="email" maxlength="100"
                                                    pattern="\b[A-Z0-9._+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,4}\b$)"
                                                    name="email" required="true" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label"></label>
-                                        <div class="col-sm-2">
-                                            <input  class="button-flat button-edit" id="update" type="submit" value="Edit" />
+                                        <label class="col-sm-4 control-label"></label>
+                                        <div class="col-sm-8">
+                                            <input  class="button-flat button-yellow" id="update" type="submit" value="Edit Info" />
+                                            <input class="button-flat button-yellow" id="password" type="submit" value="Change Password" />
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
+                    <div id="modal">
+                            <div class="content">test</div>
                     </div>
+                    <button id="open-modal">open</button>
+                    <div id="modal2">
+                        <a href="#" class="content" id="close">close</a>
+                        <div class="content">test</div>
+                    </div>
+
+                </div>
+        </div>
                 </div>
         </div>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
@@ -145,11 +148,13 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.sidr.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.touchwipe.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/ShoppingApp.js"></script>
+        <script type="text/javascript" src="/CandleLight/templates/js/simple-modal.js"></script>
         <script type="text/javascript">
             ShoppingApp.init({
                 url: "/CandleLight/api/users/",
                 userId: "<?=$User->getUserId()?>"
             });
+            SimpleModal.modal('password','modal');
         </script>
 </body>
 </html> 
