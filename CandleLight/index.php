@@ -22,7 +22,7 @@ $app->get('/logout/', function () {
 
 $auth = function (\Slim\Route $route) {
     if(array_key_exists('key', $route->getParams())){
-        $token = new \ShoppingApp\Controllers\Authentication($_SESSION['token'], '', '');
+        $token = new \ShoppingApp\Controllers\Authentication($route->getParam('key'), '', '');
         if($token->validateKey() == false){
             $app = \Slim\Slim::getInstance();
             $app->redirect($app->urlFor('index'));
@@ -45,9 +45,9 @@ $app->get('/api/users', 'auth', 'getUsers');
 $app->get('/api/users/:id/', 'auth', 'getUser');
 $app->put('/api/users/:id/', 'auth', 'updateUser');
 $app->post('/api/users', 'insertUser');
-$app->get('/api/users/friends/:id','auth', 'getFriends');
-$app->get('/api/users/friends/requests/:id/','auth', 'getFriendsRequests');
-$app->get('/api/users/friends/search/:keyword/','auth', 'searchFriends');
+$app->get('/api/users/test/:id(/:key)',$auth, 'getFriends');
+$app->get('/api/users/friends/requests/:id(/:key)', $auth, 'getFriendsRequests');
+$app->get('/api/users/friends/search/:keyword(/:key)',$auth, 'searchFriends');
 $app->put('/api/users/friends/requests/:id/:friendid/', 'auth', 'acceptRequest');
 $app->delete('/api/users/friends/requests/:id/:friendid/', 'auth', 'deleteFriend');
 $app->post('/api/users/friends/requests/:id/:friendid/', 'auth', 'addFriend');

@@ -229,7 +229,7 @@ var ShoppingApp = (function () {
         // private function ajax request voor friends.
         var _getFriends = function (){
                return $.ajax({
-                    url: config[0].url + 'friends/' + config[0].userId,
+                    url: config[0].url + 'test/' + config[0].userId,
                     type: 'GET',
                     dataType: 'json',
                     cache: false,
