@@ -96,7 +96,7 @@ var ShoppingApp = (function () {
                 }).always(function (){
                     getUser();
                    _disableInput();
-                   $('#update').val('Edit').removeAttr('disabled');
+                   $('#update').val('Edit Info').removeAttr('disabled');
                 });
                 e.preventDefault();
             });
