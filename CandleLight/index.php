@@ -41,13 +41,13 @@ $auth = function (\Slim\Route $route) {
     }
 };
 
-$app->get('/api/users', 'auth', 'getUsers');
-$app->get('/api/users/:id/', 'auth', 'getUser');
+$app->get('/api/users(/:key)', $auth, 'getUsers')->conditions(array('key' => '[A-z]'));
+$app->get('/api/users/:id(/:key)', $auth, 'getUser')->conditions(array('id' => '\d'));
 $app->put('/api/users/:id/', 'auth', 'updateUser');
 $app->post('/api/users', 'insertUser');
-$app->get('/api/users/test/:id(/:key)',$auth, 'getFriends');
+$app->get('/api/users/friends/:id(/:key)',$auth, 'getFriends')->conditions(array('id' => '\d'));
 $app->get('/api/users/friends/requests/:id(/:key)', $auth, 'getFriendsRequests');
-$app->get('/api/users/friends/search/:keyword(/:key)',$auth, 'searchFriends');
+$app->get('/api/users/friends/search/:keyword(/:key)', $auth, 'searchFriends');
 $app->put('/api/users/friends/requests/:id/:friendid/', 'auth', 'acceptRequest');
 $app->delete('/api/users/friends/requests/:id/:friendid/', 'auth', 'deleteFriend');
 $app->post('/api/users/friends/requests/:id/:friendid/', 'auth', 'addFriend');
