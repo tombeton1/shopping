@@ -2,6 +2,8 @@
  * Created by lenny on 21/05/15.
  */
 
+'use strict'
+
 var ShoppingApp = (function () {
     //array in ShoppingApp scope voor opties url en userId, deze kan met alle submodules worden gebruikt.
     var config = [];
@@ -22,32 +24,96 @@ var ShoppingApp = (function () {
 
         var init = function(){
             events();
+            createModal('password', 'modal');
         };
 
-        var events = function(){
-            $('#responsive-menu-button').sidr();
-            $('li a').click(function(){
+        var createModal = function (button, modalId) {
+
+            //local variables modal
+
+            //div with modal Id
+            var modal = document.getElementById(modalId);
+            var children = modal.children;
+
+            // div with fadeID for black overlay.
+            var fade = document.getElementById('fade');
+
+            // close button to close modal
+            var btn = document.createElement('button');
+            btn.innerHTML = 'close';
+            btn.classList.add('close');
+
+            // set all the childelements from the modal on display none
+            for (var i = 0; children[i]; i ++) {
+                children[i].style.display = 'none';
+            }
+
+            //creates the modal when clicked on the button
+            document.getElementById(button).addEventListener('click', function (e) {
+
+                e.preventDefault();
+
+                // insert close button
+                modal.insertBefore(btn, modal.childNodes[0]);
+
+                // set content of modal on display block;
+                for (var i = 0; children[i]; i ++) {
+                    children[i].style.display = 'block';
+                }
+
+                modal.classList.remove('modal-close');
+                fade.classList.remove('modal-close');
+                modal.classList.add('modal');
+                fade.classList.add('overlay');
+
+                btn.addEventListener('click', function (e) {
+
+                    e.preventDefault();
+
+                    modal.classList.add('modal-close');
+                    fade.classList.add('modal-close');
+
+                    setTimeout(function () {
+                        modal.style.display = 'none';
+                        modal.classList.remove('modal');
+                        fade.classList.remove('overlay');
+                        modal.style.display = 'block';
+                        modal.removeChild(btn);
+                        for (var i = 0; children[i]; i ++) {
+                            children[i].style.display = 'none';
+                        }
+                    }, 200);
+                });
+            });
+        }
+
+        function tabClick(event) {
+
+            event.preventDefault();
+
+            if (event.target.nodeName === 'A') {
                 $.sidr('close', 'sidr');
-                $('#simple-menu').show();
                 var child = document.querySelector('.material-design-hamburger__icon').childNodes[1].classList;
                 child.remove('material-design-hamburger__icon--to-arrow');
                 child.add('material-design-hamburger__icon--from-arrow');
+                var id = event.target.getAttribute('href');
+                var parent = document.querySelector('.tab-content').children;
+                var i = parent.length;
+                while (i--) {
+                    parent[i].style.display = 'none';
+                }
+                var test = document.querySelector('.tab-content').querySelectorAll(id);
+                test[0].style.display = 'block';
+            }
+        }
 
-            });
-            $('#simple-menu').click(function(){
-                $('#simple-menu').hide();
-                //document.querySelector('.material-design-hamburger__icon').childNodes[1].classList.remove('material-design-hamburger__icon--from-arrow');
-                //child.remove('material-design-hamburger__icon--from-arrow');
-                //child.add('material-design-hamburger__icon--to-arrow');
-            });
-            $('.tabs .tab-links a').on('click', function (e) {
-                var currentAttrValue = $(this).attr('href');
-                $('.tabs ' + currentAttrValue).show().siblings().hide();
-                $(this).parent('li').addClass('active').siblings().removeClass('active');
-                e.preventDefault();
-            });
+        var events = function(){
+
+            // sidr menu
+            $('#responsive-menu-button').sidr();
+
+            // touchwipe voor swipe opening van menu
             $(window).touchwipe({
-
                 wipeLeft: function() {
                     $.sidr('close', 'sidr');
                     var child = document.querySelector('.material-design-hamburger__icon').childNodes[1].classList;
@@ -60,6 +126,15 @@ var ShoppingApp = (function () {
                 preventDefaultEvents: false
             });
 
+            // local variables van tabs
+            var tablinks = document.querySelectorAll('.tab-links li');
+            var j = tablinks.length;
+
+            while (j--) {
+                tablinks[j].addEventListener('click', tabClick, false);
+            }
+
+            // hamburger menu design
             document.querySelector('.material-design-hamburger__icon').addEventListener(
                 'click',
                 function() {
@@ -73,6 +148,8 @@ var ShoppingApp = (function () {
                     }
                 });
         };
+
+
         return{
             init: init
         }
@@ -166,63 +243,80 @@ var ShoppingApp = (function () {
     var FriendsModule = (function (){
 
         var init = function (){
-            events();
+                events();
         };
 
         var events = function(){
 
             //search friends event
-            $('#search-users').keyup(function (e) {
-                var keyword = $(this).val();
+            document.getElementById('search-users').addEventListener('keyup', function(e){
+                var keyword = this.value;
                 if (keyword.length >= 3){
                     _searchFriends(keyword).done(function (data){
-                        var $results = $('#results').html('');
+                        document.getElementById('results').innerHTML =  '';
+                        var results = document.getElementById('results');
                         if (data.length === 0) {
-                            $($results).append('<tr><td>User not found</td></tr>');
+                            var tr = document.createElement('tr');
+                            tr.innerHTML = '<td>User not found</td>';
+                            results.appendChild(tr);
                         };
                         data.forEach(function (user){
-                            $($results).append('<div class="search-results"><p>' + user.firstName + ' ' + user.lastName +'<br>' + user.email +  '</p> <button class="button-flat button-green" id="add-friend-btn" type="submit" value="'+ user.userId +'">Add friend</button></div>');
+                            var div = document.createElement('div');
+                            div.classList.add('search-results');
+                            div.innerHTML = '<p>' + user.firstName + ' ' + user.lastName +'<br>' + user.email +  '</p> <button class="button-flat button-green" id="add-friend-btn" type="submit" value="'+ user.userId +'">Add friend</button>';
+                            results.appendChild(div);
                         });
                     });
                 } else {
-                    $('#results').html('');
+                    document.getElementById('results').innerHTML = '';
+                }
+            });
+
+            document.getElementById("friends-requests-list").addEventListener("click", function(e) {
+                if(e.target.id === "accept-request-btn"){
+                    var friendId = e.target.value;
+                    _acceptRequest(friendId).done(function(data){
+                        var $message = $('#request-friend-message').html('');
+                        $message.append(data);
+                        setTimeout(function () {
+                            $message.fadeOut('slow');
+                            $message.empty();
+                        }, 2800);
+                        getFriends();
+                        getFriendsRequests();
+                    });
+                } else if(e.target.id === "decline-request-btn"){
+                    var friendId = e.target.value;
+                    _deleteFriend(friendId).done(function(data){
+                        getFriendsRequests();
+                        getFriends();
+                    })
+                }
+            });
+
+            document.getElementById("friends-list").addEventListener("click", function(e) {
+                if(e.target.id === "decline-request-btn"){
+                    var friendId = e.target.value;
+                    _deleteFriend(friendId).done(function(data){
+                        getFriendsRequests();
+                        getFriends();
+                    })
+                }
+            });
+
+            document.getElementById('results').addEventListener("click", function(e){
+                if(e.target.id === "add-friend-btn"){
+                    var friendId = e.target.value;
+                    _addFriend(friendId).done(function(data){
+                        var $message = $('#add-friend-message').html('');
+                        $message.append(data);
+                        setTimeout(function () {
+                            $message.fadeOut('slow');
+                            $message.empty();
+                        }, 2800);
+                        getFriendsRequests();
+                    })
                 };
-            });
-
-            // accept button friends requests
-            $(document).on('click', '#accept-request-btn', function () {
-                var friendId = ($(this).attr("value"));
-                _acceptRequest(friendId).done(function(data){
-                    var $message = $('#request-friend-message').html('');
-                    $message.append(data);
-                    setTimeout(function () {
-                        $message.fadeOut('slow');
-                        $message.empty();
-                    }, 2800);
-                    getFriends();
-                    getFriendsRequests();
-                });
-            });
-
-            $(document).on('click', '#decline-request-btn', function(){
-                var friendId =($(this).attr("value"));
-                _deleteFriend(friendId).done(function(data){
-                   getFriendsRequests();
-                   getFriends();
-                })
-            });
-
-            $(document).on('click', '#add-friend-btn', function(){
-                var friendId =($(this).attr("value"));
-                _addFriend(friendId).done(function(data){
-                    var $message = $('#add-friend-message').html('');
-                    $message.append(data);
-                    setTimeout(function () {
-                        $message.fadeOut('slow');
-                        $message.empty();
-                    }, 2800);
-                    getFriendsRequests();
-                })
             });
         };
 
@@ -267,6 +361,7 @@ var ShoppingApp = (function () {
                 async: true
             })
         };
+
         var _deleteFriend = function (friendId){
             return $.ajax({
                 url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId + '/' ,
@@ -290,39 +385,47 @@ var ShoppingApp = (function () {
 
         // public methode om friends naar de DOM te sturen.
         var getFriends = function (){
-            return _getFriends().done(function (data){
-                $('#friends-list').html('');
-                var $friends = $('#friends').html('');
-                var friends = 0;
-                data.forEach(function (user) {
-                    $('#friends-list').append('<div class="friends-list"><p>' + user.firstName + ' ' + user.lastName +  '</p><button class="button-flat" id="decline-request-btn" type="submit" value="'+ user.userId +'">Delete Friend</button></div>');
-                    friends++
-                });
-                if(friends === 0){
-                    $friends.append('');
-                    $('.sidebar-grey-badge').hide();
-                } else {
-                    $friends.append(friends);
-                }
-            })
+            return _getFriends().done(function (data) {
+                    document.getElementById('friends-list').innerHTML = '';
+                    document.getElementById('friends').innerHTML = '';
+                    var friendsList = document.getElementById('friends-list');
+                    var friends = document.getElementById('friends');
+                    var friendsCount = 0;
+                    data.forEach(function (user) {
+                        var div = document.createElement('div');
+                        div.classList.add('friends-list');
+                        div.innerHTML = '<p>' + user.firstName + ' ' + user.lastName + '</p><button class="button-flat" id="decline-request-btn" type="submit" value="' + user.userId + '">Delete Friend</button>';
+                        friendsList.appendChild(div);
+                        friendsCount++
+                    });
+                    if (friendsCount === 0) {
+                        friends.style.display = 'none';
+                    } else {
+                        friends.innerHTML = friendsCount;
+                    }
+                })
         };
 
         var getFriendsRequests = function (){
-            return _getFriendsRequests().done(function (data){
-                $('#friends-requests-list').html('');
-                var $requests = $('#requests').html('');
-                var requests = 0;
-                data.forEach(function(request){
-                    $('#friends-requests-list').append('<div class="friend-requests"><p>' + request.firstName + ' ' + request.lastName + ' wants to add you to his/her friend list </p><button class="button-raised accept-button" id="accept-request-btn" type="submit" value="'+ request.userId +'">accept</button><button class="button-raised decline-button" id="decline-request-btn" type="submit" value="'+ request.userId +'">decline</button></div>');
-                    requests++;
+                return _getFriendsRequests().done(function (data) {
+                    document.getElementById('friends-requests-list').innerHTML = '';
+                    document.getElementById('requests').innerHTML = '';
+                    var friendRequestList = document.getElementById('friends-requests-list');
+                    var requests = document.getElementById('requests');
+                    var requestCount = 0;
+                        data.forEach(function (request) {
+                            var div = document.createElement('div');
+                            div.classList.add('friend-requests');
+                            div.innerHTML = '<p>' + request.firstName + ' ' + request.lastName + ' wants to add you to his/her friend list </p><button class="button-raised accept-button" id="accept-request-btn" type="submit" value="' + request.userId + '">accept</button><button class="button-raised decline-button" id="decline-request-btn" type="submit" value="' + request.userId + '">decline</button>';
+                            friendRequestList.appendChild(div);
+                            requestCount++;
+                    });
+                    if (requestCount === 0) {
+                        requests.style.display = 'none';
+                    } else {
+                        requests.innerHTML = requestCount;
+                    }
                 });
-                if(requests === 0){
-                    $requests.append('');
-                    $('.sidebar-badge').hide();
-                } else {
-                    $requests.append(requests);
-                }
-            });
         };
 
         // return public methods van friends module.

@@ -86,7 +86,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
             </div>
         </div>
         <div id="tab5" class="tab">
-            <div class="close-animation" id="fade"></div>
+            <div id="fade"></div>
                 <div class="col-lg-4">
                     <h1>Settings</h1>
                     <form class="form form-horizontal" id="update-user-form">
@@ -133,7 +133,6 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                     <div id="modal">
                             <div class="content">test</div>
                     </div>
-                    <button id="open-modal">open</button>
                 </div>
         </div>
                 </div>
@@ -143,13 +142,11 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.sidr.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.touchwipe.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/ShoppingApp.js"></script>
-        <script type="text/javascript" src="/CandleLight/templates/js/simple-modal.js"></script>
         <script type="text/javascript">
             ShoppingApp.init({
                 url: "/CandleLight/api/users/",
                 userId: "<?=$User->getUserId()?>"
             });
-            SimpleModal.modal('password','modal');
         </script>
 </body>
 </html> 

@@ -19,7 +19,6 @@
 
 .modal {
     position: absolute;
-    display: block;
     margin-top: 2%;
     width: auto;
     margin-left: 5%;
@@ -47,4 +46,5 @@
 .content {
     width: 10em;
     height: 10em;
+    display: block;
 }
