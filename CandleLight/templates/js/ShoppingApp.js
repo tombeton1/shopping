@@ -2,33 +2,36 @@
  * Created by lenny on 21/05/15.
  */
 
-'use strict'
+    'use strict'
 
 var ShoppingApp = (function () {
 
-    //array in ShoppingApp scope voor opties url en userId, deze kan met alle submodules worden gebruikt.
+    //Config array, with settings (api url, userId, apikey) accesable for all modules.
     var config = [];
 
-    // constructor: alle modules worden hier geinitializeerd
+    // initatilizating from shopping app. All the modules get initiated here. and gets the options as param.
+    // to push it to config array.
     var init = function (options) {
         config.push(options);
         UserInterfaceModule.init();
         UserModule.init();
         FriendsModule.init();
-        UserModule.getUser();
-        FriendsModule.getFriends();
-        FriendsModule.getFriendsRequest();
     };
 
-    // user interface
+    /*----------------------------------------------------------------------
+    * User InterFace Module
+    * All functions without identity for user interaction gets loaded here.
+    * SideMenu, Modals, TabInterface.
+    * ---------------------------------------------------------------------*/
     var UserInterfaceModule = (function () {
 
         var init = function () {
-            events();
+            menu();
             createModal('password', 'modal');
             tabInterface();
         };
 
+        // gets the buttonId and the id from the div for the modal.
         var createModal = function (button, modalId) {
 
             //local variables modal
@@ -94,6 +97,7 @@ var ShoppingApp = (function () {
             });
         }
 
+        // tab interface
         var tabInterface = function () {
 
             var tablinks = document.querySelectorAll('.tab-links li');
@@ -122,17 +126,19 @@ var ShoppingApp = (function () {
                 }
             }
 
+            // add events to all the anchors in the navigation.
             while (j--) {
                 tablinks[j].addEventListener('click', tabClick, false);
             }
         }
 
-        var events = function () {
+        //
+        var menu = function () {
 
             // sidr menu
             $('#responsive-menu-button').sidr();
 
-            // touchwipe voor swipe opening van menu
+            // touchwipe for swipe opening menu on smarthpones
             $(window).touchwipe({
                 wipeLeft: function () {
                     $.sidr('close', 'sidr');
@@ -146,9 +152,8 @@ var ShoppingApp = (function () {
                 preventDefaultEvents: false
             });
 
-            // local variables van tabs
 
-            // hamburger menu design
+            // hamburger menu animation
             document.querySelector('.material-design-hamburger__icon').addEventListener(
                 'click',
                 function () {
@@ -167,15 +172,20 @@ var ShoppingApp = (function () {
             init: init
         }
     })();
-    // UserModule Module voor alle user interacties.
+
+    /*--------------------------------------------------------------------
+    * Module loads ajax calls for User all the user data (Settings panel).
+    *Get user info, Update user info
+    * --------------------------------------------------------------------*/
     var UserModule = (function () {
 
-        // initatlizeren van events. Deze worden op deze manier geladen nadat de DOM is geladen.
+        // initialize functions.
         var init = function () {
             events();
+            getUser();
         };
 
-        // vangt alle events op dat met de User interactie te maken heeft.
+        // EventListeners
         var events = function () {
 
             // update user form submit event.
@@ -189,6 +199,7 @@ var ShoppingApp = (function () {
                 e.preventDefault();
             });
 
+            // change button type when clicking on update info in settings panel
             document.getElementById('update').addEventListener('click', function(){
                 if (document.getElementById("update").type === "submit") {
                     document.getElementById("update").type = "button";
@@ -226,6 +237,7 @@ var ShoppingApp = (function () {
             })
         };
 
+        // disable button after click on update settings panel
         var _disableInput = function () {
             document.getElementById("first-name").disabled = true;
             document.getElementById("last-name").disabled = true;
@@ -245,17 +257,24 @@ var ShoppingApp = (function () {
 
         // return van de public methodes van alle user interacties.
         return {
-            init: init,
-            getUser: getUser
+            init: init
         }
     })();
 
+    /*----------------------------------------------------------------
+    * FriendsModule
+    * Gets all the ajax calls for Friends.
+    * Friendsrequests, Friends, Search for friends
+    * ----------------------------------------------------------------*/
     var FriendsModule = (function () {
 
         var init = function () {
             events();
+            getFriends();
+            getFriendsRequests();
         };
 
+        // EventListeners
         var events = function () {
 
             //search friends event
@@ -282,7 +301,7 @@ var ShoppingApp = (function () {
                 }
             });
 
-            // accept or decline friend in friend requests
+            // accept or decline friend in friend requests (delegation because buttons get dynamicallly added)
             document.getElementById("friends-requests-list").addEventListener("click", function (e) {
                 if (e.target.id === "accept-request-btn") {
                     var friendId = e.target.value;
@@ -330,11 +349,10 @@ var ShoppingApp = (function () {
                         getFriendsRequests();
                     })
                 }
-                ;
             });
         };
 
-        // private function ajax request voor friends.
+        // private function ajax call friends from user.
         var _getFriends = function () {
             return $.ajax({
                 url: config[0].url + 'friends/' + config[0].userId,
@@ -345,7 +363,7 @@ var ShoppingApp = (function () {
             })
         };
 
-        // private function aajx request voor friendsrequests
+        // private function ajax call friendrequests from user
         var _getFriendsRequests = function () {
             return $.ajax({
                 url: config[0].url + 'friends/requests/' + config[0].userId,
@@ -356,6 +374,7 @@ var ShoppingApp = (function () {
             })
         };
 
+        // private function ajax call search friends
         var _searchFriends = function (keyword) {
             return $.ajax({
                 url: config[0].url + 'friends/search/' + keyword,
@@ -366,6 +385,7 @@ var ShoppingApp = (function () {
             })
         };
 
+        // private function ajax call acceptFriendrequest
         var _acceptRequest = function (friendId) {
             return $.ajax({
                 url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId + '/',
@@ -376,6 +396,7 @@ var ShoppingApp = (function () {
             })
         };
 
+        // private function ajax call delete friend or decline friend request
         var _deleteFriend = function (friendId) {
             return $.ajax({
                 url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId + '/',
@@ -386,7 +407,7 @@ var ShoppingApp = (function () {
             })
         };
 
-        // private method add friend
+        // private functoin ajax call add friend
         var _addFriend = function (friendId) {
             return $.ajax({
                 url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId + '/',
@@ -397,7 +418,7 @@ var ShoppingApp = (function () {
             })
         };
 
-        // public methode om friends naar de DOM te sturen.
+        // public function ajax call getfriends from user
         var getFriends = function () {
             return _getFriends().done(function (data) {
                 document.getElementById('friends-list').innerHTML = '';
@@ -420,6 +441,7 @@ var ShoppingApp = (function () {
             })
         };
 
+        // public function ajax call getFriendRequests from user
         var getFriendsRequests = function () {
             return _getFriendsRequests().done(function (data) {
                 document.getElementById('friends-requests-list').innerHTML = '';
@@ -442,15 +464,13 @@ var ShoppingApp = (function () {
             });
         };
 
-        // return public methods van friends module.
+        // return public methods user.
         return {
-            init: init,
-            getFriends: getFriends,
-            getFriendsRequest: getFriendsRequests
+            init: init
         }
     })();
 
-    // return van de public methoden om settings te initatlizeren.
+    // initialize ShoppingApp with all the modules.
     return {
         init: init
     };
