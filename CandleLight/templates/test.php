@@ -15,7 +15,7 @@
 </div>
 <script type="text/javascript" src="/CandleLight/templates/js/simple-modal.js"></script>
 <script>
-    SimpleModal.createModal('open','modal')
+    SimpleModal.createModal('open','modal');
 </script>
 </body>
 </html>

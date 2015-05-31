@@ -7,7 +7,6 @@ if (!isset($_SESSION['user'])) {
     $User = $_SESSION['user'];
 }
 $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
-
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -16,7 +15,6 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/CandleLight/templates/css/bootstrap.min.css" rel="stylesheet">
     <link href="/CandleLight/templates/css/app.css" rel="stylesheet">
-
     <style>
         .tab-links:after {
             display: block;
@@ -25,12 +23,6 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         }
         .tab {
             display: none;
-        }
-        .tab.active {
-            display: block;
-        }
-        .sidr-inner {
-            background-color: #53e3a6;
         }
     </style>
 </head>
@@ -134,8 +126,8 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                             <div class="content">test</div>
                     </div>
                 </div>
-        </div>
-                </div>
+            </div>
+         </div>
         </div>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/bootstrap.min.js"></script>
