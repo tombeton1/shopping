@@ -35,8 +35,6 @@ var SimpleModal = (function () {
             e.preventDefault();
             btn.classList.add('close-btn');
 
-            // set content of modal on display block;
-
             // add modal animation to open modal
             modal.classList.add('modal');
             fade.classList.add('overlay');
@@ -69,7 +67,7 @@ var SimpleModal = (function () {
                     }
                     modal.classList.remove('modal-close');
                     fade.classList.remove('modal-close');
-                }, 200);
+                }, 300);
             });
         });
     }

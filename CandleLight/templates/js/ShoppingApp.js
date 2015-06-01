@@ -89,7 +89,7 @@ var ShoppingApp = (function () {
                         }
                         modal.classList.remove('modal-close');
                         fade.classList.remove('modal-close');
-                    }, 200);
+                    }, 300);
                 });
             });
         };
