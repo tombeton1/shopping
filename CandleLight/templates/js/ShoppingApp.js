@@ -2,7 +2,7 @@
  * Created by lenny on 21/05/15.
  */
 
-    'use strict'
+    'use strict';
 
 var ShoppingApp = (function () {
 
@@ -44,8 +44,8 @@ var ShoppingApp = (function () {
 
             // close button to close modal
             var btn = document.createElement('button');
-            btn.innerHTML = 'close';
-            btn.classList.add('close');
+            btn.innerHTML = '<span class="material-icons md-black md-36">cancel</span>';
+            btn.classList.add('close-btn');
 
             // set all the childelements from the modal on display none
             for (var i = 0; children[i]; i++) {
@@ -57,21 +57,17 @@ var ShoppingApp = (function () {
 
                 e.preventDefault();
 
-                // insert close button
-                modal.insertBefore(btn, modal.childNodes[0]);
+                // add css clases for animation
+                modal.classList.add('modal');
+                fade.classList.add('overlay');
 
-                // set content of modal on display block;
+                // setting all children from modal visible
                 for (var i = 0; children[i]; i++) {
                     children[i].style.display = 'block';
                 }
 
-                // remove classes if exists
-                modal.classList.remove('modal-close');
-                fade.classList.remove('modal-close');
-
-                // add css clases for animation
-                modal.classList.add('modal');
-                fade.classList.add('overlay');
+                // insert close btn before content
+                modal.insertBefore(btn, modal.childNodes[0]);
 
                 // close button handler
                 btn.addEventListener('click', function (e) {
@@ -82,20 +78,21 @@ var ShoppingApp = (function () {
                     modal.classList.add('modal-close');
                     fade.classList.add('modal-close');
 
-                    // timeout with animation time
+                    // sets display on none when animation is finished otherwise it closes too abrubt.
                     setTimeout(function () {
                         modal.style.display = 'none';
                         modal.classList.remove('modal');
                         fade.classList.remove('overlay');
                         modal.style.display = 'block';
-                        modal.removeChild(btn);
                         for (var i = 0; children[i]; i++) {
                             children[i].style.display = 'none';
                         }
+                        modal.classList.remove('modal-close');
+                        fade.classList.remove('modal-close');
                     }, 200);
                 });
             });
-        }
+        };
 
         // tab interface
         var tabInterface = function () {
@@ -130,7 +127,7 @@ var ShoppingApp = (function () {
             while (j--) {
                 tablinks[j].addEventListener('click', tabClick, false);
             }
-        }
+        };
 
         //
         var menu = function () {
@@ -195,6 +192,7 @@ var ShoppingApp = (function () {
                 }).always(function(){
                     getUser();
                     _disableInput();
+                    updatebtn.value = 'Edit info';
                 });
                 e.preventDefault();
             });

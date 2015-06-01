@@ -15,6 +15,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/CandleLight/templates/css/bootstrap.min.css" rel="stylesheet">
     <link href="/CandleLight/templates/css/app.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         .tab-links:after {
             display: block;
@@ -123,7 +124,32 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                                     </div>
                                 </form>
                     <div id="modal">
-                            <div class="content">test</div>
+                            <div class="content">
+                                <form id="update-password">
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                            <label>Existing password</label>
+                                            <input class="form-control" type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                        <label>New password</label>
+                                        <input class="form-control" type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                        <label>New password</label>
+                                        <input class="form-control" type="text"/><br>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input  class="button-flat button-yellow" id="update" type="submit" value="Change Password" />
+                                        <input  class="button-flat button-yellow" id="update" type="button" value="Cancel" />
+                                    </div>
+                                </form>
+                            </div>
                     </div>
                 </div>
             </div>

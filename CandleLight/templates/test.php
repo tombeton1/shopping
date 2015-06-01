@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title></title>
     <link href="/CandleLight/templates/css/modal.css" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 <div id="fade"></div>

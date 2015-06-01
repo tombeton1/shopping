@@ -21,8 +21,8 @@ var SimpleModal = (function () {
 
         // close button to close modal
         var btn = document.createElement('button');
-        btn.innerHTML = 'close';
-        btn.classList.add('close');
+        btn.innerHTML = '<span class="material-icons md-black md-36">cancel</span>';
+        btn.classList.add('close-btn');
 
         // set all the childelements from the modal on display none (hide content)
         for (var i = 0; children[i]; i ++) {
@@ -33,22 +33,21 @@ var SimpleModal = (function () {
         document.getElementById(button).addEventListener('click', function (e) {
 
             e.preventDefault();
+            btn.classList.add('close-btn');
 
-            // insert close button before content(childElements)
-            modal.insertBefore(btn, modal.childNodes[0]);
-
-            // set content(childelements) of modal(div) on display block;
-            for (var i = 0; children[i]; i ++) {
-                children[i].style.display = 'block';
-            }
-
-            // remove close animation if exists.
-            modal.classList.remove('modal-close');
-            fade.classList.remove('modal-close');
+            // set content of modal on display block;
 
             // add modal animation to open modal
             modal.classList.add('modal');
             fade.classList.add('overlay');
+
+            // sets all content on display block.
+            for (var i = 0; children[i]; i++) {
+                children[i].style.display = 'block';
+            }
+
+            // add the button before the content.
+            modal.insertBefore(btn, modal.childNodes[0]);
 
             // event listener Close button
             btn.addEventListener('click', function (e) {
@@ -65,10 +64,11 @@ var SimpleModal = (function () {
                     modal.classList.remove('modal');
                     fade.classList.remove('overlay');
                     modal.style.display = 'block';
-                    modal.removeChild(btn);
                     for (var i = 0; children[i]; i ++) {
                         children[i].style.display = 'none';
                     }
+                    modal.classList.remove('modal-close');
+                    fade.classList.remove('modal-close');
                 }, 200);
             });
         });
