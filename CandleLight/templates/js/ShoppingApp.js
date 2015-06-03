@@ -30,7 +30,9 @@ var ShoppingApp = (function () {
         var init = function () {
             menu();
             createModal('password', 'modal');
+            createModal('add-grocery-list', 'add-grocery-modal');
             createDynamicModal('groceries-list','edit-list-btn', 'list-modal');
+            createDynamicModal('groceries-list', 'grocery-list', 'view-modal');
             tabInterface();
         };
 
@@ -149,8 +151,6 @@ var ShoppingApp = (function () {
                             modal.classList.remove('modal-open');
                         }, 300);
                     });
-                } else {
-
                 }
             });
         };
@@ -665,7 +665,8 @@ var ShoppingApp = (function () {
                 var groceriesCount = 0;
                 data.forEach(function (list) {
                     var div = document.createElement('div');
-                    div.classList.add('groceries-list');
+                    div.classList.add('grocery-list');
+                    div.setAttribute('id', 'grocery-list');
                     div.innerHTML = '<p>' + list.shopping_list_name + ' ' + list.shopping_list_updated + '</p><button class="button-raised accept-button" id="edit-list-btn" type="submit" value="' + list.shopping_list_id + '">edit</button><button class="button-raised decline-button" id="delete-list-btn" type="submit" value="' + list.shopping_list_id + '">delete</button>';
                     groceriesList.appendChild(div);
                     groceriesCount++

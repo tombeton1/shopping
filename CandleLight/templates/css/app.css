@@ -111,13 +111,11 @@ input:focus{outline:0;}
 
 .modal {
     position: absolute;
-    height: 30em;
+    height: auto;
     top: 5%;
     left: 2.5%;
     right: 2.5%;
-    min-width: 20em;
-    width: 20em;
-    max-width: 20em;
+    max-width: 95%;
     background-color: #ffffff;
     opacity: 0;
     visibility: hidden;
@@ -226,6 +224,15 @@ input[type="text"]:disabled, input[type="email"]:disabled {
     font-size: 18px;
 }
 .friends-list{
+    margin-top: 2em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: 1.5em;
+}
+.grocery-list{
     margin-top: 2em;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     padding-left: 1em;
@@ -532,9 +539,21 @@ input[type="text"]:disabled, input[type="email"]:disabled {
     height: 20px;
     width: 20px;
     border-radius: 3px;
-    margin-left: 7.2em;
     padding-left: 10px;
     padding-right: 10px;
+    margin-left: 7.2em;
+    color: #ffffff;
+}
+.sidebar-grocery-badge {
+    display: inline;
+    background-color: #BDBDBD;
+    position: relative;
+    height: 20px;
+    width: 20px;
+    border-radius: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 5em;
     color: #ffffff;
 }
 .sidebar-icon {

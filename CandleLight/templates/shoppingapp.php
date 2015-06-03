@@ -41,7 +41,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         <ul class="tab-links">
             <li><div class="circle"></div></li>
             <li class="user-name">Hi! <?= $User->getFirstName()?></li>
-            <li><a href="#tab1">Grocery List <div class="sidebar-grey-badge" id="groceries"></div></a></li>
+            <li><a href="#tab1">Grocery List <div class="sidebar-grocery-badge" id="groceries"></div></a></li>
             <li><a href="#tab2">Friends <div class="sidebar-grey-badge" id="friends"></div></a>
                 <ul>
                     <li><a href="#tab3"> Search for Friends</a></li>
@@ -56,7 +56,10 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         <div id="tab1" class="tab active">
             <div class="col-lg-4">
                 <h1>Your Grocery list</h1>
+                <button id="add-grocery-list" class="button-flat button-green material-icons md-48">add_circle</button>
                 <div id="groceries-list"></div>
+                <div id="add-grocery-modal" class="modal"></div>
+                <div id="view-modal" class="modal"></div>
                 <div id="list-modal" class="modal">
                     <div class="content">
                         <form id="update-list">
