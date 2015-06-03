@@ -40,7 +40,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         <ul class="tab-links">
             <li><div class="circle"></div></li>
             <li class="user-name">Hi! <?= $User->getFirstName()?></li>
-            <li class="active"><a href="#tab1">Grocery List</a></li>
+            <li><a href="#tab1">Grocery List <div class="sidebar-grey-badge" id="groceries"></div></a></li>
             <li><a href="#tab2">Friends <div class="sidebar-grey-badge" id="friends"></div></a>
                 <ul>
                     <li><a href="#tab3"> Search for Friends</a></li>
@@ -55,6 +55,42 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         <div id="tab1" class="tab active">
             <div class="col-lg-4">
                 <h1>Your Grocery list</h1>
+                <div id="groceries-list"></div>
+                <div id="list-modal">
+                    <div class="content">
+                        <form id="update-list">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>Name</label>
+                                    <input id="list-name" class="form-control" type="text"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>List</label>
+                                    <p id="owner-text">- Komkommer<br> - Tomaat<br></p>
+                                    <p id="friends-text">- Banaan</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>New Product</label>
+                                    <input class="form-control" type="text"/><br>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>Due Date</label>
+                                    <input id="due-date" class="form-control" type="text"/><br>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input  class="button-flat button-yellow" id="update" type="submit" value="Change List" />
+                                <input  class="button-flat button-yellow" id="update" type="button" value="Cancel" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="tab2" class="tab">

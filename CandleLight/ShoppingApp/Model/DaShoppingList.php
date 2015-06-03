@@ -28,12 +28,12 @@
          }
      }
      
-     public function delete($shoppinglist)
+     public function delete($id)
      {
          try{
              $conn = \ShoppingApp\Model\DataSource::getConnection();
              $stmt = $conn->prepare('CALL shopping_list_delete(:pId)');
-             $stmt->bindValue(':pId', $shoppinglist->getShoppingListId());
+             $stmt->bindValue(':pId', $id, \PDO::PARAM_INT);
              $stmt->execute();
          } catch (\PDOException $e){
              echo $e->getMessage();
@@ -71,23 +71,16 @@
          }
      }
 
-     public function selectOne($shoppinglist)
+     public function selectOne($id)
      {
          try{
              $conn = \ShoppingApp\Model\DataSource::getConnection();
              $stmt = $conn->prepare('CALL shopping_list_select_one(:pId)');
-             $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
+             $stmt->bindValue(':pId', $id, \PDO::PARAM_INT);
              $stmt->execute();
              $array = $stmt->fetch(\PDO::FETCH_ASSOC);
-             $shoppinglist->setShoppingListId($array['shopping_list_id']);
-             $shoppinglist->setShoppingListName($array['shopping_list_name']);
-             $shoppinglist->setUserId($array['user_id']);
-             $shoppinglist->setOwnerText($array['owner_text']);
-             $shoppinglist->setFriendsText($array['friends_text']);
-             $shoppinglist->setShoppingListCreated($array['shopping_list_created']);
-             $shoppinglist->setShoppingListDueDate($array['shopping_list_due_date']);
-             $shoppinglist->setShoppingListUpdated($array['shopping_list_updated']);
-             $shoppinglist->setAccess($array['access']);
+
+             return $array;
          } catch (\PDOException $e){
              echo $e->getMessage();
          }

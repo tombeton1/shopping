@@ -51,6 +51,9 @@ $app->get('/api/users/friends/search/:keyword(/:key)', $auth, 'searchFriends');
 $app->put('/api/users/friends/requests/:id/:friendid/', 'auth', 'acceptRequest');
 $app->delete('/api/users/friends/requests/:id/:friendid/', 'auth', 'deleteFriend');
 $app->post('/api/users/friends/requests/:id/:friendid/', 'auth', 'addFriend');
+$app->get('/api/users/lists/:id(/:key)', $auth, 'getListsByUser');
+$app->get('/api/users/list/:id(/:key)', $auth, 'getList');
+$app->delete('/api/users/lists/:id', 'auth', 'deleteList');
 
 
 $app->run();
@@ -124,4 +127,37 @@ function addFriend($id, $friendId){
     $controller= new \ShoppingApp\Controllers\User();
     echo $controller->addFriend($id, $friendId);
 }
+
+function getList($id)
+{
+    $controller = new \ShoppingApp\Controllers\ShoppingList();
+    echo ($controller->getList($id));
+}
+
+function getListsByUser($id)
+{
+    $controller = new \ShoppingApp\Controllers\ShoppingList();
+    echo $controller->getListsByUser($id);
+}
+
+function deleteList($id)
+{
+    $controller = new \ShoppingApp\Controllers\ShoppingList();
+    echo $controller->deleteList($id);
+}
+
+function updateList($id)
+{
+    $Shoppinglist = new ShoppingApp\Bo\ShoppingList();
+    $request = Slim::getInstance()->request();
+    $Shoppinglist->setShoppingListId($id);
+    $Shoppinglist->setShoppingListName($request->put('list-name'));
+    $Shoppinglist->setOwnerText($request->put('owner-text'));
+    $Shoppinglist->setFriendsText($request->put('friends-text'));
+    $Shoppinglist->setShoppingListDueDate($request->put('due-date'));
+    $controller = new \ShoppingApp\Controllers\ShoppingList();
+    echo $controller->updateUser($Shoppinglist);
+}
+
+
 

@@ -13,9 +13,11 @@ var ShoppingApp = (function () {
     // to push it to config array.
     var init = function (options) {
         config.push(options);
-        UserInterfaceModule.init();
+
         UserModule.init();
         FriendsModule.init();
+        ShoppinglistModule.init();
+        UserInterfaceModule.init();
     };
 
     /*----------------------------------------------------------------------
@@ -28,6 +30,7 @@ var ShoppingApp = (function () {
         var init = function () {
             menu();
             createModal('password', 'modal');
+            //createModal('edit-list-btn', 'list-modal');
             tabInterface();
         };
 
@@ -460,6 +463,108 @@ var ShoppingApp = (function () {
                     requests.innerHTML = requestCount;
                 }
             });
+        };
+
+        // return public methods user.
+        return {
+            init: init
+        }
+    })();
+
+    /*----------------------------------------------------------------
+     * ShoppinglistModule
+     * Gets all the ajax calls for Lists.
+     * Lists
+     * ----------------------------------------------------------------*/
+    var ShoppinglistModule = (function(){
+        var init = function () {
+            events();
+            getListsByUser();
+        };
+
+        // EventListeners
+        var events = function () {
+            // decline or delete friend
+            document.getElementById("groceries-list").addEventListener("click", function (e) {
+                if (e.target.id === "delete-list-btn") {
+                    var listId = e.target.value;
+                    _deleteList(listId).done(function (data) {
+                        getListsByUser();
+                    })
+                }
+
+                if (e.target.id === "edit-list-btn") {
+                    var listId = e.target.value;
+                    getList(listId).done(function (data) {
+
+                    })
+                }
+            });
+        }
+
+        // private function ajax call user
+        var _getList = function (listId) {
+            return $.ajax({
+                url: config[0].url + 'list/' + listId,
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                async: true
+            })
+        };
+
+        // private function ajax call lists from user.
+        var _getListsByUser = function () {
+            return $.ajax({
+                url: config[0].url + 'lists/' + config[0].userId,
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                async: true
+            })
+        };
+
+        // private function ajax call delete list
+        var _deleteList = function (listId) {
+            return $.ajax({
+                url: config[0].url + 'lists/' + listId,
+                type: 'DELETE',
+                dataType: 'json',
+                cache: false,
+                async: true
+            })
+        };
+
+        var getList = function (listId) {
+            return _getList(listId).done(function (list) {
+                document.getElementById('list-name').value = list.shopping_list_name;
+                document.getElementById('owner-text').value = list.owner_text;
+                document.getElementById('friends-text').value = list.friends_text;
+                document.getElementById('due-date').value = list.shopping_list_due_date;
+            });
+        };
+
+        // public function ajax call getlists from user
+        var getListsByUser = function () {
+            return _getListsByUser().done(function (data) {
+                document.getElementById('groceries-list').innerHTML = '';
+                document.getElementById('groceries').innerHTML = '';
+                var groceriesList = document.getElementById('groceries-list');
+                var groceries = document.getElementById('groceries');
+                var groceriesCount = 0;
+                data.forEach(function (list) {
+                    var div = document.createElement('div');
+                    div.classList.add('groceries-list');
+                    div.innerHTML = '<p>' + list.shopping_list_name + ' ' + list.shopping_list_updated + '</p><button class="button-raised accept-button" id="edit-list-btn" type="submit" value="' + list.shopping_list_id + '">edit</button><button class="button-raised decline-button" id="delete-list-btn" type="submit" value="' + list.shopping_list_id + '">delete</button>';
+                    groceriesList.appendChild(div);
+                    groceriesCount++
+                });
+                if (groceriesCount === 0) {
+                    groceries.style.display = 'none';
+                } else {
+                    groceries.innerHTML = groceriesCount;
+                }
+            })
         };
 
         // return public methods user.
