@@ -41,6 +41,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         <ul class="tab-links">
             <li><div class="circle"></div></li>
             <li class="user-name">Hi! <?= $User->getFirstName()?></li>
+            <li class="date" id="date"></li>
             <li><a href="#tab1">Grocery List <div class="sidebar-grocery-badge" id="groceries"></div></a></li>
             <li><a href="#tab2">Friends <div class="sidebar-grey-badge" id="friends"></div></a>
                 <ul>

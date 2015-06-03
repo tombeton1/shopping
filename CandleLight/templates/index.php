@@ -19,6 +19,7 @@ if (!isset($_SESSION['token'])) {
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="StyleSheet" type="text/css" href="templates/css/main.css">
 </head>
 <body>

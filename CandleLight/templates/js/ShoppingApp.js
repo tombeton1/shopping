@@ -13,7 +13,6 @@ var ShoppingApp = (function () {
     // to push it to config array.
     var init = function (options) {
         config.push(options);
-
         UserModule.init();
         FriendsModule.init();
         ShoppinglistModule.init();
@@ -34,8 +33,8 @@ var ShoppingApp = (function () {
             createDynamicModal('groceries-list','edit-list-btn', 'list-modal');
             createDynamicModal('groceries-list', 'grocery-list', 'view-modal');
             tabInterface();
+            showDate();
         };
-
 
         // gets the buttonId and the id from the div for the modal.
         var createModal = function (button, modalId) {
@@ -95,6 +94,12 @@ var ShoppingApp = (function () {
                     }, 300);
                 });
             });
+        };
+        var showDate = function (){
+            var days = ['mon','thu','Wed'];
+            var d = new Date();
+            var m = days[d.getDate()-1] + ' ' + d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
+            document.getElementById('date').innerHTML = m;
         };
 
         var createDynamicModal = function(div,button, modalId) {
@@ -227,7 +232,7 @@ var ShoppingApp = (function () {
         };
 
         return {
-            init: init
+            init: init,
         }
     })();
 
