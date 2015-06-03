@@ -12,16 +12,13 @@
 
  include_once '../../vendor/autoload.php';
 
- update();
-
-
  insert();
  function insert()
  {
      $func = new \ShoppingApp\Model\DaShoppingList();
      $shoppinglist = new ShoppingList();
      $shoppinglist->setShoppingListName('inserttest');
-     $shoppinglist->setUserId(5);
+     $shoppinglist->setUserId(9);
      $shoppinglist->setOwnerText("2 komkommers, 2 tomaten, 4 eieren");
      $shoppinglist->setShoppingListCreated('2015-04-10');
      $shoppinglist->setShoppingListDueDate(20150415);

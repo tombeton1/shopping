@@ -57,7 +57,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
             <div class="col-lg-4">
                 <h1>Your Grocery list</h1>
                 <div id="groceries-list"></div>
-                <div id="list-modal">
+                <div id="list-modal" class="modal">
                     <div class="content">
                         <form id="update-list">
                             <div class="form-group">
@@ -195,6 +195,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
             </div>
          </div>
         </div>
+
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.sidr.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.touchwipe.min.js"></script>

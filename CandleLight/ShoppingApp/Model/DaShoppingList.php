@@ -36,8 +36,7 @@
      public function delete($id)
      {
          try{
-             $conn = \ShoppingApp\Model\DataSource::getConnection();
-             $stmt = $conn->prepare('CALL shopping_list_delete(:pId)');
+             $stmt = $this->conn->getConnection()->prepare('CALL shopping_list_delete(:pId)');
              $stmt->bindValue(':pId', $id, \PDO::PARAM_INT);
              $stmt->execute();
          } catch (\PDOException $e){
@@ -48,8 +47,7 @@
      public function update($shoppinglist)
      {
          try{
-             $conn = \ShoppingApp\Model\DataSource::getConnection();
-             $stmt = $conn->prepare('CALL shopping_list_update(:pId, :pName, :pUserId, :pOwnerText, :pDueDate, :pAccess)');
+             $stmt = $this->conn->getConnection()->prepare('CALL shopping_list_update(:pId, :pName, :pUserId, :pOwnerText, :pDueDate, :pAccess)');
              $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
              $stmt->bindValue(':pName', $shoppinglist->getShoppingListName(), \PDO::PARAM_STR);
              $stmt->bindValue(':pUserId', $shoppinglist->getUserId(), \PDO::PARAM_INT);
@@ -65,8 +63,7 @@
      public function updateByFriend($shoppinglist)
      {
          try{
-             $conn = \ShoppingApp\Model\DataSource::getConnection();
-             $stmt = $conn->prepare('CALL shopping_list_update_by_friend(:pId, :pFriendsText, :pLastUpdatedBy)');
+             $stmt = $this->conn->getConnection()->prepare('CALL shopping_list_update_by_friend(:pId, :pFriendsText, :pLastUpdatedBy)');
              $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
              $stmt->bindValue(':pFriendsText', $shoppinglist->getFriendsText(), \PDO::PARAM_STR);
              $stmt->bindValue(':pLastUpdatedBy', $shoppinglist->getLastUpdatedBy(), \PDO::PARAM_INT);
@@ -79,8 +76,7 @@
      public function selectOne($id)
      {
          try{
-             $conn = \ShoppingApp\Model\DataSource::getConnection();
-             $stmt = $conn->prepare('CALL shopping_list_select_one(:pId)');
+             $stmt = $this->conn->getConnection()->prepare('CALL shopping_list_select_one(:pId)');
              $stmt->bindValue(':pId', $id, \PDO::PARAM_INT);
              $stmt->execute();
              $array = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -94,11 +90,9 @@
      public function selectAll()
      {
          try{
-             $conn = \ShoppingApp\Model\DataSource::getConnection();
-             $stmt = $conn->prepare('CALL shopping_list_select_all()');
+             $stmt = $this->conn->getConnection()->prepare('CALL shopping_list_select_all()');
              $stmt->execute();
              $array = $stmt->fetchAll();
-
              return $array;
          } catch (\PDOException $e){
              echo $e->getMessage();
@@ -108,12 +102,10 @@
      public function selectByUser($id)
      {
          try{
-             $conn = \ShoppingApp\Model\DataSource::getConnection();
-             $stmt = $conn->prepare('CALL shopping_list_select_by_user(:pId)');
+             $stmt = $this->conn->getConnection()->prepare('CALL shopping_list_select_by_user(:pId)');
              $stmt->bindValue(':pId', $id, \PDO::PARAM_INT);
              $stmt->execute();
              $array = $stmt->fetchAll();
-
              return $array;
          } catch (\PDOException $e){
              echo $e->getMessage();
