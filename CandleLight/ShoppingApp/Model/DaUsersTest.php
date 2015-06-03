@@ -57,10 +57,10 @@ include_once '../../vendor/autoload.php';
 //$id = 1;
 //\ShoppingApp\Model\DaUser::delete($id);
 
-$UserId = 5;
-$FriendId = 3;
-$func = new \ShoppingApp\Model\DaUser();
-echo $func->addFriend($UserId, $FriendId);
+//$UserId = 5;
+//$FriendId = 3;
+//$func = new \ShoppingApp\Model\DaUser();
+//echo $func->addFriend($UserId, $FriendId);
 
 //$func = new \ShoppingApp\Model\DaUser();
 //echo $func->acceptFriend(3,2);
@@ -97,3 +97,9 @@ echo $func->addFriend($UserId, $FriendId);
 //        echo $User->getLastName();
 //        echo $User->getEmail();
 //}
+
+$func = new \ShoppingApp\Model\DaUser();
+$email = 'lenny@tester.com';
+$oldPassword = 'test';
+$newPassword = 'testing';
+echo $func->updatePassword($email,$oldPassword,$newPassword);

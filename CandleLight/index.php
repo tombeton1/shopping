@@ -1,36 +1,37 @@
 <?php
 include_once "vendor/autoload.php";
 use Slim\Slim;
+
 $app = new Slim();
 
 $app->get('/', function () use ($app) {
     $app->render('index.php');
 })->name('index');
-$app->post('/login', function() use($app){
+$app->post('/login', function () use ($app) {
     $token = $app->request->post('token');
     $email = $app->request->post('email');
     $password = $app->request->post('password');
     $controller = new \ShoppingApp\Controllers\Authentication($token, $email, $password);
     $controller->login();
 });
-$app->get('/app/', function () use ($app){
+$app->get('/app/', function () use ($app) {
     $app->render('shoppingapp.php');
 });
 $app->get('/logout/', function () {
-   \ShoppingApp\Controllers\Authentication::logout();
+    \ShoppingApp\Controllers\Authentication::logout();
 });
 
 $auth = function (\Slim\Route $route) {
-    if(array_key_exists('key', $route->getParams())){
+    if (array_key_exists('key', $route->getParams())) {
         $token = new \ShoppingApp\Controllers\Authentication($route->getParam('key'), '', '');
-        if($token->validateKey() == false){
+        if ($token->validateKey() == false) {
             $app = \Slim\Slim::getInstance();
             $app->redirect($app->urlFor('index'));
         }
     } else {
-        if(!isset($_SESSION['token'])){
+        if (!isset($_SESSION['token'])) {
             $token = new \ShoppingApp\Controllers\Authentication($_SESSION['token'], '', '');
-            if ($token->validate() === false){
+            if ($token->validate() === false) {
                 $app = \Slim\Slim::getInstance();
                 $app->redirect($app->urlFor('index'));
             }
@@ -41,27 +42,32 @@ $auth = function (\Slim\Route $route) {
     }
 };
 
-$app->get('/api/users(/:key)', $auth, 'getUsers')->conditions(array('key' => '[A-z]'));
-$app->get('/api/users/:id(/:key)', $auth, 'getUser')->conditions(array('id' => '\d'));
+// private API
 $app->put('/api/users/:id/', 'auth', 'updateUser');
 $app->post('/api/users', 'insertUser');
-$app->get('/api/users/friends/:id(/:key)',$auth, 'getFriends')->conditions(array('id' => '\d'));
-$app->get('/api/users/friends/requests/:id(/:key)', $auth, 'getFriendsRequests');
-$app->get('/api/users/friends/search/:keyword(/:key)', $auth, 'searchFriends');
 $app->put('/api/users/friends/requests/:id/:friendid/', 'auth', 'acceptRequest');
 $app->delete('/api/users/friends/requests/:id/:friendid/', 'auth', 'deleteFriend');
 $app->post('/api/users/friends/requests/:id/:friendid/', 'auth', 'addFriend');
 $app->get('/api/users/lists/:id(/:key)', $auth, 'getListsByUser');
 $app->get('/api/users/list/:id(/:key)', $auth, 'getList');
 $app->delete('/api/users/lists/:id', 'auth', 'deleteList');
+$app->post('/api/users/password/:id/','auth', 'updatePassword');
 
+// public API
+$app->get('/api/users(/:key)', $auth, 'getUsers')->conditions(array('key' => '[A-z]'));
+$app->get('/api/users/:id(/:key)', $auth, 'getUser')->conditions(array('id' => '\d'));
+$app->get('/api/users/friends/:id(/:key)', $auth, 'getFriends')->conditions(array('id' => '\d'));
+$app->get('/api/users/friends/requests/:id(/:key)', $auth, 'getFriendsRequests');
+$app->get('/api/users/friends/search/:keyword(/:key)', $auth, 'searchFriends');
 
 $app->run();
 
-function auth(){
-    if(!isset($_SESSION['token'])){
+// authentication
+function auth()
+{
+    if (!isset($_SESSION['token'])) {
         $token = new \ShoppingApp\Controllers\Authentication($_SESSION['token'], '', '');
-        if ($token->validate() === false){
+        if ($token->validate() === false) {
             $app = \Slim\Slim::getInstance();
             $app->redirect($app->urlFor('index'));
         }
@@ -71,15 +77,21 @@ function auth(){
     }
 }
 
-function getUsers(){
+// USERS functions
+function getUsers()
+{
     $controller = new \ShoppingApp\Controllers\User();
-    echo ($controller->getUsers());
+    echo($controller->getUsers());
 }
-function getUser($id){
+
+function getUser($id)
+{
     $controller = new \ShoppingApp\Controllers\User();
-    echo ($controller->getUser($id));
+    echo($controller->getUser($id));
 }
-function updateUser($id){
+
+function updateUser($id)
+{
     $User = new ShoppingApp\Bo\User();
     $request = Slim::getInstance()->request();
     $User->setUserId($id);
@@ -88,10 +100,11 @@ function updateUser($id){
     $User->setCountry($request->put('country'));
     $User->setEmail($request->put('email'));
     $controller = new \ShoppingApp\Controllers\User();
-    $controller->updateUser($User);
-    echo $controller->getMessage();
+    echo $controller->updateUser($User);
 }
-function insertUser(){
+
+function insertUser()
+{
     $User = new ShoppingApp\Bo\User();
     $request = Slim::getInstance()->request();
     $User->setFirstName($request->post('first-name'));
@@ -100,31 +113,54 @@ function insertUser(){
     $User->setEmail($request->post('email'));
     $User->setPassword($request->post('password'));
     $controller = new \ShoppingApp\Controllers\User();
-    ($controller->insertUser($User));
-    echo ($controller->getMessage());
+    echo $controller->insertUser($User);
 }
-function getFriends($id){
+
+function updatePassword($id)
+{
+    $controller = new \ShoppingApp\Controllers\User();
+    $request = Slim::getInstance()->request();
+    $email = $request->post('emailz');
+    $oldPassword = $request->post('old-password');
+    $newPassword = $request->post('new-password');
+    $newPasswordVerify = $request->post('new-password-verify');
+    echo $controller->updatePassword($id, $email, $oldPassword, $newPasswordVerify, $newPassword);
+}
+
+// FRIENDS
+function getFriends($id)
+{
     $controller = new \ShoppingApp\Controllers\User();
     echo $controller->getFriends($id);
 }
-function getFriendsRequests($id){
+
+function getFriendsRequests($id)
+{
     $controller = new \ShoppingApp\Controllers\User();
     echo $controller->getFriendsRequest($id);
 }
-function searchFriends($keyword){
+
+function searchFriends($keyword)
+{
     $controller = new \ShoppingApp\Controllers\User();
     echo $controller->searchUsers($keyword);
 }
-function acceptRequest($id, $friendId){
+
+function acceptRequest($id, $friendId)
+{
     $controller = new \ShoppingApp\Controllers\User();
     echo $controller->acceptRequest($id, $friendId);
 }
-function deleteFriend($id, $friendId){
+
+function deleteFriend($id, $friendId)
+{
     $controller = new \ShoppingApp\Controllers\User();
     echo $controller->deleteFriend($id, $friendId);
 }
-function addFriend($id, $friendId){
-    $controller= new \ShoppingApp\Controllers\User();
+
+function addFriend($id, $friendId)
+{
+    $controller = new \ShoppingApp\Controllers\User();
     echo $controller->addFriend($id, $friendId);
 }
 

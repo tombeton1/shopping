@@ -35,6 +35,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
     </button>
     </section></a>
 </nav>
+<div id="fade" class="overlay"></div>
 <div class="tabs">
     <div id="sidr">
         <ul class="tab-links">
@@ -115,10 +116,9 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
             </div>
         </div>
         <div id="tab5" class="tab">
-            <div id="fade"></div>
                 <div class="col-lg-4">
                     <h1>Settings</h1>
-                    <form class="form form-horizontal" id="update-user-form">
+                        <form class="form form-horizontal" id="update-user-form">
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label" for="first-name">First name</label>
                                         <div class="col-sm-8">
@@ -155,34 +155,38 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                                         <label class="col-sm-4 control-label"></label>
                                         <div class="col-sm-8">
                                             <input  class="button-flat button-yellow" id="update" type="submit" value="Edit Info" />
-                                            <input class="button-flat button-yellow" id="password" type="submit" value="Change Password" />
+                                            <input class="button-flat button-yellow" id="password" type="button" value="Change Password" />
                                         </div>
                                     </div>
                                 </form>
-                    <div id="modal">
+                    <div id="modal" class="modal">
                             <div class="content">
-                                <form id="update-password">
+                                <form id="update-password-form">
+                                    <input type="hidden" name="emailz" value="<?=$User->getEmail();?>" />
                                     <div class="form-group">
                                         <div class="col-md-10">
                                             <label>Existing password</label>
-                                            <input class="form-control" type="text"/>
+                                            <input class="form-control" type="text" name="old-password"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-10">
                                         <label>New password</label>
-                                        <input class="form-control" type="text"/>
+                                        <input class="form-control" name="new-password" type="text"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-10">
                                         <label>New password</label>
-                                        <input class="form-control" type="text"/><br>
+                                        <input class="form-control" name="new-password-verify" type="text"/><br>
                                         </div>
                                     </div>
+                                        <div class="col-md-10">
+                                            <div class="red-error-message" id="update-password-message"></div>
+                                        </div>
                                     <div class="form-group">
-                                        <input  class="button-flat button-yellow" id="update" type="submit" value="Change Password" />
-                                        <input  class="button-flat button-yellow" id="update" type="button" value="Cancel" />
+                                        <input  class="button-flat button-yellow" id="update-password-btn" type="submit" value="Change Password" />
+                                        <input  class="button-flat button-yellow" type="button" value="Cancel" />
                                     </div>
                                 </form>
                             </div>
@@ -192,7 +196,6 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
          </div>
         </div>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.min.js"></script>
-        <script type="text/javascript" src="/CandleLight/templates/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.sidr.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/jquery.touchwipe.min.js"></script>
         <script type="text/javascript" src="/CandleLight/templates/js/ShoppingApp.js"></script>

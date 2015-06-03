@@ -14,8 +14,11 @@
 
  update();
 
+
+ insert();
  function insert()
  {
+     $func = new \ShoppingApp\Model\DaShoppingList();
      $shoppinglist = new ShoppingList();
      $shoppinglist->setShoppingListName('inserttest');
      $shoppinglist->setUserId(5);
@@ -23,7 +26,7 @@
      $shoppinglist->setShoppingListCreated('2015-04-10');
      $shoppinglist->setShoppingListDueDate(20150415);
      $shoppinglist->setAccess(1);
-     DaShoppingList::insert($shoppinglist);
+     echo $func->insert($shoppinglist);
  }
  
 

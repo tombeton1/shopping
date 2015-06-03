@@ -26,10 +26,7 @@ class User {
         return json_encode($this->user->update($User));
     }
     public function insertUser($User){
-        return json_encode($this->user->insert($User));
-    }
-    public function  getMessage(){
-        return json_encode($this->user->getMessage());
+        return $this->user->insert($User);
     }
     public function getFriends($id){
         return json_encode($this->user->selectAllFriends($id));
@@ -48,5 +45,12 @@ class User {
     }
     public function addFriend($userId, $friendId){
         return $this->user->addFriend($userId, $friendId);
+    }
+    public function updatePassword($id, $email, $oldPassword, $newPasswordVerify, $newPassword){
+        if($newPassword === $newPasswordVerify){
+            return $this->user->updatePassword($id, $email, $oldPassword, $newPassword);
+        } else {
+            return 'passwords does not match';
+        }
     }
 }

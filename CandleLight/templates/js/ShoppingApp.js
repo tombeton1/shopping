@@ -34,6 +34,7 @@ var ShoppingApp = (function () {
             tabInterface();
         };
 
+
         // gets the buttonId and the id from the div for the modal.
         var createModal = function (button, modalId) {
 
@@ -61,17 +62,16 @@ var ShoppingApp = (function () {
                 e.preventDefault();
 
                 // add css clases for animation
-                modal.classList.add('modal');
-                fade.classList.add('overlay');
+                modal.classList.add('modal-open');
+                fade.classList.add('overlay-open');
 
-                // setting all children from modal visible
-                for (var i = 0; children[i]; i++) {
-                    children[i].style.display = 'block';
-                }
+                // setting all children frm modal visible
+                    for (var i = 0; children[i]; i++) {
+                        children[i].style.display = 'block';
+                    }
 
                 // insert close btn before content
                 modal.insertBefore(btn, modal.childNodes[0]);
-
                 // close button handler
                 btn.addEventListener('click', function (e) {
 
@@ -80,18 +80,16 @@ var ShoppingApp = (function () {
                     // add classes for close animation
                     modal.classList.add('modal-close');
                     fade.classList.add('modal-close');
+                    fade.classList.remove('overlay-open');
 
                     // sets display on none when animation is finished otherwise it closes too abrubt.
                     setTimeout(function () {
-                        modal.style.display = 'none';
-                        modal.classList.remove('modal');
-                        fade.classList.remove('overlay');
-                        modal.style.display = 'block';
                         for (var i = 0; children[i]; i++) {
                             children[i].style.display = 'none';
                         }
                         modal.classList.remove('modal-close');
                         fade.classList.remove('modal-close');
+                        modal.classList.remove('modal-open');
                     }, 300);
                 });
             });
@@ -213,7 +211,47 @@ var ShoppingApp = (function () {
                     document.getElementById("update").type = "submit";
                 }
             });
+
+            document.getElementById('update-password-form').addEventListener('submit', function(e){
+                var message = document.getElementById('update-password-message');
+                message.style.display = 'block';
+                _putPassword().done(function(data){
+                    console.log(data);
+                    fadeIn(message);
+                    message.innerHTML = data;
+                }).always(function(){
+                    setTimeout(function (){
+                        fadeOut(message);
+                    },2800);
+                });
+                e.preventDefault();
+            });
         };
+
+        function fadeOut(el){
+            el.style.opacity = 1;
+
+            (function fade() {
+                if ((el.style.opacity -= .1) < 0) {
+                    el.style.display = "none";
+                } else {
+                    requestAnimationFrame(fade);
+                }
+            })();
+        }
+
+        function fadeIn(el, display){
+            el.style.opacity = 0;
+            el.style.display = display || "block";
+
+            (function fade() {
+                var val = parseFloat(el.style.opacity);
+                if (!((val += .1) > 1)) {
+                    el.style.opacity = val;
+                    requestAnimationFrame(fade);
+                }
+            })();
+        }
 
         // private methode voor updaten van de user.
         var _putUser = function () {
@@ -238,6 +276,17 @@ var ShoppingApp = (function () {
             })
         };
 
+        var _putPassword = function(){
+            return $.ajax({
+                url: config[0].url + 'password/' + config[0].userId,
+                type: 'POST',
+                dataType: 'text',
+                cache: false,
+                async: true,
+                data: $('#update-password-form').serialize()
+            })
+        };
+
         // disable button after click on update settings panel
         var _disableInput = function () {
             document.getElementById("first-name").disabled = true;
@@ -255,6 +304,8 @@ var ShoppingApp = (function () {
                 document.getElementById('email').value = data.email;
             });
         };
+
+
 
         // return van de public methodes van alle user interacties.
         return {

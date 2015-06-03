@@ -18,20 +18,9 @@ class DaUser
         $this->conn = new \ShoppingApp\Model\DataSource();
     }
 
-    private $message;
-
-    /**
-     * @return mixed
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
-
-
     public function insert($User)
     {
-        $this->message = NULL;
+        $message = NULL;
         try {
             $stmt = $this->conn->getConnection()->prepare('CALL user_insert(:pfirst_name, :plast_name, :pcountry, :pemail, :ppassword)');
             $stmt->bindValue(':pfirst_name', $User->getFirstName());
@@ -41,14 +30,14 @@ class DaUser
             $stmt->bindValue(':ppassword', password_hash($User->getPassword(), PASSWORD_DEFAULT));
             $result = $stmt->execute();
             if ($result) {
-                $this->message = 'User created succesfully';
+                $message =  'user created succesfully';
             }
         } catch (\PDOException $e) {
             if ($e->getCode() == 23000) {
-                $this->message = 'E-mail adress already in use';
+                $message =  'E-mail adress already exists';
             }
         }
-        return $this->message;
+        return $message;
     }
 
     public function update($User)
@@ -246,6 +235,29 @@ class DaUser
             echo $e->getMessage();
         }
         return $result;
+    }
+
+    public function updatePassword($userId,$email, $oldPassword, $newPassword){
+
+        $message = null;
+        if($this->checkPassword($email,$oldPassword) != FALSE){
+            try {
+                $stmt = $this->conn->getConnection()->prepare('CALL user_update_password(:pUserId, :pNewPassword)');
+                $stmt->bindValue(':pUserId', $userId);
+                $stmt->bindValue('pNewPassword', password_hash($newPassword, PASSWORD_DEFAULT));
+                $result = $stmt->execute();
+                if($result){
+                    $message = 'password updated succesfully';
+                } else {
+                    $message = 'password update failed';
+                }
+            } catch (\PDOException $e) {
+                $message =  $e->getMessage();
+            }
+        } else {
+            $message ='Existing password is not correct';
+        }
+        return $message;
     }
 
     public function deleteFriend($userId, $friendId){

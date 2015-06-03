@@ -10,11 +10,16 @@
 
  class DaShoppingList
  {
+     private $conn;
+
+     public function __construct()
+     {
+         $this->conn = new \ShoppingApp\Model\DataSource();
+     }
      public function insert($shoppinglist)
      {
          try{
-             $conn = \ShoppingApp\Model\DataSource::getConnection();
-             $stmt = $conn->prepare('CALL shopping_list_insert(@pId, :pName, :pUserId, :pOwnerText, :pCreated, :pDueDate, :pAccess)');
+             $stmt = $this->conn->getConnection()->prepare('CALL shopping_list_insert(@pId, :pName, :pUserId, :pOwnerText, :pCreated, :pDueDate, :pAccess)');
              $stmt->bindValue(':pName', $shoppinglist->getShoppingListName(), \PDO::PARAM_STR);
              $stmt->bindValue(':pUserId', $shoppinglist->getUserId(), \PDO::PARAM_INT);
              $stmt->bindValue(':pOwnerText', $shoppinglist->getOwnerText(), \PDO::PARAM_STR);
