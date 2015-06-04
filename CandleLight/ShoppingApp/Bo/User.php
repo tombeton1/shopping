@@ -17,8 +17,6 @@ class User implements \JsonSerializable
     private $country;
     private $email;
     private $password;
-    private $listFriends;
-    private $relationAccepted;
 
     function __construct()
     {

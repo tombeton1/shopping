@@ -96,7 +96,7 @@ var ShoppingApp = (function () {
             });
         };
         var showDate = function (){
-            var days = ['mon','thu','Wed'];
+            var days = ['Mon','Thu','Wed','Thu', 'Sat','Sun'];
             var d = new Date();
             var m = days[d.getDate()-1] + ' ' + d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
             document.getElementById('date').innerHTML = m;
@@ -124,6 +124,7 @@ var ShoppingApp = (function () {
 
             //creates the modal when clicked on the button
             document.getElementById(div).addEventListener('click', function (e) {
+                console.log(e.target);
                 if (e.target.id === button) {
                     // add css clases for animation
                     modal.classList.add('modal-open');
