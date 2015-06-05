@@ -44,6 +44,7 @@ body {
     padding-top: 5px;
     padding-bottom: 5px;
     min-width: 88dpi;
+    width: 5em;
     height: 36dpi;
     font-size: 20px;
     margin-right: 1em;
@@ -72,6 +73,9 @@ body {
 .button-yellow {
     color: #FFC107;
     margin-left: 13px;
+}
+.button-red {
+    color: #FF5722;
 }
 
 button:focus {outline:0;}

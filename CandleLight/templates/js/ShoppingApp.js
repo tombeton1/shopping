@@ -673,7 +673,7 @@ var ShoppingApp = (function () {
                     var div = document.createElement('div');
                     div.classList.add('grocery-list');
                     div.setAttribute('id', 'grocery-list');
-                    div.innerHTML = '<p>' + list.shopping_list_name + ' ' + list.shopping_list_updated + '</p><button class="button-raised accept-button" id="edit-list-btn" type="submit" value="' + list.shopping_list_id + '">edit</button><button class="button-raised decline-button" id="delete-list-btn" type="submit" value="' + list.shopping_list_id + '">delete</button>';
+                    div.innerHTML = '<p>' + list.shopping_list_name + ' ' + list.shopping_list_updated + '</p><button class="button-flat button-yellow material-icons md-36" id="edit-list-btn" type="submit" value="' + list.shopping_list_id + '">mode_edit</button><button class="button-flat material-icons md-36" id="delete-list-btn" type="submit" value="' + list.shopping_list_id + '">remove_circle</button>';
                     groceriesList.appendChild(div);
                     groceriesCount++
                 });

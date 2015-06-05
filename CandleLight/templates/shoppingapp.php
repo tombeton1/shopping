@@ -90,8 +90,8 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input  class="button-flat button-yellow" id="update" type="submit" value="Change List" />
-                                <input  class="button-flat button-yellow" id="update" type="button" value="Cancel" />
+                                <input  class="button-flat button-yellow" id="update-grocery-list" type="submit" value="Change List" />
+                                <input  class="button-flat button-yellow" id="update-grocery-list" type="button" value="Cancel" />
                             </div>
                         </form>
                     </div>
