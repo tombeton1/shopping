@@ -96,7 +96,7 @@ var ShoppingApp = (function () {
             });
         };
         var showDate = function (){
-            var days = ['Mon','Thu','Wed','Thu', 'Sat','Sun'];
+            var days = ['Mon','Thu','Wed','Thu', 'Fri','Sat', 'Sun'];
             var d = new Date();
             var m = days[d.getDate()-1] + ' ' + d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
             document.getElementById('date').innerHTML = m;
