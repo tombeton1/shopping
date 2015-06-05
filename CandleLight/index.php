@@ -52,6 +52,8 @@ $app->get('/api/users/lists/:id(/:key)', $auth, 'getListsByUser');
 $app->get('/api/users/list/:id(/:key)', $auth, 'getList');
 $app->delete('/api/users/lists/:id', 'auth', 'deleteList');
 $app->post('/api/users/password/:id/','auth', 'updatePassword');
+$app->put('/api/users/list/:id', 'auth', 'updateList');
+$app->post('/api/users/list', 'auth', 'insertList');
 
 // public API
 $app->get('/api/users(/:key)', $auth, 'getUsers')->conditions(array('key' => '[A-z]'));
@@ -164,6 +166,19 @@ function addFriend($id, $friendId)
     echo $controller->addFriend($id, $friendId);
 }
 
+// LISTS
+function insertList()
+{
+    $Shoppinglist = new ShoppingApp\Bo\ShoppingList();
+    $request = Slim::getInstance()->request();
+    $Shoppinglist->setShoppingListName($request->post('list-name'));
+    $Shoppinglist->setUserId($request->post('user-id'));
+    $Shoppinglist->setShoppingListDueDate($request->post('due-date'));
+    $Shoppinglist->setAccess($request->post('access'));
+    $controller = new \ShoppingApp\Controllers\ShoppingList();
+    echo $controller->insertList($Shoppinglist);
+}
+
 function getList($id)
 {
     $controller = new \ShoppingApp\Controllers\ShoppingList();
@@ -186,14 +201,15 @@ function updateList($id)
 {
     $Shoppinglist = new ShoppingApp\Bo\ShoppingList();
     $request = Slim::getInstance()->request();
+    $test = var_export($request->put(), true);
+    fprintf(fopen("C:\\Users\\Noblesse\\Desktop\\fprintf.txt", "a"), "result: %s", $test . "\r\n");
     $Shoppinglist->setShoppingListId($id);
     $Shoppinglist->setShoppingListName($request->put('list-name'));
-    $Shoppinglist->setOwnerText($request->put('owner-text'));
-    $Shoppinglist->setFriendsText($request->put('friends-text'));
+    $Shoppinglist->setUserId($request->put('user-id'));
+    //$Shoppinglist->setOwnerText($request->put('owner-text'));
+    //$Shoppinglist->setFriendsText($request->put('friends-text'));
+    $Shoppinglist->setAccess($request->put('access'));
     $Shoppinglist->setShoppingListDueDate($request->put('due-date'));
     $controller = new \ShoppingApp\Controllers\ShoppingList();
-    echo $controller->updateUser($Shoppinglist);
+    echo $controller->updateList($Shoppinglist);
 }
-
-
-

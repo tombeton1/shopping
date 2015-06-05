@@ -16,6 +16,11 @@ class ShoppingList{
         $this->shoppingList = new \ShoppingApp\Model\DaShoppingList();
     }
 
+    public function insertList($shoppinglist)
+    {
+        return json_encode($this->shoppingList->insert($shoppinglist));
+    }
+
     public function getList($id)
     {
         return json_encode($this->shoppingList->selectOne($id));

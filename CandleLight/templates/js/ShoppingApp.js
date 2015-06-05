@@ -96,7 +96,7 @@ var ShoppingApp = (function () {
             });
         };
         var showDate = function (){
-            var days = ['Mon','Thu','Wed','Thu', 'Sat','Sun'];
+            var days = ['Mon','Thu','Wed','Thu', 'Fri','Sat', 'Sun'];
             var d = new Date();
             var m = days[d.getDate()-1] + ' ' + d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
             document.getElementById('date').innerHTML = m;
@@ -124,7 +124,6 @@ var ShoppingApp = (function () {
 
             //creates the modal when clicked on the button
             document.getElementById(div).addEventListener('click', function (e) {
-                console.log(e.target);
                 if (e.target.id === button) {
                     // add css clases for animation
                     modal.classList.add('modal-open');
@@ -233,7 +232,7 @@ var ShoppingApp = (function () {
         };
 
         return {
-            init: init,
+            init: init
         }
     })();
 
@@ -282,7 +281,6 @@ var ShoppingApp = (function () {
                 var message = document.getElementById('update-password-message');
                 message.style.display = 'block';
                 _putPassword().done(function(data){
-                    console.log(data);
                     fadeIn(message);
                     message.innerHTML = data;
                 }).always(function(){
@@ -599,10 +597,35 @@ var ShoppingApp = (function () {
             getListsByUser();
         };
 
+        var listIdentifier;
+
         // EventListeners
         var events = function () {
-            // decline or delete friend
+            // insert user lists event.
+            document.getElementById("create-list").addEventListener('submit', function(e){
+                _postList().done(function(){
+                    getListsByUser();
+                });
+                e.preventDefault();
+            });
+
+            // update user lists event.
+            document.getElementById("update-list").addEventListener('submit', function(e){
+                _putList().done(function(){
+                    getListsByUser();
+                });
+                e.preventDefault();
+            });
+
+            // delete and edit list
             document.getElementById("groceries-list").addEventListener("click", function (e) {
+                if (e.target.id === "grocery-list") {
+                    var listId = e.target.childNodes[1].value;
+                    getListView(listId).done(function (data) {
+
+                    })
+                }
+
                 if (e.target.id === "delete-list-btn") {
                     var listId = e.target.value;
                     _deleteList(listId).done(function (data) {
@@ -613,11 +636,35 @@ var ShoppingApp = (function () {
                 if (e.target.id === "edit-list-btn") {
                     var listId = e.target.value;
                     getList(listId).done(function (data) {
-
+                        listIdentifier = listId;
                     })
                 }
             });
         }
+
+        // private methode voor inserten van de list
+        var _postList = function () {
+            return $.ajax({
+                url: config[0].url + 'list',
+                type: 'POST',
+                dataType: 'text',
+                cache: false,
+                async: true,
+                data: $('#create-list').serialize() + '&user-id=' + config[0].userId
+            })
+        };
+
+        // private methode voor updaten van de list
+        var _putList = function () {
+            return $.ajax({
+                url: config[0].url + 'list/' + listIdentifier,
+                type: 'PUT',
+                dataType: 'text',
+                cache: false,
+                async: true,
+                data: $('#update-list').serialize() + '&user-id=' + config[0].userId
+            })
+        };
 
         // private function ajax call user
         var _getList = function (listId) {
@@ -652,12 +699,27 @@ var ShoppingApp = (function () {
             })
         };
 
+        // public function ajax call getlist from user
         var getList = function (listId) {
             return _getList(listId).done(function (list) {
                 document.getElementById('list-name').value = list.shopping_list_name;
-                document.getElementById('owner-text').value = list.owner_text;
-                document.getElementById('friends-text').value = list.friends_text;
+                //document.getElementById('owner-text').value = list.owner_text;
+                //document.getElementById('friends-text').value = list.friends_text;
                 document.getElementById('due-date').value = list.shopping_list_due_date;
+                document.getElementById('radio-public').checked = list.access == 1 ? true : false;
+                document.getElementById('radio-private').checked = list.access == 0 ? true : false;
+            });
+        };
+
+        // public function ajax call getlist from user
+        var getListView = function (listId) {
+            return _getList(listId).done(function (list) {
+                document.getElementById('list-name-view').value = list.shopping_list_name;
+                //document.getElementById('owner-text-view').innerHTML = "lol";
+                //document.getElementById('friends-text').value = list.friends_text;
+                document.getElementById('due-date-view').value = list.shopping_list_due_date;
+                document.getElementById('radio-public-view').checked = list.access == 1 ? true : false;
+                document.getElementById('radio-private-view').checked = list.access == 0 ? true : false;
             });
         };
 
@@ -673,7 +735,7 @@ var ShoppingApp = (function () {
                     var div = document.createElement('div');
                     div.classList.add('grocery-list');
                     div.setAttribute('id', 'grocery-list');
-                    div.innerHTML = '<p>' + list.shopping_list_name + ' ' + list.shopping_list_updated + '</p><button class="button-raised accept-button" id="edit-list-btn" type="submit" value="' + list.shopping_list_id + '">edit</button><button class="button-raised decline-button" id="delete-list-btn" type="submit" value="' + list.shopping_list_id + '">delete</button>';
+                    div.innerHTML = '<p>' + list.shopping_list_name + ' ' + list.shopping_list_updated + '</p><button class="button-flat button-yellow material-icons md-36" id="edit-list-btn" type="submit" value="' + list.shopping_list_id + '">mode_edit</button><button class="button-flat material-icons md-36" id="delete-list-btn" type="submit" value="' + list.shopping_list_id + '">remove_circle</button>';
                     groceriesList.appendChild(div);
                     groceriesCount++
                 });

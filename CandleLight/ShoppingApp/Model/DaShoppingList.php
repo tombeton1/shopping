@@ -19,11 +19,9 @@
      public function insert($shoppinglist)
      {
          try{
-             $stmt = $this->conn->getConnection()->prepare('CALL shopping_list_insert(@pId, :pName, :pUserId, :pOwnerText, :pCreated, :pDueDate, :pAccess)');
+             $stmt = $this->conn->getConnection()->prepare('CALL shopping_list_insert(@pId, :pName, :pUserId, :pDueDate, :pAccess)');
              $stmt->bindValue(':pName', $shoppinglist->getShoppingListName(), \PDO::PARAM_STR);
              $stmt->bindValue(':pUserId', $shoppinglist->getUserId(), \PDO::PARAM_INT);
-             $stmt->bindValue(':pOwnerText', $shoppinglist->getOwnerText(), \PDO::PARAM_STR);
-             $stmt->bindValue(':pCreated', $shoppinglist->getShoppingListCreated(), \PDO::PARAM_STR);
              $stmt->bindValue(':pDueDate', $shoppinglist->getShoppingListDueDate(), \PDO::PARAM_INT);
              $stmt->bindValue(':pAccess', $shoppinglist->getAccess(), \PDO::PARAM_INT);
              $result = $stmt->execute();
@@ -47,11 +45,11 @@
      public function update($shoppinglist)
      {
          try{
-             $stmt = $this->conn->getConnection()->prepare('CALL shopping_list_update(:pId, :pName, :pUserId, :pOwnerText, :pDueDate, :pAccess)');
+             $stmt = $this->conn->getConnection()->prepare('CALL shopping_list_update(:pId, :pName, :pUserId, :pDueDate, :pAccess)');
              $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
              $stmt->bindValue(':pName', $shoppinglist->getShoppingListName(), \PDO::PARAM_STR);
              $stmt->bindValue(':pUserId', $shoppinglist->getUserId(), \PDO::PARAM_INT);
-             $stmt->bindValue(':pOwnerText', $shoppinglist->getOwnerText(), \PDO::PARAM_STR);
+             //$stmt->bindValue(':pOwnerText', $shoppinglist->getOwnerText(), \PDO::PARAM_STR);
              $stmt->bindValue(':pDueDate', $shoppinglist->getShoppingListDueDate(), \PDO::PARAM_INT);
              $stmt->bindValue(':pAccess', $shoppinglist->getAccess(), \PDO::PARAM_INT);
              $stmt->execute();

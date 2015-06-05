@@ -59,15 +59,95 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                 <h1>Your Grocery list</h1>
                 <button id="add-grocery-list" class="button-flat button-green material-icons md-48">add_circle</button>
                 <div id="groceries-list"></div>
-                <div id="add-grocery-modal" class="modal"></div>
-                <div id="view-modal" class="modal"></div>
+                <div id="add-grocery-modal" class="modal">
+                    <div class="content">
+                        <form id="create-list">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>Name</label>
+                                    <input id="list-name-create" class="form-control" type="text" name="list-name"/><br>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>List</label>
+                                    <p id="owner-text-create">- Komkommer<br> - Tomaat<br></p>
+                                    <p id="friends-text-create">- Banaan</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>New Product</label>
+                                    <input class="form-control" type="text"/><br>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>Due Date</label>
+                                    <input id="due-date-create" class="form-control" type="text" name="due-date"/><br>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>Access</label><br>
+                                    <input type="radio" name="access" value="0" id="radio-private-create">
+                                    <label for="r1">Private</label>
+                                    <input type="radio" name="access" value="1" id="radio-public-create">
+                                    <label for="r2">Public</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input  class="button-flat button-yellow" id="create-grocery-list" type="submit" value="Create List" />
+                                <input  class="button-flat button-yellow" id="create-grocery-list" type="button" value="Cancel" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="view-modal" class="modal">
+                    <div class="content">
+                        <form id="view-list">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>Name</label>
+                                    <input id="list-name-view" class="form-control" type="text" disabled/><br>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>List</label>
+                                    <p id="owner-text-view">- Komkommer<br> - Tomaat<br></p>
+                                    <p id="friends-text-view">- Banaan</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>Due Date</label>
+                                    <input id="due-date-view" class="form-control" type="text" disabled/><br>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>Access</label><br>
+                                    <input type="radio" name="access-view" value="0" id="radio-private-view" disabled>
+                                    <label for="r1">Private</label>
+                                    <input type="radio" name="access-view" value="1" id="radio-public-view" disabled>
+                                    <label for="r2">Public</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input  class="button-flat button-yellow" id="view-grocery-list" type="submit" value="Change List" />
+                                <input  class="button-flat button-yellow" id="view-grocery-list" type="button" value="Cancel" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div id="list-modal" class="modal">
                     <div class="content">
                         <form id="update-list">
                             <div class="form-group">
                                 <div class="col-md-10">
                                     <label>Name</label>
-                                    <input id="list-name" class="form-control" type="text"/>
+                                    <input id="list-name" class="form-control" type="text" name="list-name"/><br>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -86,12 +166,21 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                             <div class="form-group">
                                 <div class="col-md-10">
                                     <label>Due Date</label>
-                                    <input id="due-date" class="form-control" type="text"/><br>
+                                    <input id="due-date" class="form-control" type="text" name="due-date"/><br>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input  class="button-flat button-yellow" id="update" type="submit" value="Change List" />
-                                <input  class="button-flat button-yellow" id="update" type="button" value="Cancel" />
+                                <div class="col-md-10">
+                                    <label>Access</label><br>
+                                    <input type="radio" name="access" value="0" id="radio-private">
+                                    <label for="r1">Private</label>
+                                    <input type="radio" name="access" value="1" id="radio-public">
+                                    <label for="r2">Public</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input  class="button-flat button-yellow" id="update-grocery-list" type="submit" value="Change List" />
+                                <input  class="button-flat button-yellow" id="update-grocery-list" type="button" value="Cancel" />
                             </div>
                         </form>
                     </div>

@@ -12,18 +12,16 @@
 
  include_once '../../vendor/autoload.php';
 
- insert();
+ update();
  function insert()
  {
      $func = new \ShoppingApp\Model\DaShoppingList();
      $shoppinglist = new ShoppingList();
      $shoppinglist->setShoppingListName('inserttest');
      $shoppinglist->setUserId(9);
-     $shoppinglist->setOwnerText("2 komkommers, 2 tomaten, 4 eieren");
-     $shoppinglist->setShoppingListCreated('2015-04-10');
      $shoppinglist->setShoppingListDueDate(20150415);
      $shoppinglist->setAccess(1);
-     echo $func->insert($shoppinglist);
+     $func->insert($shoppinglist);
  }
  
 
@@ -38,8 +36,8 @@
  function update()
  {
      $shoppinglist = new ShoppingList();
-     $shoppinglist->setShoppingListId(11);
-     $shoppinglist->setShoppingListName('koolsla');
+     $shoppinglist->setShoppingListId(12);
+     $shoppinglist->setShoppingListName('broccoli');
      $shoppinglist->setOwnerText('test');
      $shoppinglist->setUserId(5);
      $shoppinglist->setShoppingListDueDate(20150428);
