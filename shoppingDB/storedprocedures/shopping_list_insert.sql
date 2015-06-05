@@ -6,8 +6,6 @@ CREATE PROCEDURE `shopping_list_insert`
 	OUT pId INT ,
 	IN pName NVARCHAR (50) ,
     IN pUserId INT,
-    IN pOwnerText NVARCHAR (1000),
-    IN pCreated NVARCHAR (50),
     IN pDueDate DATE,
     IN pAccess TINYINT
 )
@@ -16,7 +14,6 @@ INSERT INTO `shopping_list`
 	(
 		`shopping_list`.`shopping_list_name`,
 		`shopping_list`.`user_id`,
-        `shopping_list`.`owner_text`,
 		`shopping_list`.`shopping_list_created`,
         `shopping_list`.`shopping_list_due_date`,
         `shopping_list`.`access`
@@ -25,7 +22,6 @@ INSERT INTO `shopping_list`
 	(
 		pName,
         pUserId,
-        pOwnerText,
         NOW(),
         pDueDate,
         pAccess
