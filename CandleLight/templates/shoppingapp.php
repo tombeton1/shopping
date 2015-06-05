@@ -109,7 +109,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                             <div class="form-group">
                                 <div class="col-md-10">
                                     <label>Name</label>
-                                    <input id="list-name-view" class="form-control" type="text" disabled/><br>
+                                    <p id="list-name-view"></p>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -122,21 +122,14 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                             <div class="form-group">
                                 <div class="col-md-10">
                                     <label>Due Date</label>
-                                    <input id="due-date-view" class="form-control" type="text" disabled/><br>
+                                    <p id="due-date-view"></p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-10">
                                     <label>Access</label><br>
-                                    <input type="radio" name="access-view" value="0" id="radio-private-view" disabled>
-                                    <label for="r1">Private</label>
-                                    <input type="radio" name="access-view" value="1" id="radio-public-view" disabled>
-                                    <label for="r2">Public</label>
+                                    <p id="access-view"></p>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <input  class="button-flat button-yellow" id="view-grocery-list" type="submit" value="Change List" />
-                                <input  class="button-flat button-yellow" id="view-grocery-list" type="button" value="Cancel" />
                             </div>
                         </form>
                     </div>

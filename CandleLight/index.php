@@ -201,8 +201,6 @@ function updateList($id)
 {
     $Shoppinglist = new ShoppingApp\Bo\ShoppingList();
     $request = Slim::getInstance()->request();
-    $test = var_export($request->put(), true);
-    fprintf(fopen("C:\\Users\\Noblesse\\Desktop\\fprintf.txt", "a"), "result: %s", $test . "\r\n");
     $Shoppinglist->setShoppingListId($id);
     $Shoppinglist->setShoppingListName($request->put('list-name'));
     $Shoppinglist->setUserId($request->put('user-id'));

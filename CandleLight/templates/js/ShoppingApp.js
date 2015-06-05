@@ -714,12 +714,11 @@ var ShoppingApp = (function () {
         // public function ajax call getlist from user
         var getListView = function (listId) {
             return _getList(listId).done(function (list) {
-                document.getElementById('list-name-view').value = list.shopping_list_name;
+                document.getElementById('list-name-view').innerHTML = list.shopping_list_name;
                 //document.getElementById('owner-text-view').innerHTML = "lol";
                 //document.getElementById('friends-text').value = list.friends_text;
-                document.getElementById('due-date-view').value = list.shopping_list_due_date;
-                document.getElementById('radio-public-view').checked = list.access == 1 ? true : false;
-                document.getElementById('radio-private-view').checked = list.access == 0 ? true : false;
+                document.getElementById('due-date-view').innerHTML = list.shopping_list_due_date;
+                document.getElementById('access-view').innerHTML = list.access == 1 ? "Public" : "Private";
             });
         };
 
