@@ -598,6 +598,7 @@ var ShoppingApp = (function () {
         };
 
         var listIdentifier;
+        var listOwner;
 
         // EventListeners
         var events = function () {
@@ -615,6 +616,25 @@ var ShoppingApp = (function () {
                     getListsByUser();
                 });
                 e.preventDefault();
+            });
+
+            // add product to list
+            document.getElementById("add-text-list").addEventListener("click", function(e){
+                if(this.previousElementSibling.value !== ''){
+                    var product = this.previousElementSibling.value;
+                    this.previousElementSibling.value = '';
+                    var child = document.createElement('p');
+                    var content = '- ' + product + ' <input type="checkbox"> <input class="button-flat button-yellow" id="delete-text-create" type="button" value="Delete" />';
+                    child.innerHTML = content;
+                    if(listOwner !== config[0].userId){
+                        child.style.color = "red";
+                    }
+                    content = '<p>' + content + '</p>';
+                    document.getElementById("list-text").appendChild(child);
+                    _postText(content).done(function (data) {
+
+                    })
+                }
             });
 
             // delete and edit list
@@ -635,12 +655,25 @@ var ShoppingApp = (function () {
 
                 if (e.target.id === "edit-list-btn") {
                     var listId = e.target.value;
+                    var owner = e.target.previousSibling.previousSibling.id;
                     getList(listId).done(function (data) {
                         listIdentifier = listId;
+                        listOwner = owner;
                     })
                 }
             });
         }
+
+        var _postText = function(content){
+            return $.ajax({
+                url: config[0].url + 'list/text/' + listIdentifier,
+                type: 'POST',
+                dataType: 'text',
+                cache: false,
+                async: true,
+                data: {html: content, user: config[0].userId}
+            })
+        };
 
         // private methode voor inserten van de list
         var _postList = function () {
@@ -703,8 +736,7 @@ var ShoppingApp = (function () {
         var getList = function (listId) {
             return _getList(listId).done(function (list) {
                 document.getElementById('list-name').value = list.shopping_list_name;
-                //document.getElementById('owner-text').value = list.owner_text;
-                //document.getElementById('friends-text').value = list.friends_text;
+                document.getElementById('list-text').innerHTML = list.owner_text;
                 document.getElementById('due-date').value = list.shopping_list_due_date;
                 document.getElementById('radio-public').checked = list.access == 1 ? true : false;
                 document.getElementById('radio-private').checked = list.access == 0 ? true : false;
@@ -716,7 +748,6 @@ var ShoppingApp = (function () {
             return _getList(listId).done(function (list) {
                 document.getElementById('list-name-view').innerHTML = list.shopping_list_name;
                 //document.getElementById('owner-text-view').innerHTML = "lol";
-                //document.getElementById('friends-text').value = list.friends_text;
                 document.getElementById('due-date-view').innerHTML = list.shopping_list_due_date;
                 document.getElementById('access-view').innerHTML = list.access == 1 ? "Public" : "Private";
             });
@@ -734,9 +765,17 @@ var ShoppingApp = (function () {
                     var div = document.createElement('div');
                     div.classList.add('grocery-list');
                     div.setAttribute('id', 'grocery-list');
-                    div.innerHTML = '<p>' + list.shopping_list_name + ' ' + list.shopping_list_updated + '</p><button class="button-flat button-yellow material-icons md-36" id="edit-list-btn" type="submit" value="' + list.shopping_list_id + '">mode_edit</button><button class="button-flat material-icons md-36" id="delete-list-btn" type="submit" value="' + list.shopping_list_id + '">remove_circle</button>';
-                    groceriesList.appendChild(div);
-                    groceriesCount++
+                    if(list.user_id !== config[0].userId && list.access == 1){
+                        div.innerHTML = '<p id="' + list.user_id + '">' + list.shopping_list_name + ' by ' + list.first_name + '</p><p>' + list.shopping_list_updated + '</p><button class="button-flat button-yellow material-icons md-36" id="edit-list-btn" type="submit" value="' + list.shopping_list_id + '">mode_edit</button>';
+                        groceriesList.appendChild(div);
+                        groceriesCount++
+                    }
+
+                    if (list.user_id === config[0].userId) {
+                        div.innerHTML = '<p id="' + list.user_id + '">' + list.shopping_list_name + '</p><p>' + list.shopping_list_updated + '</p><button class="button-flat button-yellow material-icons md-36" id="edit-list-btn" type="submit" value="' + list.shopping_list_id + '">mode_edit</button><button class="button-flat material-icons md-36" id="delete-list-btn" type="submit" value="' + list.shopping_list_id + '">remove_circle</button>';
+                        groceriesList.appendChild(div);
+                        groceriesCount++
+                    }
                 });
                 if (groceriesCount === 0) {
                     groceries.style.display = 'none';

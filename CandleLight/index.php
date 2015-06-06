@@ -54,6 +54,7 @@ $app->delete('/api/users/lists/:id', 'auth', 'deleteList');
 $app->post('/api/users/password/:id/','auth', 'updatePassword');
 $app->put('/api/users/list/:id', 'auth', 'updateList');
 $app->post('/api/users/list', 'auth', 'insertList');
+$app->post('/api/users/list/text/:id', 'auth', 'insertText');
 
 // public API
 $app->get('/api/users(/:key)', $auth, 'getUsers')->conditions(array('key' => '[A-z]'));
@@ -204,10 +205,19 @@ function updateList($id)
     $Shoppinglist->setShoppingListId($id);
     $Shoppinglist->setShoppingListName($request->put('list-name'));
     $Shoppinglist->setUserId($request->put('user-id'));
-    //$Shoppinglist->setOwnerText($request->put('owner-text'));
-    //$Shoppinglist->setFriendsText($request->put('friends-text'));
     $Shoppinglist->setAccess($request->put('access'));
     $Shoppinglist->setShoppingListDueDate($request->put('due-date'));
     $controller = new \ShoppingApp\Controllers\ShoppingList();
     echo $controller->updateList($Shoppinglist);
+}
+
+function insertText($id)
+{
+    $Shoppinglist = new \ShoppingApp\Bo\ShoppingList();
+    $request = Slim::getInstance()->request();
+    $Shoppinglist->setShoppingListId($id);
+    $Shoppinglist->setOwnerText($request->post('html'));
+    $Shoppinglist->setLastUpdatedBy($request->post('user'));
+    $controller = new ShoppingApp\Controllers\ShoppingList();
+    echo $controller->insertText($Shoppinglist);
 }

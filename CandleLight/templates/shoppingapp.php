@@ -70,19 +70,6 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                             </div>
                             <div class="form-group">
                                 <div class="col-md-10">
-                                    <label>List</label>
-                                    <p id="owner-text-create">- Komkommer<br> - Tomaat<br></p>
-                                    <p id="friends-text-create">- Banaan</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-10">
-                                    <label>New Product</label>
-                                    <input class="form-control" type="text"/><br>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-10">
                                     <label>Due Date</label>
                                     <input id="due-date-create" class="form-control" type="text" name="due-date"/><br>
                                 </div>
@@ -145,15 +132,14 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                             </div>
                             <div class="form-group">
                                 <div class="col-md-10">
-                                    <label>List</label>
-                                    <p id="owner-text">- Komkommer<br> - Tomaat<br></p>
-                                    <p id="friends-text">- Banaan</p>
+                                    <label>List</label><br>
+                                    <div id="list-text"></div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-10">
                                     <label>New Product</label>
-                                    <input class="form-control" type="text"/><br>
+                                    <input class="form-control" type="text"/><input class="button-flat button-yellow" id="add-text-list" type="button" value="Add" /><br>
                                 </div>
                             </div>
                             <div class="form-group">

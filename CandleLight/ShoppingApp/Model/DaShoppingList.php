@@ -109,4 +109,18 @@
              echo $e->getMessage();
          }
      }
+
+     public function insertText($shoppinglist)
+     {
+         try{
+             $stmt = $this->conn->getConnection()->prepare('CALL shopping_list_insert_text(:pId, :pOwnerText, :pLastUpdatedBy)');
+             $stmt->bindValue(':pId', $shoppinglist->getShoppingListId(), \PDO::PARAM_INT);
+             $stmt->bindValue(':pOwnerText', $shoppinglist->getOwnerText(), \PDO::PARAM_STR);
+             $stmt->bindValue(':pLastUpdatedBy', $shoppinglist->getLastUpdatedBy(), \PDO::PARAM_INT);
+             $stmt->execute();
+         } catch (\PDOException $e){
+             fprintf(fopen("C:\\Users\\Noblesse\\Desktop\\fprintf.txt", "a"), "result: %s", $e->getMessage() . "\r\n");
+             echo $e->getMessage();
+         }
+     }
  }

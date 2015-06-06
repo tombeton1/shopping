@@ -40,4 +40,9 @@ class ShoppingList{
     {
         return json_encode($this->shoppingList->update($shoppinglist));
     }
+
+    public function insertText($shoppinglist)
+    {
+        return json_encode($this->shoppingList->insertText($shoppinglist));
+    }
 }
