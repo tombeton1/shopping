@@ -102,8 +102,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                             <div class="form-group">
                                 <div class="col-md-10">
                                     <label>List</label>
-                                    <p id="owner-text-view">- Komkommer<br> - Tomaat<br></p>
-                                    <p id="friends-text-view">- Banaan</p>
+                                    <div id="list-text-view"></div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -275,7 +274,8 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
         <script type="text/javascript">
             ShoppingApp.init({
                 url: "/CandleLight/api/users/",
-                userId: "<?=$User->getUserId()?>"
+                userId: "<?=$User->getUserId()?>",
+                firstName: "<?=$User->getFirstName()?>"
             });
         </script>
 </body>

@@ -597,8 +597,12 @@ var ShoppingApp = (function () {
             getListsByUser();
         };
 
+        //id van list; voor list update
         var listIdentifier;
+        //id van list creator; voor producten insert
         var listOwner;
+        //content van list hier opgeslagen voordat het getoond wordt
+        var listContent;
 
         // EventListeners
         var events = function () {
@@ -624,15 +628,32 @@ var ShoppingApp = (function () {
                     var product = this.previousElementSibling.value;
                     this.previousElementSibling.value = '';
                     var child = document.createElement('p');
-                    var content = '- ' + product + ' <input type="checkbox"> <input class="button-flat button-yellow" id="delete-text-create" type="button" value="Delete" />';
-                    child.innerHTML = content;
-                    if(listOwner !== config[0].userId){
-                        child.style.color = "red";
+                    var content = '';
+                    if (listOwner !== config[0].userId){
+                        content = '- <label style="color: red">' + product + '</label> (' + config[0].firstName + ') <input type="checkbox"> <input class="button-flat button-yellow" id="delete-text-list" type="button" value="Delete" />';
+                    } else {
+                        content = '- <label>' + product + '</label> <input type="checkbox"> <input class="button-flat button-yellow" id="delete-text-list" type="button" value="Delete" />';
                     }
+                    child.innerHTML = content;
                     content = '<p>' + content + '</p>';
                     document.getElementById("list-text").appendChild(child);
+                    content = listContent + content;
+                    listContent = content;
                     _postText(content).done(function (data) {
+                        getListsByUser();
+                    })
+                }
+            });
 
+            //delete product from list
+            document.getElementById("list-modal").addEventListener("click", function(e){
+                if (e.target.id === "delete-text-list"){
+                    var re = new RegExp("<p>.{2}<label>" + e.target.parentNode.childNodes[1].innerHTML + "<.+?</p>");
+                    var res = listContent.replace(re, "");
+                    listContent = res;
+                    _postText(res).done(function (data){
+                        getList(listIdentifier);
+                        getListsByUser();
                     })
                 }
             });
@@ -640,10 +661,8 @@ var ShoppingApp = (function () {
             // delete and edit list
             document.getElementById("groceries-list").addEventListener("click", function (e) {
                 if (e.target.id === "grocery-list") {
-                    var listId = e.target.childNodes[1].value;
-                    getListView(listId).done(function (data) {
-
-                    })
+                    var listId = e.target.childNodes[2].value;
+                    getListView(listId);
                 }
 
                 if (e.target.id === "delete-list-btn") {
@@ -736,6 +755,7 @@ var ShoppingApp = (function () {
         var getList = function (listId) {
             return _getList(listId).done(function (list) {
                 document.getElementById('list-name').value = list.shopping_list_name;
+                listContent = list.owner_text;
                 document.getElementById('list-text').innerHTML = list.owner_text;
                 document.getElementById('due-date').value = list.shopping_list_due_date;
                 document.getElementById('radio-public').checked = list.access == 1 ? true : false;
@@ -747,7 +767,9 @@ var ShoppingApp = (function () {
         var getListView = function (listId) {
             return _getList(listId).done(function (list) {
                 document.getElementById('list-name-view').innerHTML = list.shopping_list_name;
-                //document.getElementById('owner-text-view').innerHTML = "lol";
+                var text = list.owner_text;
+                var res = text.replace(/<input type="checkbox"> <input class="button-flat button-yellow" id="delete-text-list" type="button" value="Delete" \/>/g, '');
+                document.getElementById('list-text-view').innerHTML = res;
                 document.getElementById('due-date-view').innerHTML = list.shopping_list_due_date;
                 document.getElementById('access-view').innerHTML = list.access == 1 ? "Public" : "Private";
             });

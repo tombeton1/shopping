@@ -5,13 +5,13 @@ DELIMITER //
 CREATE PROCEDURE `shopping_list_insert_text`
 (
 	pId INT,
-	pOwnerText NVARCHAR (1000),
+	pOwnerText NVARCHAR (10000),
 	pLastUpdatedBy INT
 )
 BEGIN
 UPDATE `shopping_list`
 	SET
-		`owner_text` = `owner_text` + pOwnerText,
+		`owner_text` = pOwnerText,
         `shopping_list_updated` = NOW(),
 		`last_updated_by` = pLastUpdatedBy
 	WHERE `shopping_list`.`shopping_list_id` = pId;
