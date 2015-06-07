@@ -648,7 +648,7 @@ var ShoppingApp = (function () {
             //delete product from list
             document.getElementById("list-modal").addEventListener("click", function(e){
                 if (e.target.id === "delete-text-list"){
-                    var re = new RegExp("<p>.{2}<label>" + e.target.parentNode.childNodes[1].innerHTML + "<.+?</p>");
+                    var re = new RegExp('<p>.{2}<label( style="color: \\w+")?>' + e.target.parentNode.childNodes[1].innerHTML + '<.+?</p>');
                     var res = listContent.replace(re, "");
                     listContent = res;
                     _postText(res).done(function (data){

@@ -77,7 +77,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                             <div class="form-group">
                                 <div class="col-md-10">
                                     <label>Access</label><br>
-                                    <input type="radio" name="access" value="0" id="radio-private-create">
+                                    <input type="radio" name="access" value="0" checked="checked" id="radio-private-create">
                                     <label for="r1">Private</label>
                                     <input type="radio" name="access" value="1" id="radio-public-create">
                                     <label for="r2">Public</label>
