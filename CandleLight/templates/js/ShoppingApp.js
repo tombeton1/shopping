@@ -751,7 +751,7 @@ var ShoppingApp = (function () {
         // private function ajax call lists from user.
         var _getListsByUser = function () {
             return $.ajax({
-                url: config[0].url + 'lists/' + config[0].userId,
+                url: config[0].url + 'list/all/' + config[0].userId,
                 type: 'GET',
                 dataType: 'json',
                 cache: false,
@@ -762,7 +762,7 @@ var ShoppingApp = (function () {
         // private function ajax call delete list
         var _deleteList = function (listId) {
             return $.ajax({
-                url: config[0].url + 'lists/' + listId,
+                url: config[0].url + 'list/' + listId,
                 type: 'DELETE',
                 dataType: 'json',
                 cache: false,
