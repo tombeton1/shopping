@@ -609,6 +609,8 @@ var ShoppingApp = (function () {
             // insert user lists event.
             document.getElementById("create-list").addEventListener('submit', function(e){
                 _postList().done(function(){
+                    document.getElementById("list-name-create").value = '';
+                    document.getElementById("due-date-create").value = '';
                     getListsByUser();
                 });
                 e.preventDefault();
