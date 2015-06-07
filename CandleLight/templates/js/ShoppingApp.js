@@ -504,7 +504,7 @@ var ShoppingApp = (function () {
         // private function ajax call acceptFriendrequest
         var _acceptRequest = function (friendId) {
             return $.ajax({
-                url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId + '/',
+                url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId,
                 type: 'PUT',
                 dataType: 'json',
                 cache: false,
@@ -515,7 +515,7 @@ var ShoppingApp = (function () {
         // private function ajax call delete friend or decline friend request
         var _deleteFriend = function (friendId) {
             return $.ajax({
-                url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId + '/',
+                url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId,
                 type: 'DELETE',
                 dataType: 'json',
                 cache: false,
@@ -526,7 +526,7 @@ var ShoppingApp = (function () {
         // private functoin ajax call add friend
         var _addFriend = function (friendId) {
             return $.ajax({
-                url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId + '/',
+                url: config[0].url + 'friends/requests/' + config[0].userId + '/' + friendId,
                 type: 'POST',
                 dataType: 'text',
                 cache: false,
@@ -681,6 +681,23 @@ var ShoppingApp = (function () {
                         listIdentifier = listId;
                         listOwner = owner;
                     })
+                }
+            });
+
+            // refresh list
+            document.getElementById("friends-requests-list").addEventListener("click", function (e) {
+                if (e.target.id === "accept-request-btn") {
+                    setTimeout(function () {
+                        getListsByUser();
+                    }, 1500);
+                }
+            });
+
+            document.getElementById("friends-list").addEventListener("click", function (e) {
+                if (e.target.id === "decline-request-btn") {
+                    setTimeout(function () {
+                        getListsByUser();
+                    }, 1500);
                 }
             });
         }

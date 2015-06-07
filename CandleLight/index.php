@@ -43,23 +43,23 @@ $auth = function (\Slim\Route $route) {
 };
 
 // private API
-$app->put('/api/users/:id/', 'auth', 'updateUser');
+$app->put('/api/users/:id', 'auth', 'updateUser');
 $app->post('/api/users', 'insertUser');
-$app->put('/api/users/friends/requests/:id/:friendid/', 'auth', 'acceptRequest');
-$app->delete('/api/users/friends/requests/:id/:friendid/', 'auth', 'deleteFriend');
-$app->post('/api/users/friends/requests/:id/:friendid/', 'auth', 'addFriend');
+$app->put('/api/users/friends/requests/:id/:friendid', 'auth', 'acceptRequest');
+$app->delete('/api/users/friends/requests/:id/:friendid', 'auth', 'deleteFriend');
+$app->post('/api/users/friends/requests/:id/:friendid', 'auth', 'addFriend');
 $app->get('/api/users/lists/:id(/:key)', $auth, 'getListsByUser');
 $app->get('/api/users/list/:id(/:key)', $auth, 'getList');
 $app->delete('/api/users/lists/:id', 'auth', 'deleteList');
-$app->post('/api/users/password/:id/','auth', 'updatePassword');
+$app->post('/api/users/password/:id','auth', 'updatePassword');
 $app->put('/api/users/list/:id', 'auth', 'updateList');
 $app->post('/api/users/list', 'auth', 'insertList');
 $app->post('/api/users/list/text/:id', 'auth', 'insertText');
 
 // public API
 $app->get('/api/users(/:key)', $auth, 'getUsers')->conditions(array('key' => '[A-z]'));
-$app->get('/api/users/:id(/:key)', $auth, 'getUser')->conditions(array('id' => '\d'));
-$app->get('/api/users/friends/:id(/:key)', $auth, 'getFriends')->conditions(array('id' => '\d'));
+$app->get('/api/users/:id(/:key)', $auth, 'getUser')->conditions(array('id' => '\d+'));
+$app->get('/api/users/friends/:id(/:key)', $auth, 'getFriends')->conditions(array('id' => '\d+'));
 $app->get('/api/users/friends/requests/:id(/:key)', $auth, 'getFriendsRequests');
 $app->get('/api/users/friends/search/:keyword(/:key)', $auth, 'searchFriends');
 

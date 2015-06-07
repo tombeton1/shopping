@@ -120,6 +120,7 @@ class DaUser
                 $User->setUserId($result['user_id']);
                 $User->setFirstName($result['first_name']);
                 $User->setLastName($result['last_name']);
+                $User->setEmail($result['email']);
                 $result = $User;
             } else {
                 $result = FALSE;
