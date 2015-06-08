@@ -28,6 +28,8 @@ $auth = function (\Slim\Route $route) {
 
     if (strpos($body->request()->getBody(), "signature")){
 
+    } elseif($route->getName() === "insert"){
+
     } elseif (array_key_exists('key', $route->getParams())) {
         $token = new \ShoppingApp\Controllers\Authentication($route->getParam('key'), '', '');
         if ($token->validateKey() == false) {
@@ -50,7 +52,7 @@ $auth = function (\Slim\Route $route) {
 
 // private API
 $app->put('/api/users/:id', $auth, 'updateUser');
-$app->post('/api/users', $auth, 'insertUser');
+$app->post('/api/users', $auth, 'insertUser')->name('insert');
 $app->put('/api/users/friends/requests/:id/:friendid', $auth, 'acceptRequest');
 $app->delete('/api/users/friends/requests/:id/:friendid', $auth, 'deleteFriend');
 $app->post('/api/users/friends/requests/:id/:friendid', $auth, 'addFriend');

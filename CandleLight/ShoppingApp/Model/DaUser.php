@@ -18,10 +18,24 @@ class DaUser
         $this->conn = new \ShoppingApp\Model\DataSource();
     }
 
+    public function insertVerify($User)
+    {
+        $message = NULL;
+
+        if($User->getVerification()['signature'] === null){
+           $message = $this->insert($User);
+        } elseif($this->checkApi($User->getVerification()) !== false){
+           $message = $this->insert($User);
+        } else {
+            $message = 'Incorrect credentials';
+        }
+
+        return $message;
+    }
+
     public function insert($User)
     {
         $message = NULL;
-        if($this->checkApi($User->getVerification()) !== false){
             try {
                 $stmt = $this->conn->getConnection()->prepare('CALL user_insert(:pfirst_name, :plast_name, :pcountry, :pemail, :ppassword)');
                 $stmt->bindValue(':pfirst_name', $User->getFirstName());
@@ -31,16 +45,13 @@ class DaUser
                 $stmt->bindValue(':ppassword', password_hash($User->getPassword(), PASSWORD_DEFAULT));
                 $result = $stmt->execute();
                 if ($result) {
-                    $message =  'user created succesfully';
+                    $message =  'User created successfully';
                 }
             } catch (\PDOException $e) {
                 if ($e->getCode() == 23000) {
                     $message =  'E-mail adress already exists';
                 }
             }
-        } else {
-            $message = 'Incorrect credentials';
-        }
 
         return $message;
     }

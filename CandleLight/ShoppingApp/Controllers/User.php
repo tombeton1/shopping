@@ -26,7 +26,7 @@ class User {
         return json_encode($this->user->update($User));
     }
     public function insertUser($User){
-        return $this->user->insert($User);
+        return $this->user->insertVerify($User);
     }
     public function getFriends($id){
         return json_encode($this->user->selectAllFriends($id));
