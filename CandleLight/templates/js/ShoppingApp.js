@@ -98,7 +98,7 @@ var ShoppingApp = (function () {
         var showDate = function (){
             var days = ['Mon','Thu','Wed','Thu', 'Fri','Sat', 'Sun'];
             var d = new Date();
-            var m = days[d.getDate()-1] + ' ' + d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
+            var m = days[d.getDay()-1] + ' ' + d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
             document.getElementById('date').innerHTML = m;
         };
 
@@ -774,7 +774,7 @@ var ShoppingApp = (function () {
         var getList = function (listId) {
             return _getList(listId).done(function (list) {
                 document.getElementById('list-name').value = list.shopping_list_name;
-                listContent = list.owner_text;
+                listContent = list.owner_text === null ? '' : list.owner_text;
                 document.getElementById('list-text').innerHTML = list.owner_text;
                 document.getElementById('due-date').value = list.shopping_list_due_date;
                 document.getElementById('radio-public').checked = list.access == 1 ? true : false;

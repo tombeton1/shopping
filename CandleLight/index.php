@@ -21,15 +21,21 @@ $app->get('/logout/', function () {
     \ShoppingApp\Controllers\Authentication::logout();
 });
 
+// authentication
 $auth = function (\Slim\Route $route) {
-    if (array_key_exists('key', $route->getParams())) {
+    $check = new\ShoppingApp\Controllers\Authentication('', '', '');
+    $body = \Slim\Slim::getInstance();
+
+    if (strpos($body->request()->getBody(), "signature")){
+
+    } elseif (array_key_exists('key', $route->getParams())) {
         $token = new \ShoppingApp\Controllers\Authentication($route->getParam('key'), '', '');
         if ($token->validateKey() == false) {
             $app = \Slim\Slim::getInstance();
             $app->redirect($app->urlFor('index'));
         }
     } else {
-        if (!isset($_SESSION['token'])) {
+        if ($check->tokenPresent()) {
             $token = new \ShoppingApp\Controllers\Authentication($_SESSION['token'], '', '');
             if ($token->validate() === false) {
                 $app = \Slim\Slim::getInstance();
@@ -43,18 +49,16 @@ $auth = function (\Slim\Route $route) {
 };
 
 // private API
-$app->put('/api/users/:id', 'auth', 'updateUser');
-$app->post('/api/users', 'insertUser');
-$app->put('/api/users/friends/requests/:id/:friendid', 'auth', 'acceptRequest');
-$app->delete('/api/users/friends/requests/:id/:friendid', 'auth', 'deleteFriend');
-$app->post('/api/users/friends/requests/:id/:friendid', 'auth', 'addFriend');
-$app->get('/api/users/list/all/:id(/:key)', $auth, 'getListsByUser');
-$app->get('/api/users/list/:id(/:key)', $auth, 'getList');
-$app->delete('/api/users/list/:id', 'auth', 'deleteList');
-$app->post('/api/users/password/:id','auth', 'updatePassword');
-$app->put('/api/users/list/:id', 'auth', 'updateList');
-$app->post('/api/users/list', 'auth', 'insertList');
-$app->post('/api/users/list/text/:id', 'auth', 'insertText');
+$app->put('/api/users/:id', $auth, 'updateUser');
+$app->post('/api/users', $auth, 'insertUser');
+$app->put('/api/users/friends/requests/:id/:friendid', $auth, 'acceptRequest');
+$app->delete('/api/users/friends/requests/:id/:friendid', $auth, 'deleteFriend');
+$app->post('/api/users/friends/requests/:id/:friendid', $auth, 'addFriend');
+$app->delete('/api/users/list/:id', $auth, 'deleteList');
+$app->post('/api/users/password/:id',$auth, 'updatePassword');
+$app->put('/api/users/list/:id', $auth, 'updateList');
+$app->post('/api/users/list', $auth, 'insertList');
+$app->post('/api/users/list/text/:id', $auth, 'insertText');
 
 // public API
 $app->get('/api/users(/:key)', $auth, 'getUsers')->conditions(array('key' => '[A-z]'));
@@ -62,23 +66,10 @@ $app->get('/api/users/:id(/:key)', $auth, 'getUser')->conditions(array('id' => '
 $app->get('/api/users/friends/:id(/:key)', $auth, 'getFriends')->conditions(array('id' => '\d+'));
 $app->get('/api/users/friends/requests/:id(/:key)', $auth, 'getFriendsRequests');
 $app->get('/api/users/friends/search/:keyword(/:key)', $auth, 'searchFriends');
+$app->get('/api/users/list/all/:id(/:key)', $auth, 'getListsByUser');
+$app->get('/api/users/list/:id(/:key)', $auth, 'getList');
 
 $app->run();
-
-// authentication
-function auth()
-{
-    if (!isset($_SESSION['token'])) {
-        $token = new \ShoppingApp\Controllers\Authentication($_SESSION['token'], '', '');
-        if ($token->validate() === false) {
-            $app = \Slim\Slim::getInstance();
-            $app->redirect($app->urlFor('index'));
-        }
-    } else {
-        $app = \Slim\Slim::getInstance();
-        $app->redirect($app->urlFor('index'));
-    }
-}
 
 // USERS functions
 function getUsers()
@@ -115,6 +106,10 @@ function insertUser()
     $User->setCountry($request->post('country'));
     $User->setEmail($request->post('email'));
     $User->setPassword($request->post('password'));
+    $verify['devEmail'] = $request->post('user-email');
+    $verify['signature'] = $request->post('signature');
+    $verify['queryString'] = strstr($request->getBody(), "&user-email", true);
+    $User->setVerification($verify);
     $controller = new \ShoppingApp\Controllers\User();
     echo $controller->insertUser($User);
 }

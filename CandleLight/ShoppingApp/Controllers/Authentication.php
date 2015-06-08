@@ -47,6 +47,15 @@ class Authentication
         die();
     }
 
+    public function tokenPresent()
+    {
+        $result = false;
+        if(isset($_SESSION['token'])){
+            $result = true;
+        }
+        return $result;
+    }
+
     public function validate(){
         return $this->login->checkToken($this->token);
     }

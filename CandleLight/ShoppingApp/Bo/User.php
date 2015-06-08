@@ -18,6 +18,8 @@ class User implements \JsonSerializable
     private $email;
     private $password;
 
+    private $verify;
+
     function __construct()
     {
     }
@@ -116,6 +118,22 @@ class User implements \JsonSerializable
     public function setPassword($password)
     {
         $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVerification()
+    {
+        return $this->verify;
+    }
+
+    /**
+     * @param mixed $verify
+     */
+    public function setVerification($verify)
+    {
+        $this->verify = $verify;
     }
 
     /**

@@ -21,22 +21,27 @@ class DaUser
     public function insert($User)
     {
         $message = NULL;
-        try {
-            $stmt = $this->conn->getConnection()->prepare('CALL user_insert(:pfirst_name, :plast_name, :pcountry, :pemail, :ppassword)');
-            $stmt->bindValue(':pfirst_name', $User->getFirstName());
-            $stmt->bindValue(':plast_name', $User->getLastName());
-            $stmt->bindValue(':pemail', $User->getEmail());
-            $stmt->bindValue(':pcountry', $User->getCountry());
-            $stmt->bindValue(':ppassword', password_hash($User->getPassword(), PASSWORD_DEFAULT));
-            $result = $stmt->execute();
-            if ($result) {
-                $message =  'user created succesfully';
+        if($this->checkApi($User->getVerification()) !== false){
+            try {
+                $stmt = $this->conn->getConnection()->prepare('CALL user_insert(:pfirst_name, :plast_name, :pcountry, :pemail, :ppassword)');
+                $stmt->bindValue(':pfirst_name', $User->getFirstName());
+                $stmt->bindValue(':plast_name', $User->getLastName());
+                $stmt->bindValue(':pemail', $User->getEmail());
+                $stmt->bindValue(':pcountry', $User->getCountry());
+                $stmt->bindValue(':ppassword', password_hash($User->getPassword(), PASSWORD_DEFAULT));
+                $result = $stmt->execute();
+                if ($result) {
+                    $message =  'user created succesfully';
+                }
+            } catch (\PDOException $e) {
+                if ($e->getCode() == 23000) {
+                    $message =  'E-mail adress already exists';
+                }
             }
-        } catch (\PDOException $e) {
-            if ($e->getCode() == 23000) {
-                $message =  'E-mail adress already exists';
-            }
+        } else {
+            $message = 'Incorrect credentials';
         }
+
         return $message;
     }
 
@@ -336,6 +341,27 @@ class DaUser
             $result = $stmt->execute();
 
             $return = $result === 0 ? false : $stmt->fetch(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e){
+
+        }
+        return $return;
+    }
+
+    public function checkApi($verify)
+    {
+        $return = false;
+        try{
+            $stmt = $this->conn->getSecurityConnection()->prepare('CALL shopping_security_check_api(:pEmail)');
+            $stmt->bindValue(':pEmail', $verify['devEmail'], \PDO::PARAM_STR);
+            $result = $stmt->execute();
+
+            if($result){
+                $array = $stmt->fetch();
+                $sig = hash_hmac("sha256", $verify['queryString'], $array['key']);
+                if(md5($verify['signature']) === md5($sig)){
+                    $return = true;
+                }
+            }
         } catch (\PDOException $e){
 
         }
